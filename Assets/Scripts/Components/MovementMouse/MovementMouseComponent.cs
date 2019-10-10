@@ -29,6 +29,8 @@ namespace Assets.Scripts.Components.MovementMouse
         private float _stopRange;
 
         private Animator _animator;
+        private readonly int aRunning = Animator.StringToHash("running");
+
         private Rigidbody2D _rigidBody2D;
 
         private Vector2 _mouseDirection;
@@ -48,6 +50,7 @@ namespace Assets.Scripts.Components.MovementMouse
         private void FixedUpdate()
         {
             this.MovementPlayer();
+            this.AnimationController();
         }
 
         private void MovementPlayer()
@@ -61,13 +64,22 @@ namespace Assets.Scripts.Components.MovementMouse
             if (Vector2.Distance(_mouseOnClickPosition, transform.position) >= _stopRange)
             {
                 _rigidBody2D.velocity = _mouseDirection * (_velocity * Time.deltaTime);
-
-                Debug.Log(_rigidBody2D.velocity.x >= 0 ? "Direita" : "Esquerda");
+                this.ChangePlayerSide(_rigidBody2D.velocity.x >= 0);
             }
             else
             {
                 _rigidBody2D.velocity = Vector2.zero;
             }
+        }
+
+        private void AnimationController()
+        {
+            _animator.SetBool(aRunning, _rigidBody2D.velocity != Vector2.zero);
+        }
+
+        private void ChangePlayerSide(bool right)
+        {
+            this.transform.rotation = new Quaternion(0, right ? 0 : 180, 0, 0);
         }
     }
 }
