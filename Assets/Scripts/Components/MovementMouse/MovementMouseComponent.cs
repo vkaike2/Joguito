@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Component.MouseCursor;
-using Assets.Scripts.Components.MouseCursor;
 using Assets.Scripts.Managers.Inputs;
 using System;
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ namespace Assets.Scripts.Components.MovementMouse
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody2D))]
-    public class MovementMouseComponent : MonoBehaviour, IMovementMouseComponent
+    public class MovementMouseComponent : MonoBehaviour
     {
         [Header("Required Fields")]
         [SerializeField]
@@ -55,7 +54,7 @@ namespace Assets.Scripts.Components.MovementMouse
 
         private void MovementPlayer()
         {
-            if (_inputManager.MouseLeftButton == 1)
+            if (_inputManager.MouseLeftButton == 1 && !_mouseCursor.CantMovePlayer)
             {
                 _mouseOnClickPosition = _mouseCursor.CurrentPosition;
                 _mouseDirection = (_mouseOnClickPosition - (Vector2)transform.position).normalized;

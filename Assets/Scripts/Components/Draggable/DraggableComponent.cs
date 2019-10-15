@@ -1,18 +1,16 @@
-﻿using Assets.Scripts.Managers.Inputs;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Components.Draggable
 {
     public class DraggableComponent : EventTrigger
     {
-
-        private bool dragging;
+        public bool IsDragging { get; private set; }
         private Vector2? offset;
 
         public void Update()
         {
-            if (dragging)
+            if (IsDragging)
             {
                 transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - offset.Value;
             }
@@ -25,7 +23,7 @@ namespace Assets.Scripts.Components.Draggable
                 offset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             }
 
-            dragging = true;
+            IsDragging = true;
         }
 
         public override void OnPointerUp(PointerEventData eventData)
@@ -35,7 +33,7 @@ namespace Assets.Scripts.Components.Draggable
                 offset = null;
             }
 
-            dragging = false;
+            IsDragging = false;
         }
     }
 }

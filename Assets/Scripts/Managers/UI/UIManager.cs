@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Managers.Inputs;
+﻿using Assets.Scripts.Components.Draggable;
+using Assets.Scripts.Managers.Inputs;
+using Assets.Scripts.Managers.Inventory;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers.UI
@@ -9,13 +11,20 @@ namespace Assets.Scripts.Managers.UI
         [SerializeField]
         private InputManager _inputManager;
         [SerializeField]
-        private GameObject _inventory;
+        private InventoryManager _inventory;
+
+        public DraggableComponent[] _draggableComponentList { get; private set; }
 
         private bool _keyPressedInventory = false;
 
         private void Awake()
         {
-            _inventory.SetActive(false);
+            _inventory.gameObject.SetActive(false);
+        }
+
+        private void Update()
+        {
+            this._draggableComponentList = this.GetComponentsInChildren<DraggableComponent>();
         }
 
         private void FixedUpdate()
@@ -29,7 +38,7 @@ namespace Assets.Scripts.Managers.UI
             {
                 _keyPressedInventory = true;
 
-                _inventory.SetActive(!_inventory.activeSelf);
+                _inventory.gameObject.SetActive(!_inventory.gameObject.activeSelf);
             }
 
             if(_keyPressedInventory && _inputManager.Inventory == 0)

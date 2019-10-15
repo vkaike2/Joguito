@@ -1,17 +1,20 @@
-﻿using Assets.Scripts.Components.MouseCursor;
+﻿using Assets.Scripts.Managers.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Component.MouseCursor
 {
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(Animator))]
-    public class MouseCursorComponent : MonoBehaviour, IMouseCursorComponent
+    public class MouseCursorComponent : MonoBehaviour
     {
+        [Header("Required Fields")]
+        [SerializeField]
+        private UIManager _uiManager;
 
-        private SpriteRenderer _mouseCursorSprite;
-
+        public bool CantMovePlayer { get; private set; }
         public Vector2 CurrentPosition => this.transform.position;
 
         void Awake()
@@ -19,12 +22,19 @@ namespace Assets.Scripts.Component.MouseCursor
             Cursor.visible = false;
         }
 
-        private void Start()
+        void Update()
         {
-            _mouseCursorSprite = this.GetComponent<SpriteRenderer>();
+            this.CheckIfIsCanMovePlayer();
+            this.ChangeMouseCursor();
         }
 
-        void Update()
+        private void CheckIfIsCanMovePlayer()
+        {
+            CantMovePlayer = _uiManager._draggableComponentList.Any(e => e.IsDragging);
+
+        }
+
+        private void ChangeMouseCursor()
         {
             Vector2 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             this.transform.position = cursorPosition;
