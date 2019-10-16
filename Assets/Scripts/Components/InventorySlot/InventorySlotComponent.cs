@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Components.InventoryDraggableItem;
+using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Components.InventorySlot
 {
@@ -10,9 +12,23 @@ namespace Assets.Scripts.Components.InventorySlot
         private Vector2 _position;
         [SerializeField]
         private Image _currentImage;
+        [SerializeField]
+        private InventoryDraggableItemComponent _draggableItem;
 
         public bool HasItem => _currentImage != null && _currentImage.enabled;
         public int Amout { get; set; }
+
+
+        public void OnClick()
+        {
+            Debug.Log(this.gameObject.name);
+
+        }
+
+        public void OnDrop()
+        {
+
+        }
 
         public Vector2? AddItem(Sprite itemSprite, int amout)
         {
@@ -31,6 +47,5 @@ namespace Assets.Scripts.Components.InventorySlot
             _currentImage.enabled = false;
         }
 
-        
     }
 }
