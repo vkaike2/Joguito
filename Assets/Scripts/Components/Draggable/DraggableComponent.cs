@@ -3,37 +3,39 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Components.Draggable
 {
-    public class DraggableComponent : EventTrigger
+    public class DraggableComponent : EventTrigger, IDraggable
     {
-        public bool IsDragging { get; private set; }
-        private Vector2? offset;
+        private Vector2? _offset;
+        private bool _isDragging = false;
+        
+        public bool IsDragging => _isDragging;
 
         public void Update()
         {
             if (IsDragging)
             {
-                transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - offset.Value;
+                transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - _offset.Value;
             }
         }
 
         public override void OnPointerDown(PointerEventData eventData)
         {
-            if(!offset.HasValue)
+            if(!_offset.HasValue)
             {
-                offset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+                _offset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             }
 
-            IsDragging = true;
+            _isDragging = true;
         }
 
         public override void OnPointerUp(PointerEventData eventData)
         {
-            if(offset.HasValue)
+            if(_offset.HasValue)
             {
-                offset = null;
+                _offset = null;
             }
 
-            IsDragging = false;
+            _isDragging = false;
         }
     }
 }

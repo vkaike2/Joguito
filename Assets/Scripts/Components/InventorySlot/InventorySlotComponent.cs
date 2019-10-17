@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Components.InventoryDraggableItem;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Assets.Scripts.Components.Draggable;
 
 namespace Assets.Scripts.Components.InventorySlot
 {
@@ -15,19 +15,19 @@ namespace Assets.Scripts.Components.InventorySlot
         [SerializeField]
         private InventoryDraggableItemComponent _draggableItem;
 
+        public Image CurrentImage => _currentImage;
         public bool HasItem => _currentImage != null && _currentImage.enabled;
         public int Amout { get; set; }
 
 
         public void OnClick()
         {
-            Debug.Log(this.gameObject.name);
-
-        }
-
-        public void OnDrop()
-        {
-
+            if (HasItem)
+            {
+                _currentImage.enabled = false;
+                _draggableItem.StartDragging(this);
+            }
+            
         }
 
         public Vector2? AddItem(Sprite itemSprite, int amout)

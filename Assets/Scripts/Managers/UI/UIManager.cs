@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Components.Draggable;
+using Assets.Scripts.Components.GenericUI;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.Inventory;
 using UnityEngine;
@@ -13,7 +14,8 @@ namespace Assets.Scripts.Managers.UI
         [SerializeField]
         private InventoryManager _inventory;
 
-        public DraggableComponent[] _draggableComponentList { get; private set; }
+        public IDraggable[] DraggableComponentList { get; private set; }
+        public IGenericUI[] GenericUIList { get; set; }
 
         private bool _keyPressedInventory = false;
 
@@ -22,9 +24,15 @@ namespace Assets.Scripts.Managers.UI
             _inventory.gameObject.SetActive(false);
         }
 
+        private void Start()
+        {
+        }
+
         private void Update()
         {
-            this._draggableComponentList = this.GetComponentsInChildren<DraggableComponent>();
+            this.GenericUIList = this.GetComponentsInChildren<IGenericUI>();
+            Debug.Log(this.GenericUIList[0].MouseInUI);
+            this.DraggableComponentList = this.GetComponentsInChildren<IDraggable>();
         }
 
         private void FixedUpdate()
