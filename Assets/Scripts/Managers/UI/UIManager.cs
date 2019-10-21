@@ -14,7 +14,6 @@ namespace Assets.Scripts.Managers.UI
         [SerializeField]
         private InventoryManager _inventory;
 
-        public IDraggable[] DraggableComponentList { get; private set; }
         public IGenericUI[] GenericUIList { get; set; }
 
         private bool _keyPressedInventory = false;
@@ -30,9 +29,7 @@ namespace Assets.Scripts.Managers.UI
 
         private void Update()
         {
-            this.GenericUIList = this.GetComponentsInChildren<IGenericUI>();
-            Debug.Log(this.GenericUIList[0].MouseInUI);
-            this.DraggableComponentList = this.GetComponentsInChildren<IDraggable>();
+            this.GenericUIList = _inventory.GetComponentsInChildren<IGenericUI>();
         }
 
         private void FixedUpdate()

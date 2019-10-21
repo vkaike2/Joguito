@@ -19,7 +19,6 @@ namespace Assets.Scripts.Components.InventorySlot
         public bool HasItem => _currentImage != null && _currentImage.enabled;
         public int Amout { get; set; }
 
-
         public void OnClick()
         {
             if (HasItem)
@@ -27,7 +26,6 @@ namespace Assets.Scripts.Components.InventorySlot
                 _currentImage.enabled = false;
                 _draggableItem.StartDragging(this);
             }
-            
         }
 
         public Vector2? AddItem(Sprite itemSprite, int amout)

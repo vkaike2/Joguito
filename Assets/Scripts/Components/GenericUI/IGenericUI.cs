@@ -3,5 +3,6 @@
     public interface IGenericUI
     {
         bool MouseInUI { get; }
+        EnumUIType Type { get; }
     }
 }

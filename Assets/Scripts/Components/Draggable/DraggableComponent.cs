@@ -1,18 +1,21 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Components.GenericUI;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Components.Draggable
 {
-    public class DraggableComponent : EventTrigger, IDraggable
+    public class DraggableComponent : EventTrigger, IGenericUI
     {
         private Vector2? _offset;
         private bool _isDragging = false;
         
-        public bool IsDragging => _isDragging;
+        public bool MouseInUI => _isDragging;
+
+        public EnumUIType Type => EnumUIType.Cursor;
 
         public void Update()
         {
-            if (IsDragging)
+            if (_isDragging)
             {
                 transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - _offset.Value;
             }

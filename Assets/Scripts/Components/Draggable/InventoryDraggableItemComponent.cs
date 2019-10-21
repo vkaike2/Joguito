@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Components.InventorySlot;
+﻿using Assets.Scripts.Components.GenericUI;
+using Assets.Scripts.Components.InventorySlot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,17 @@ using UnityEngine.UI;
 namespace Assets.Scripts.Components.Draggable
 {
     [RequireComponent(typeof(Image))]
-    public class InventoryDraggableItemComponent : MonoBehaviour, IDraggable
+    public class InventoryDraggableItemComponent : MonoBehaviour, IGenericUI
     {
-        public bool IsDragging => _isDragging;
+        
         private Vector2? _offset;
 
         private bool _isDragging;
         private Vector3 _initialPosition;
         private Image _image;
+        public bool MouseInUI => _isDragging;
+
+        public EnumUIType Type => EnumUIType.Inventory_Item;
 
         private InventorySlotComponent _inventorySlot;
 
@@ -51,6 +55,7 @@ namespace Assets.Scripts.Components.Draggable
 
         public void StopDragging()
         {
+            //TODO: Buscar todas as UI que possuem o tipo SlotItem pra ver se esta em cima de alguma.
             _image.enabled = false;
             if (_inventorySlot != null)
             {

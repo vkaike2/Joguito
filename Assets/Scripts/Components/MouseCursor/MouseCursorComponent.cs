@@ -30,7 +30,6 @@ namespace Assets.Scripts.Component.MouseCursor
 
         private void CheckIfIsCanMovePlayer()
         {
-            CantMovePlayer = _uiManager.DraggableComponentList.Any(e => e.IsDragging);
             CantMovePlayer = _uiManager.GenericUIList.Any(e => e.MouseInUI);
         }
 

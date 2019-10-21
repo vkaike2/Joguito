@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Components.GenericUI
 {
     public class GenericUIComponent : MonoBehaviour, IGenericUI
     {
+        [SerializeField]
+        private EnumUIType _type;
+
         private bool _mouseInUI = false;
+
         public bool MouseInUI => _mouseInUI;
+
+        public EnumUIType Type => _type;
 
         private void Start()
         {
@@ -21,10 +22,11 @@ namespace Assets.Scripts.Components.GenericUI
                 eventID = EventTriggerType.PointerEnter,
             };
             pointerEnter.callback.AddListener((data) => { OnPointerEnterDelegate((PointerEventData)data); });
+            trigger.triggers.Add(pointerEnter);
 
             EventTrigger.Entry pointerExit = new EventTrigger.Entry()
             {
-                eventID = EventTriggerType.PointerEnter,
+                eventID = EventTriggerType.PointerExit,
             };
             pointerExit.callback.AddListener((data) => { OnPointerExitDelegate((PointerEventData)data); });
 
