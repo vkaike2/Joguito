@@ -14,6 +14,8 @@ namespace Assets.Scripts.Components.GenericUI
 
         public EnumUIType Type => _type;
 
+        public GameObject ThisGameObject => this.gameObject;
+
         private void Start()
         {
             EventTrigger trigger = GetComponent<EventTrigger>();
@@ -29,8 +31,14 @@ namespace Assets.Scripts.Components.GenericUI
                 eventID = EventTriggerType.PointerExit,
             };
             pointerExit.callback.AddListener((data) => { OnPointerExitDelegate((PointerEventData)data); });
-
             trigger.triggers.Add(pointerExit);
+
+            //EventTrigger.Entry pointerDown = new EventTrigger.Entry()
+            //{
+            //    eventID = EventTriggerType.,
+            //};
+            //pointerDown.callback.AddListener((data) => { OnPointerDownDelegate((PointerEventData)data); });
+            //trigger.triggers.Add(pointerDown);
         }
 
         public void OnPointerEnterDelegate(PointerEventData eventData)
@@ -42,5 +50,10 @@ namespace Assets.Scripts.Components.GenericUI
         {
             _mouseInUI = false;
         }
+
+        //public void OnPointerDownDelegate(PointerEventData eventData)
+        //{
+        //    Debug.Log(this.gameObject.name);
+        //}
     }
 }

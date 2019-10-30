@@ -25,11 +25,12 @@ namespace Assets.Scripts.Managers.UI
 
         private void Start()
         {
+            this.GenericUIList = _inventory.GetComponentsInChildren<IGenericUI>();
         }
 
         private void Update()
         {
-            this.GenericUIList = _inventory.GetComponentsInChildren<IGenericUI>();
+            //this.GenericUIList = _inventory.GetComponentsInChildren<IGenericUI>();
         }
 
         private void FixedUpdate()

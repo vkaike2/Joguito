@@ -13,6 +13,8 @@ namespace Assets.Scripts.Components.Draggable
 
         public EnumUIType Type => EnumUIType.Cursor;
 
+        public GameObject ThisGameObject => this.gameObject;
+
         public void Update()
         {
             if (_isDragging)

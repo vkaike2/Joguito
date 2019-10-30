@@ -285,11 +285,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1424187871815879369, guid: 93aded01a047ffa40a1d52c237f91660,
         type: 3}
-      propertyPath: _position.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1424187871815879369, guid: 93aded01a047ffa40a1d52c237f91660,
-        type: 3}
       propertyPath: _draggableItem
       value: 
       objectReference: {fileID: 524701001}
@@ -684,6 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c821cc0aaeed2cb4a80026c79cbd68f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemList: []
 --- !u!1 &328614903
 GameObject:
   m_ObjectHideFlags: 0
@@ -2133,7 +2129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bagComponent: {fileID: 294035996}
-  item: {fileID: 11400000, guid: cc845eb22c4305c43b7054b09750c5fa, type: 2}
+  item01: {fileID: 11400000, guid: cc845eb22c4305c43b7054b09750c5fa, type: 2}
+  item02: {fileID: 11400000, guid: 57edb656539129b449595ad290943026, type: 2}
 --- !u!1001 &2094956165
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using Assets.Scripts.Components.Draggable;
+using Assets.Scripts.ScriptableComponents.Item;
 
 namespace Assets.Scripts.Components.InventorySlot
 {
@@ -9,14 +9,13 @@ namespace Assets.Scripts.Components.InventorySlot
     {
         [Header("Required Fields")]
         [SerializeField]
-        private Vector2 _position;
-        [SerializeField]
-        private Image _currentImage;
+        private Image _currentImage; // itemChild image
         [SerializeField]
         private InventoryDraggableItemComponent _draggableItem;
 
         public Image CurrentImage => _currentImage;
-        public bool HasItem => _currentImage != null && _currentImage.enabled;
+        public ItemScriptable CurrentItem { get; private set; }
+        public bool HasItem => CurrentItem != null && _currentImage.enabled;
         public int Amout { get; set; }
 
         public void OnClick()
@@ -28,20 +27,22 @@ namespace Assets.Scripts.Components.InventorySlot
             }
         }
 
-        public Vector2? AddItem(Sprite itemSprite, int amout)
+        public void AddItem(ItemScriptable newItem)
         {
-            if (HasItem) return null;
+            if (HasItem) return;
 
-            _currentImage.sprite = itemSprite;
-            Amout = amout;
+            _currentImage.sprite = newItem.InventorySprite;
+            Amout = newItem.TotalAmout;
             _currentImage.enabled = true;
 
-            return _position;
+            CurrentItem = newItem;
         }
 
         public void RemoveItem()
         {
             if (!HasItem) return;
+
+            CurrentItem = null;
             _currentImage.enabled = false;
         }
 

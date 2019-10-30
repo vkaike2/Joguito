@@ -14,7 +14,8 @@ namespace Assets.Scripts.Managers.Inventory
         private InventorySlotComponent[] _slotList;
 
         [Header("Mock")]
-        public ItemScriptable item;
+        public ItemScriptable item01;
+        public ItemScriptable item02;
 
         private void Start()
         {
@@ -24,26 +25,26 @@ namespace Assets.Scripts.Managers.Inventory
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.U))
-            {
-                this.AddItem(item);
-            }
+                this.AddItem(item01);
+            if (Input.GetKeyDown(KeyCode.Y))
+                this.AddItem(item02);
         }
 
         public void AddItem(ItemScriptable newItem)
         {
-            InventorySlotComponent emptySlot = _slotList.FirstOrDefault(e => !e.HasItem);
-            if(emptySlot == null)
+            if (!_bagComponent.HasEmptySlots())
             {
-                Debug.LogWarning("Your Inventory Is Full");
+                Debug.Log("My inventory is full!");
                 return;
-            }
-
-            Vector2? position = emptySlot.AddItem(newItem.InventorySprite, newItem.TotalAmout);
+            } 
 
             // => Add item to the player Bag
             _bagComponent.AddItem(newItem);
+
+            InventorySlotComponent emptySlot = _slotList.FirstOrDefault(e => !e.HasItem);
+            emptySlot.AddItem(newItem);
         }
-        
+
         public void RemoveItem(ItemScriptable item, int amount = 1)
         {
 

@@ -1,9 +1,5 @@
 ﻿using Assets.Scripts.ScriptableComponents.Item;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Components.Bag
@@ -12,16 +8,18 @@ namespace Assets.Scripts.Components.Bag
     {
         private int MAX_ITENS = 9;
 
-        private ItemScriptable[] _itemList;
+        [SerializeField]
+        private List<ItemScriptable> _itemList = new List<ItemScriptable>();
 
-        private void Awake()
+        public bool HasEmptySlots()
         {
-            _itemList = new ItemScriptable[MAX_ITENS];
+            return _itemList.Count < MAX_ITENS;
         }
 
         public void AddItem(ItemScriptable newItem)
         {
-            // => Add item in to the bag
+            if (HasEmptySlots())
+                _itemList.Add(newItem);
         }
     }
 }
