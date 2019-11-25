@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentImage: {fileID: 8441786280213684357}
   _draggableItem: {fileID: 0}
+  _txtAmount: {fileID: 5773881860117020731}
 --- !u!114 &1752077276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4229027002152118021
 RectTransform:
   m_ObjectHideFlags: 0

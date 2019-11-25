@@ -74,10 +74,21 @@ namespace Assets.Scripts.Components.Draggable
                 else
                 {
                     ItemScriptable targetItem = currentInventorySlot.CurrentItem;
-                    currentInventorySlot.RemoveItem();
-                    currentInventorySlot.AddItem(_inventorySlot.CurrentItem);
-                    _inventorySlot.RemoveItem();
-                    _inventorySlot.AddItem(targetItem);
+
+                    if (targetItem.Name == _inventorySlot.CurrentItem.Name &&
+                        targetItem.Stackable &&
+                        targetItem.TotalAmout + _inventorySlot.CurrentItem.TotalAmout <= targetItem.StackableAmout)
+                    {
+                        currentInventorySlot.CurrentItem.TotalAmout += _inventorySlot.CurrentItem.TotalAmout;
+                        _inventorySlot.RemoveItem();
+                    }
+                    else
+                    {
+                        currentInventorySlot.RemoveItem();
+                        currentInventorySlot.AddItem(_inventorySlot.CurrentItem);
+                        _inventorySlot.RemoveItem();
+                        _inventorySlot.AddItem(targetItem);
+                    }
                 }
             }
             else
@@ -89,7 +100,6 @@ namespace Assets.Scripts.Components.Draggable
             transform.position = _initialPosition;
             _isDragging = false;
         }
-
 
         public List<RaycastResult> RaycastMouse()
         {

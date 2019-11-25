@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using Assets.Scripts.Components.Draggable;
 using Assets.Scripts.ScriptableComponents.Item;
+using TMPro;
 
 namespace Assets.Scripts.Components.InventorySlot
 {
@@ -12,11 +13,18 @@ namespace Assets.Scripts.Components.InventorySlot
         private Image _currentImage; // itemChild image
         [SerializeField]
         private InventoryDraggableItemComponent _draggableItem;
+        [SerializeField]
+        private TextMeshProUGUI _txtAmount;
 
         public Image CurrentImage => _currentImage;
         public ItemScriptable CurrentItem { get; private set; }
         public bool HasItem => CurrentItem != null && _currentImage.enabled;
         public int Amout { get; set; }
+
+        private void Start()
+        {
+            _txtAmount.SetText(Amout == 0 ? "" : Amout.ToString());
+        }
 
         public void OnClick()
         {
@@ -35,6 +43,10 @@ namespace Assets.Scripts.Components.InventorySlot
             Amout = newItem.TotalAmout;
             _currentImage.enabled = true;
 
+
+            if (newItem.Stackable)
+                _txtAmount.SetText(Amout == 0 ? "" : Amout.ToString());
+
             CurrentItem = newItem;
         }
 
@@ -44,6 +56,7 @@ namespace Assets.Scripts.Components.InventorySlot
 
             CurrentItem = null;
             _currentImage.enabled = false;
+            _txtAmount.SetText("");
         }
 
     }

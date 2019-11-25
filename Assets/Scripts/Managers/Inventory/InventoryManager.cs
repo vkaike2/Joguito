@@ -25,7 +25,10 @@ namespace Assets.Scripts.Managers.Inventory
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.U))
+            {
+                item01.TotalAmout = 2;
                 this.AddItem(item01);
+            }
             if (Input.GetKeyDown(KeyCode.Y))
                 this.AddItem(item02);
         }
