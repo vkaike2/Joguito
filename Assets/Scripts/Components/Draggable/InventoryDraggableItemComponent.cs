@@ -51,6 +51,11 @@ namespace Assets.Scripts.Components.Draggable
                 _inventorySlot = slot;
                 transform.position = slot.gameObject.transform.position;
                 _offset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+                if (_offset.Value.x == 0.4) _offset = new Vector2(0.3f, _offset.Value.y);
+                if (_offset.Value.x == -0.4f) _offset = new Vector2(-0.3f, _offset.Value.y);
+                if (_offset.Value.y == 0.4) _offset = new Vector2(_offset.Value.x, 0.3f);
+                if (_offset.Value.y == -0.4f) _offset = new Vector2(_offset.Value.x, -0.3f);
+
                 _image.sprite = slot.CurrentImage.sprite;
                 _image.enabled = true;
                 _isDragging = true;
@@ -59,6 +64,7 @@ namespace Assets.Scripts.Components.Draggable
 
         public void StopDragging()
         {
+            Debug.Log("Soltou");
             List<RaycastResult> raycastsUnderMouseList = this.RaycastMouse();
             InventorySlotComponent currentInventorySlot = raycastsUnderMouseList.Where(e => e.gameObject.GetComponent<InventorySlotComponent>() != null)
                 .Select(e => e.gameObject.GetComponent<InventorySlotComponent>())
@@ -74,12 +80,12 @@ namespace Assets.Scripts.Components.Draggable
                 else
                 {
                     ItemScriptable targetItem = currentInventorySlot.CurrentItem;
-
                     if (targetItem.Name == _inventorySlot.CurrentItem.Name &&
                         targetItem.Stackable &&
-                        targetItem.TotalAmout + _inventorySlot.CurrentItem.TotalAmout <= targetItem.StackableAmout)
+                        currentInventorySlot.Amout + _inventorySlot.CurrentItem.TotalAmout <= targetItem.StackableAmout)
                     {
                         currentInventorySlot.CurrentItem.TotalAmout += _inventorySlot.CurrentItem.TotalAmout;
+                        currentInventorySlot.AddAmount(currentInventorySlot.CurrentItem.TotalAmout);
                         _inventorySlot.RemoveItem();
                     }
                     else
@@ -93,7 +99,7 @@ namespace Assets.Scripts.Components.Draggable
             }
             else
             {
-                _inventorySlot.CurrentImage.enabled = true;
+                _inventorySlot.EnableSlot();
             }
 
             _image.enabled = false;

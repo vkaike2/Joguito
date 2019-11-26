@@ -19,7 +19,7 @@ namespace Assets.Scripts.Component.MouseCursor
 
         void Awake()
         {
-            Cursor.visible = false;
+            //Cursor.visible = false;
         }
 
         void Update()

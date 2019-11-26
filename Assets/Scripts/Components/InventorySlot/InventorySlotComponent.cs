@@ -23,7 +23,9 @@ namespace Assets.Scripts.Components.InventorySlot
 
         private void Start()
         {
-            _txtAmount.SetText(Amout == 0 ? "" : Amout.ToString());
+            _txtAmount.enabled = false;
+            //_txtAmount.SetText(Amout == 0 ? "" : Amout.ToString());
+            this.AddAmount(Amout);
         }
 
         public void OnClick()
@@ -31,23 +33,37 @@ namespace Assets.Scripts.Components.InventorySlot
             if (HasItem)
             {
                 _currentImage.enabled = false;
+                _txtAmount.enabled = false;
                 _draggableItem.StartDragging(this);
             }
         }
 
+        public void EnableSlot()
+        {
+            _txtAmount.enabled = true;
+            CurrentImage.enabled = true;
+        }
+
         public void AddItem(ItemScriptable newItem)
         {
-            if (HasItem) return;
+            if (!HasItem)
+            {
+                _currentImage.sprite = newItem.InventorySprite;
+                Amout = newItem.TotalAmout;
+                _currentImage.enabled = true;
+                CurrentItem = newItem;
 
-            _currentImage.sprite = newItem.InventorySprite;
-            Amout = newItem.TotalAmout;
-            _currentImage.enabled = true;
-
-
-            if (newItem.Stackable)
-                _txtAmount.SetText(Amout == 0 ? "" : Amout.ToString());
-
-            CurrentItem = newItem;
+                if (newItem.Stackable)
+                {
+                    this.AddAmount(Amout);
+                    _txtAmount.enabled = true;
+                }
+            }
+            else
+            {
+                this.AddAmount(Amout + newItem.TotalAmout);
+                _txtAmount.enabled = true;
+            }
         }
 
         public void RemoveItem()
@@ -59,5 +75,13 @@ namespace Assets.Scripts.Components.InventorySlot
             _txtAmount.SetText("");
         }
 
+        public void AddAmount(int amount)
+        {
+            if (!HasItem || !CurrentItem.Stackable) return;
+
+            _txtAmount.SetText(Amout == 0 ? "" : amount.ToString());
+            Amout = amount;
+            CurrentItem.TotalAmout = amount;
+        }
     }
 }

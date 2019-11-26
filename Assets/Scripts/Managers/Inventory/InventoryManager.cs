@@ -39,12 +39,15 @@ namespace Assets.Scripts.Managers.Inventory
             {
                 Debug.Log("My inventory is full!");
                 return;
-            } 
+            }
 
             // => Add item to the player Bag
             _bagComponent.AddItem(newItem);
 
-            InventorySlotComponent emptySlot = _slotList.FirstOrDefault(e => !e.HasItem);
+            InventorySlotComponent emptySlot = _slotList
+                .FirstOrDefault(e => !e.HasItem ||
+                               (e.HasItem && e.CurrentItem.Name == newItem.Name && e.Amout + newItem.TotalAmout <= newItem.StackableAmout));
+
             emptySlot.AddItem(newItem);
         }
 
