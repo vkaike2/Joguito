@@ -82,10 +82,10 @@ namespace Assets.Scripts.Components.Draggable
                     ItemScriptable targetItem = currentInventorySlot.CurrentItem;
                     if (targetItem.Name == _inventorySlot.CurrentItem.Name &&
                         targetItem.Stackable &&
-                        currentInventorySlot.Amout + _inventorySlot.CurrentItem.TotalAmout <= targetItem.StackableAmout)
+                        currentInventorySlot.Amout + _inventorySlot.CurrentItem.MaxStackableAmout <= targetItem.MaxStackableAmout)
                     {
-                        currentInventorySlot.CurrentItem.TotalAmout += _inventorySlot.CurrentItem.TotalAmout;
-                        currentInventorySlot.AddAmount(currentInventorySlot.CurrentItem.TotalAmout);
+                        //currentInventorySlot.CurrentItem.MaxStackableAmout += _inventorySlot.CurrentItem.MaxStackableAmout;
+                        currentInventorySlot.AddAmount(currentInventorySlot.CurrentItem.MaxStackableAmout);
                         _inventorySlot.RemoveItem();
                     }
                     else

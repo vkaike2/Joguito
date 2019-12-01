@@ -28,11 +28,6 @@ namespace Assets.Scripts.Managers.UI
             this.GenericUIList = _inventory.GetComponentsInChildren<IGenericUI>();
         }
 
-        private void Update()
-        {
-            //this.GenericUIList = _inventory.GetComponentsInChildren<IGenericUI>();
-        }
-
         private void FixedUpdate()
         {
             this.InventoryController();

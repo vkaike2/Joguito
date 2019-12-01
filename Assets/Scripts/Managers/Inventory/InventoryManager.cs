@@ -26,7 +26,7 @@ namespace Assets.Scripts.Managers.Inventory
         {
             if (Input.GetKeyDown(KeyCode.U))
             {
-                item01.TotalAmout = 2;
+                //item01.TotalAmout = 2;
                 this.AddItem(item01);
             }
             if (Input.GetKeyDown(KeyCode.Y))
@@ -44,11 +44,11 @@ namespace Assets.Scripts.Managers.Inventory
             // => Add item to the player Bag
             _bagComponent.AddItem(newItem);
 
-            InventorySlotComponent emptySlot = _slotList
-                .FirstOrDefault(e => !e.HasItem ||
-                               (e.HasItem && e.CurrentItem.Name == newItem.Name && e.Amout + newItem.TotalAmout <= newItem.StackableAmout));
+            //InventorySlotComponent emptySlot = _slotList
+            //    .FirstOrDefault(e => !e.HasItem ||
+            //                   (e.HasItem && e.CurrentItem.Name == newItem.Name && e.Amout + newItem.TotalAmout <= newItem.MaxStackableAmout));
 
-            emptySlot.AddItem(newItem);
+            //emptySlot.AddItem(newItem);
         }
 
         public void RemoveItem(ItemScriptable item, int amount = 1)

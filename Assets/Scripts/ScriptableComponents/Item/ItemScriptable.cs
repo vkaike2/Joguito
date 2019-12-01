@@ -3,28 +3,36 @@
 namespace Assets.Scripts.ScriptableComponents.Item
 {
     [CreateAssetMenu(fileName = "Item", menuName = "ScriptableObjects/Item", order = 1)]
-    public class ItemScriptable : ScriptableObject
+    public class ItemScriptable : ScriptableBase
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public bool Stackable { get; set; }
-        public int StackableAmout { get; set; }
-        public Sprite InventorySprite { get; set; }
+        [Header("RequiredFields")]
+        [SerializeField]
+        private string _name;
+        [TextArea]
+        [SerializeField]
+        private string _description;
+        [SerializeField]
+        private bool _stackable;
+        [SerializeField]
+        private Sprite _sprite;
 
-        private int _totalAmout { get; set; }
-        public int TotalAmout
+        [Header("If Stackable")]
+        [SerializeField]
+        private int _maxStackableAmout;
+
+        public string Name => _name;
+        public string Description => _description;
+        public Sprite InventorySprite => _sprite;
+        public bool Stackable => _stackable;
+
+        // => If Stackable
+        public int MaxStackableAmout => _maxStackableAmout;
+
+
+
+        protected override void ValidateValues()
         {
-            get
-            {
-                if (Stackable)
-                    return _totalAmout;
-                else
-                    return 1;
-            }
-            set
-            {
-                _totalAmout = value;
-            }
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -6,15 +6,22 @@ using UnityEngine;
 
 namespace Assets.Scripts.Managers.Inputs
 {
-    public class InputManager : MonoBehaviour
+    public class InputManager : BaseManager
     {
+        #region Public Fields
         public float MouseLeftButton { get; private set; }
-        public float Inventory { get; set; }
+        public float Inventory { get; private set; }
+        #endregion
 
-        void Update()
+        void Update() => CaptureInputs();
+
+        private void CaptureInputs()
         {
-            MouseLeftButton = Input.GetAxisRaw(EnumInputs.Mouse_Left_Button.ToString());
-            Inventory = Input.GetAxisRaw(EnumInputs.Inventory.ToString());
+            this.MouseLeftButton = Input.GetAxisRaw(EnumInputs.Mouse_Left_Button.ToString());
+            this.Inventory = Input.GetAxisRaw(EnumInputs.Inventory.ToString());
         }
+
+        protected override void ValidateValues() { }
+        protected override void SetInitialValues() { }
     }
 }

@@ -49,7 +49,7 @@ namespace Assets.Scripts.Components.InventorySlot
             if (!HasItem)
             {
                 _currentImage.sprite = newItem.InventorySprite;
-                Amout = newItem.TotalAmout;
+                //Amout = newItem.TotalAmout;
                 _currentImage.enabled = true;
                 CurrentItem = newItem;
 
@@ -61,7 +61,7 @@ namespace Assets.Scripts.Components.InventorySlot
             }
             else
             {
-                this.AddAmount(Amout + newItem.TotalAmout);
+                //this.AddAmount(Amout + newItem.TotalAmout);
                 _txtAmount.enabled = true;
             }
         }
@@ -81,7 +81,7 @@ namespace Assets.Scripts.Components.InventorySlot
 
             _txtAmount.SetText(Amout == 0 ? "" : amount.ToString());
             Amout = amount;
-            CurrentItem.TotalAmout = amount;
+            //CurrentItem.TotalAmout = amount;
         }
     }
 }
