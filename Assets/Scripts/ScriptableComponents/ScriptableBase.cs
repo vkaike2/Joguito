@@ -6,9 +6,7 @@ namespace Assets.Scripts.ScriptableComponents
     {
         protected abstract void ValidateValues();
 
-        private void OnValidate()
-        {
-            this.ValidateValues();
-        }
+        private void OnValidate() => this.ValidateValues();
+
     }
 }

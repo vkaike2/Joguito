@@ -7,10 +7,8 @@ namespace Assets.Scripts
         protected abstract void ValidateValues();
         protected abstract void SetInitialValues();
 
-        private void OnEnable()
-        {
-            SetInitialValues();
-            ValidateValues();
-        }
+        private void OnValidate() => ValidateValues();
+
+        private void Awake() => SetInitialValues();
     }
 }

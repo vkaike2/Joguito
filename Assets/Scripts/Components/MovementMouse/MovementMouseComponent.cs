@@ -72,6 +72,7 @@ namespace Assets.Scripts.Components.MovementMouse
             if (_playerState == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_playerState), this.gameObject.name));
             if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inputManager), this.gameObject.name));
         }
+
         protected override void SetInitialValues()
         {
             // => Unity Components
