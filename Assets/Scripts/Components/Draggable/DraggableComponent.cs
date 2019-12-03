@@ -4,15 +4,11 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Components.Draggable
 {
-    public class DraggableComponent : EventTrigger, IGenericUI
+    public class DraggableComponent : EventTrigger
     {
         private Vector2? _offset;
         private bool _isDragging = false;
         
-        public bool MouseInUI => _isDragging;
-
-        public EnumUIType Type => EnumUIType.Cursor;
-
         public GameObject ThisGameObject => this.gameObject;
 
         public void Update()

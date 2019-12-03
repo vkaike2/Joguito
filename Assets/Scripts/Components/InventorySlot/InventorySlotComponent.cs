@@ -3,11 +3,13 @@ using UnityEngine.UI;
 using Assets.Scripts.Components.Draggable;
 using Assets.Scripts.ScriptableComponents.Item;
 using TMPro;
+using Assets.Scripts.Utils;
 
 namespace Assets.Scripts.Components.InventorySlot
 {
-    public class InventorySlotComponent : MonoBehaviour
+    public class InventorySlotComponent : BaseComponent
     {
+#pragma warning disable 0649
         [Header("Required Fields")]
         [SerializeField]
         private Image _currentImage; // itemChild image
@@ -15,22 +17,14 @@ namespace Assets.Scripts.Components.InventorySlot
         private InventoryDraggableItemComponent _draggableItem;
         [SerializeField]
         private TextMeshProUGUI _txtAmount;
-
+#pragma warning restore 0649
         public Image CurrentImage => _currentImage;
-        public ItemScriptable CurrentItem { get; private set; }
-        public bool HasItem => CurrentItem != null && _currentImage.enabled;
-        public int Amout { get; set; }
+        public ItemDTO CurrentItem { get; private set; }
 
-        private void Start()
-        {
-            _txtAmount.enabled = false;
-            //_txtAmount.SetText(Amout == 0 ? "" : Amout.ToString());
-            this.AddAmount(Amout);
-        }
-
+        // => This event will call when player click on the inventory Slot
         public void OnClick()
         {
-            if (HasItem)
+            if (CurrentImage != null)
             {
                 _currentImage.enabled = false;
                 _txtAmount.enabled = false;
@@ -44,44 +38,71 @@ namespace Assets.Scripts.Components.InventorySlot
             CurrentImage.enabled = true;
         }
 
-        public void AddItem(ItemScriptable newItem)
+        public bool CheckIfCanAcceptItem(ItemDTO item)
         {
-            if (!HasItem)
-            {
-                _currentImage.sprite = newItem.InventorySprite;
-                //Amout = newItem.TotalAmout;
-                _currentImage.enabled = true;
-                CurrentItem = newItem;
-
-                if (newItem.Stackable)
-                {
-                    this.AddAmount(Amout);
-                    _txtAmount.enabled = true;
-                }
-            }
+            if (CurrentItem == null || CurrentItem.Item == null) return true;
             else
             {
-                //this.AddAmount(Amout + newItem.TotalAmout);
-                _txtAmount.enabled = true;
+                // => Have item but isnt stackable
+                if (!CurrentItem.Item.Stackable) return false;
+                else
+                {
+                    // => Diferent Item
+                    if (CurrentItem.Item.Name != item.Item.Name) return false;
+                    else
+                    {
+                        // => Same item and can Stack
+                        if (CurrentItem.Amount + item.Amount <= item.Item.MaxStackableAmout) return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public void SetItem(ItemDTO newItem)
+        {
+            if (CurrentItem == null || CurrentItem.Item == null)
+            {
+                CurrentItem = newItem;
+                _currentImage.sprite = newItem.Item.InventorySprite;
+                _currentImage.enabled = true;
+                UpdateAmount();
+                if (newItem.Item.Stackable) _txtAmount.enabled = true;
+            }
+            else if(CurrentItem.Item.Stackable && 
+                CurrentItem.Item.Name == newItem.Item.Name &&
+                CurrentItem.Amount + newItem.Amount <= newItem.Item.MaxStackableAmout)
+            {
+                CurrentItem.Amount += newItem.Amount;
+                UpdateAmount();
             }
         }
 
         public void RemoveItem()
         {
-            if (!HasItem) return;
+            if (CurrentItem == null || CurrentItem.Item == null) return;
 
             CurrentItem = null;
             _currentImage.enabled = false;
-            _txtAmount.SetText("");
+            _txtAmount.enabled = false;
         }
 
-        public void AddAmount(int amount)
+        public void UpdateAmount()
         {
-            if (!HasItem || !CurrentItem.Stackable) return;
+            _txtAmount.SetText(CurrentItem.Amount == 0 ? "" : CurrentItem.Amount.ToString());
+        }
 
-            _txtAmount.SetText(Amout == 0 ? "" : amount.ToString());
-            Amout = amount;
-            //CurrentItem.TotalAmout = amount;
+        protected override void ValidateValues()
+        {
+            if (_currentImage == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_currentImage), this.gameObject.name));
+            if (_draggableItem == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_draggableItem), this.gameObject.name));
+            if (_txtAmount == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_txtAmount), this.gameObject.name));
+        }
+
+        protected override void SetInitialValues()
+        {
+            _txtAmount.enabled = false;
         }
     }
 }

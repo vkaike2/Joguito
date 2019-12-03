@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027b9882079913f4c9a625a5b468bfdc, type: 3}
   m_Name: Carbage Seed
   m_EditorClassIdentifier: 
+  _name: Carbage seed
+  _description: Used to plant carbage
+  _stackable: 1
+  _inventorySprite: {fileID: 21300000, guid: 399849937c7dcd84f83bc9c0ba98e734, type: 3}
+  _maxStackableAmout: 5

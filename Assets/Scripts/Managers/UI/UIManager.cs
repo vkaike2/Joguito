@@ -1,27 +1,24 @@
-﻿using Assets.Scripts.Components.Draggable;
-using Assets.Scripts.Components.GenericUI;
+﻿using Assets.Scripts.Components.GenericUI;
+using Assets.Scripts.Components.Inventory;
 using Assets.Scripts.Managers.Inputs;
-using Assets.Scripts.Managers.Inventory;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers.UI
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : BaseManager
     {
+#pragma warning disable 0649
         [Header("Required Fields")]
         [SerializeField]
         private InputManager _inputManager;
         [SerializeField]
-        private InventoryManager _inventory;
+        private InventoryComponent _inventory;
+#pragma warning restore 0649
 
-        public IGenericUI[] GenericUIList { get; set; }
+        public IGenericUI[] GenericUIList { get; private set; }
 
         private bool _keyPressedInventory = false;
-
-        private void Awake()
-        {
-            _inventory.gameObject.SetActive(false);
-        }
 
         private void Start()
         {
@@ -48,5 +45,15 @@ namespace Assets.Scripts.Managers.UI
             }
         }
 
+        protected override void ValidateValues()
+        {
+            if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inventory), this.gameObject.name));
+            if (_inventory == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inventory), this.gameObject.name));
+        }
+
+        protected override void SetInitialValues()
+        {
+            _inventory.gameObject.SetActive(false);
+        }
     }
 }
