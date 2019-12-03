@@ -21,10 +21,11 @@ namespace Assets.Scripts.Components.InventorySlot
         public Image CurrentImage => _currentImage;
         public ItemDTO CurrentItem { get; private set; }
 
+
         // => This event will call when player click on the inventory Slot
         public void OnClick()
         {
-            if (CurrentImage != null)
+            if (CurrentItem?.Item != null)
             {
                 _currentImage.enabled = false;
                 _txtAmount.enabled = false;

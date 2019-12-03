@@ -19,11 +19,16 @@ namespace Assets.Scripts.Components.Inventory
         }
 
         public ItemScriptable mockItem;
+        public ItemScriptable mockItem2;
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
                 AddItem(new ItemDTO() { Item = mockItem, Amount = 1});
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                AddItem(new ItemDTO() { Item = mockItem2, Amount = 1 });
             }
         }
 

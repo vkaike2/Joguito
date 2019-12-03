@@ -64,47 +64,34 @@ namespace Assets.Scripts.Components.Draggable
 
         public void StopDragging()
         {
-            //Debug.Log("Soltou");
-            //List<RaycastResult> raycastsUnderMouseList = this.RaycastMouse();
-            //InventorySlotComponent currentInventorySlot = raycastsUnderMouseList.Where(e => e.gameObject.GetComponent<InventorySlotComponent>() != null)
-            //    .Select(e => e.gameObject.GetComponent<InventorySlotComponent>())
-            //    .FirstOrDefault();
+            Debug.Log("Soltou");
 
-            //if (currentInventorySlot != null && currentInventorySlot.GetInstanceID() != _inventorySlot.GetInstanceID())
-            //{
-            //    if (!currentInventorySlot.HasItem)
-            //    {
-            //        currentInventorySlot.SetItem(_inventorySlot.CurrentItem);
-            //        _inventorySlot.RemoveItem();
-            //    }
-            //    else
-            //    {
-            //        ItemScriptable targetItem = currentInventorySlot.CurrentItem;
-            //        if (targetItem.Name == _inventorySlot.CurrentItem.Name &&
-            //            targetItem.Stackable &&
-            //            currentInventorySlot.Amout + _inventorySlot.CurrentItem.MaxStackableAmout <= targetItem.MaxStackableAmout)
-            //        {
-            //            //currentInventorySlot.CurrentItem.MaxStackableAmout += _inventorySlot.CurrentItem.MaxStackableAmout;
-            //            currentInventorySlot.AddAmount(currentInventorySlot.CurrentItem.MaxStackableAmout);
-            //            _inventorySlot.RemoveItem();
-            //        }
-            //        else
-            //        {
-            //            currentInventorySlot.RemoveItem();
-            //            currentInventorySlot.SetItem(_inventorySlot.CurrentItem);
-            //            _inventorySlot.RemoveItem();
-            //            _inventorySlot.SetItem(targetItem);
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    _inventorySlot.EnableSlot();
-            //}
+            List<RaycastResult> raycastsUnderMouseList = this.RaycastMouse();
 
-            //_image.enabled = false;
-            //transform.position = _initialPosition;
-            //_isDragging = false;
+            InventorySlotComponent targetInventorySlot = raycastsUnderMouseList.Where(e => e.gameObject.GetComponent<InventorySlotComponent>() != null)
+                .Select(e => e.gameObject.GetComponent<InventorySlotComponent>())
+                .FirstOrDefault();
+
+            if (targetInventorySlot != null && targetInventorySlot.GetInstanceID() != _inventorySlot.GetInstanceID())
+            {
+                if (targetInventorySlot.CheckIfCanAcceptItem(_inventorySlot.CurrentItem))
+                {
+                    targetInventorySlot.SetItem(_inventorySlot.CurrentItem);
+                    _inventorySlot.RemoveItem();
+                }
+                else
+                {
+                    _inventorySlot.EnableSlot();
+                }
+            }
+            else
+            {
+                _inventorySlot.EnableSlot();
+            }
+
+            _image.enabled = false;
+            transform.position = _initialPosition;
+            _isDragging = false;
         }
 
         public List<RaycastResult> RaycastMouse()
