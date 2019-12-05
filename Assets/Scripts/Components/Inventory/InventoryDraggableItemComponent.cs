@@ -14,8 +14,18 @@ using UnityEngine.UI;
 namespace Assets.Scripts.Components.Draggable
 {
     [RequireComponent(typeof(Image))]
-    public class InventoryDraggableItemComponent : MonoBehaviour, IGenericUI
+    public class InventoryDraggableItemComponent : BaseComponent, IGenericUI
     {
+#pragma warning disable 0649
+        [Header("Configuration")]
+        [SerializeField]
+        [Range(0, 1)]
+        private float _offsetClickValue;
+        [SerializeField]
+        [Range(0, 1)]
+        private float _offsetDragValue;
+#pragma warning restore 0649
+
         public EnumUIType Type => EnumUIType.Inventory_Item;
 
         private Vector2? _offset;
@@ -49,10 +59,12 @@ namespace Assets.Scripts.Components.Draggable
             _inventorySlot = slot;
             transform.position = slot.gameObject.transform.position;
             _offset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            if (_offset.Value.x == 0.4) _offset = new Vector2(0.3f, _offset.Value.y);
-            if (_offset.Value.x == -0.4f) _offset = new Vector2(-0.3f, _offset.Value.y);
-            if (_offset.Value.y == 0.4) _offset = new Vector2(_offset.Value.x, 0.3f);
-            if (_offset.Value.y == -0.4f) _offset = new Vector2(_offset.Value.x, -0.3f);
+
+
+            if (_offset.Value.x >= _offsetClickValue) _offset = new Vector2(_offsetDragValue, _offset.Value.y);
+            if (_offset.Value.x <= -_offsetClickValue) _offset = new Vector2(-_offsetDragValue, _offset.Value.y);
+            if (_offset.Value.y >= _offsetClickValue) _offset = new Vector2(_offset.Value.x, _offsetDragValue);
+            if (_offset.Value.y <= -_offsetClickValue) _offset = new Vector2(_offset.Value.x, -_offsetDragValue);
 
             _image.sprite = slot.CurrentImage.sprite;
             _image.enabled = true;
@@ -102,6 +114,14 @@ namespace Assets.Scripts.Components.Draggable
             EventSystem.current.RaycastAll(pointerData, results);
 
             return results;
+        }
+
+        protected override void ValidateValues() { }
+
+        protected override void SetInitialValues()
+        {
+            if (_offsetClickValue == 0f) _offsetClickValue = 0.35f;
+            if (_offsetDragValue == 0f) _offsetDragValue = 0.30f;
         }
     }
 }

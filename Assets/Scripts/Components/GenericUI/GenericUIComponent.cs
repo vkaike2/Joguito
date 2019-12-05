@@ -38,6 +38,11 @@ namespace Assets.Scripts.Components.GenericUI
             _mouseInUI = true;
         }
 
+        private void OnDisable()
+        {
+            _mouseInUI = false;
+        }
+
         public void OnPointerExitDelegate(PointerEventData eventData)
         {
             _mouseInUI = false;
