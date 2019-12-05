@@ -38,34 +38,29 @@ namespace Assets.Scripts.Components.Draggable
 
         private void Update()
         {
-            if (_isDragging)
-            {
-                transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - _offset.Value;
-            }
+            if (!_isDragging) return;
+            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - _offset.Value;
         }
 
         public void StartDragging(InventorySlotComponent slot)
         {
-            if (!_isDragging)
-            {
-                _inventorySlot = slot;
-                transform.position = slot.gameObject.transform.position;
-                _offset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-                if (_offset.Value.x == 0.4) _offset = new Vector2(0.3f, _offset.Value.y);
-                if (_offset.Value.x == -0.4f) _offset = new Vector2(-0.3f, _offset.Value.y);
-                if (_offset.Value.y == 0.4) _offset = new Vector2(_offset.Value.x, 0.3f);
-                if (_offset.Value.y == -0.4f) _offset = new Vector2(_offset.Value.x, -0.3f);
+            if (_isDragging) return;
 
-                _image.sprite = slot.CurrentImage.sprite;
-                _image.enabled = true;
-                _isDragging = true;
-            }
+            _inventorySlot = slot;
+            transform.position = slot.gameObject.transform.position;
+            _offset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            if (_offset.Value.x == 0.4) _offset = new Vector2(0.3f, _offset.Value.y);
+            if (_offset.Value.x == -0.4f) _offset = new Vector2(-0.3f, _offset.Value.y);
+            if (_offset.Value.y == 0.4) _offset = new Vector2(_offset.Value.x, 0.3f);
+            if (_offset.Value.y == -0.4f) _offset = new Vector2(_offset.Value.x, -0.3f);
+
+            _image.sprite = slot.CurrentImage.sprite;
+            _image.enabled = true;
+            _isDragging = true;
         }
 
         public void StopDragging()
         {
-            Debug.Log("Soltou");
-
             List<RaycastResult> raycastsUnderMouseList = this.RaycastMouse();
 
             InventorySlotComponent targetInventorySlot = raycastsUnderMouseList.Where(e => e.gameObject.GetComponent<InventorySlotComponent>() != null)
