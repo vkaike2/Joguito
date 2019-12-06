@@ -71,7 +71,7 @@ namespace Assets.Scripts.Components.InventorySlot
                 UpdateAmount();
                 if (newItem.Item.Stackable) _txtAmount.enabled = true;
             }
-            else if(CurrentItem.Item.Stackable && 
+            else if (CurrentItem.Item.Stackable &&
                 CurrentItem.Item.Name == newItem.Item.Name &&
                 CurrentItem.Amount + newItem.Amount <= newItem.Item.MaxStackableAmout)
             {
@@ -91,6 +91,7 @@ namespace Assets.Scripts.Components.InventorySlot
 
         public void UpdateAmount()
         {
+            _txtAmount.enabled = CurrentItem.Item.Stackable;
             _txtAmount.SetText(CurrentItem.Amount == 0 ? "" : CurrentItem.Amount.ToString());
         }
 

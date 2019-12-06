@@ -14,7 +14,7 @@ using UnityEngine.UI;
 namespace Assets.Scripts.Components.Draggable
 {
     [RequireComponent(typeof(Image))]
-    public class InventoryDraggableItemComponent : BaseComponent, IGenericUI
+    public class InventoryDraggableItemComponent : BaseComponent
     {
 #pragma warning disable 0649
         [Header("Configuration")]
@@ -26,14 +26,12 @@ namespace Assets.Scripts.Components.Draggable
         private float _offsetDragValue;
 #pragma warning restore 0649
 
-        public EnumUIType Type => EnumUIType.Inventory_Item;
-
         private Vector2? _offset;
 
         private bool _isDragging;
         private Vector3 _initialPosition;
         private Image _image;
-        public bool MouseInUI => _isDragging;
+        private GenericUIComponent _gereciUIComponent;
 
         public GameObject ThisGameObject => this.gameObject;
 
@@ -69,6 +67,7 @@ namespace Assets.Scripts.Components.Draggable
             _image.sprite = slot.CurrentImage.sprite;
             _image.enabled = true;
             _isDragging = true;
+            _gereciUIComponent.SetMouseInUi(true);
         }
 
         public void StopDragging()
@@ -99,6 +98,7 @@ namespace Assets.Scripts.Components.Draggable
             _image.enabled = false;
             transform.position = _initialPosition;
             _isDragging = false;
+            _gereciUIComponent.SetMouseInUi(false);
         }
 
         public List<RaycastResult> RaycastMouse()
@@ -120,6 +120,7 @@ namespace Assets.Scripts.Components.Draggable
 
         protected override void SetInitialValues()
         {
+            _gereciUIComponent = this.GetComponent<GenericUIComponent>();
             if (_offsetClickValue == 0f) _offsetClickValue = 0.35f;
             if (_offsetDragValue == 0f) _offsetDragValue = 0.30f;
         }

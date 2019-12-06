@@ -40,10 +40,21 @@ namespace Assets.Scripts.Components.MovementMouse
         private Vector2 _mouseDirection;
         private Vector2 _mouseOnClickPosition;
 
-        private void FixedUpdate() => this.MovementPlayer();
+        private void FixedUpdate() => this.MovementObject();
 
-        private void MovementPlayer()
+        public void ObjectGoTo(Vector2 position)
         {
+            this.MovementObject(position);
+        }
+
+        private void MovementObject(Vector2? movePosition = null)
+        {
+            if (movePosition != null)
+            {
+                _mouseOnClickPosition = movePosition.Value;
+                _mouseDirection = (_mouseOnClickPosition - (Vector2)transform.position).normalized;
+            }
+
             if (_inputManager.MouseLeftButton == 1 && !_playerState.PlayerCantMove)
             {
                 _mouseOnClickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

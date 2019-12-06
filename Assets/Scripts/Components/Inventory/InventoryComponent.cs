@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Components.InventorySlot;
+using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.ScriptableComponents.Item;
 using System.Linq;
 using UnityEngine;
@@ -7,11 +8,18 @@ namespace Assets.Scripts.Components.Inventory
 {
     public class InventoryComponent : BaseComponent
     {
+        [Header("RequiredFields")]
+        [SerializeField]
+        private GameObject _inventoryPanel;
         private InventorySlotComponent[] _slotList;
+        private InputManager _inputManager;
 
+        private bool _keyPressedInventory = false;
         protected override void SetInitialValues()
         {
             _slotList = this.GetComponentsInChildren<InventorySlotComponent>();
+            _inputManager = GameObject.FindObjectOfType<InputManager>();
+            _inventoryPanel.SetActive(false);
         }
         protected override void ValidateValues()
         {
@@ -29,6 +37,23 @@ namespace Assets.Scripts.Components.Inventory
             if (Input.GetKeyDown(KeyCode.S))
             {
                 AddItem(new ItemDTO() { Item = mockItem2, Amount = 1 });
+            }
+
+            this.ToggleInventoryPannel();
+        }
+
+        private void ToggleInventoryPannel()
+        {
+            if (!_keyPressedInventory && _inputManager.Inventory == 1)
+            {
+                _keyPressedInventory = true;
+
+                _inventoryPanel.SetActive(!_inventoryPanel.activeSelf);
+            }
+
+            if (_keyPressedInventory && _inputManager.Inventory == 0)
+            {
+                _keyPressedInventory = false;
             }
         }
 
