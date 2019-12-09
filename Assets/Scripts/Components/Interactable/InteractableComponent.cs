@@ -1,6 +1,8 @@
-﻿using Assets.Scripts.Components.ItemDrop;
+﻿using Assets.Scripts.Components.Inventory;
+using Assets.Scripts.Components.ItemDrop;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
+using Assets.Scripts.ScriptableComponents.Item;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
@@ -8,6 +10,10 @@ namespace Assets.Scripts.Components.Interactable
 {
     public class InteractableComponent : BaseComponent
     {
+        [Header("Required Fields")]
+        [SerializeField]
+        private InventoryComponent _inventoryComponent;
+
         private InputManager _inputManager;
         private PlayerStateManager _playerStateManager;
         private EnumInteractableState _currentInteractableState;
@@ -48,6 +54,7 @@ namespace Assets.Scripts.Components.Interactable
         {
             if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inputManager), this.gameObject.name));
             if (_playerStateManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_playerStateManager), this.gameObject.name));
+            if (_inventoryComponent == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inventoryComponent), this.gameObject.name));
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -57,27 +64,40 @@ namespace Assets.Scripts.Components.Interactable
                 case EnumInteractableState.Nothing:
                     break;
                 case EnumInteractableState.PickupItem:
-
-                    if (_interactableInstanceId == null) return;
-
-                    ItemDropComponent itemDropComponent = collision.gameObject.GetComponentInParent<ItemDropComponent>();
-                    if (itemDropComponent == null) return;
-                    if (itemDropComponent.GetInstanceID() != _interactableInstanceId) return;
-
-
-                    itemDropComponent.PickupThisItem();
-                    this.RemoveInteractableState();
+                    this.PickUpItem(collision);
                     break;
                 default:
                     break;
             }
-
-
         }
 
         private void OnTriggerStay2D(Collider2D collision)
         {
+            switch (_currentInteractableState)
+            {
+                case EnumInteractableState.Nothing:
+                    break;
+                case EnumInteractableState.PickupItem:
+                    this.PickUpItem(collision);
+                    break;
+                default:
+                    break;
+            }
+        }
 
+        private void PickUpItem(Collider2D collision)
+        {
+            if (_interactableInstanceId == null) return;
+
+            ItemDropComponent itemDropComponent = collision.gameObject.GetComponentInParent<ItemDropComponent>();
+            if (itemDropComponent == null) return;
+            if (itemDropComponent.GetInstanceID() != _interactableInstanceId) return;
+
+            ItemDTO itemDto = itemDropComponent.PickupThisItem();
+            itemDropComponent.DestroyGameObject();
+            _inventoryComponent.AddItem(itemDto);
+
+            this.RemoveInteractableState();
         }
 
     }

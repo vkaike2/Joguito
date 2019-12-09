@@ -14,12 +14,13 @@ namespace Assets.Scripts.Components.InventorySlot
         [SerializeField]
         private Image _currentImage; // itemChild image
         [SerializeField]
-        private InventoryDraggableItemComponent _draggableItem;
-        [SerializeField]
         private TextMeshProUGUI _txtAmount;
-#pragma warning restore 0649
+        private InventoryDraggableItemComponent _draggableItem;
+
+
         public Image CurrentImage => _currentImage;
         public ItemDTO CurrentItem { get; private set; }
+#pragma warning restore 0649
 
 
         // => This event will call when player click on the inventory Slot
@@ -105,6 +106,7 @@ namespace Assets.Scripts.Components.InventorySlot
         protected override void SetInitialValues()
         {
             _txtAmount.enabled = false;
+            _draggableItem = GameObject.FindObjectOfType<InventoryDraggableItemComponent>();
         }
     }
 }

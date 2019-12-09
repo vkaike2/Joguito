@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Components.InventorySlot;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.ScriptableComponents.Item;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -11,13 +12,14 @@ namespace Assets.Scripts.Components.Inventory
         [Header("RequiredFields")]
         [SerializeField]
         private GameObject _inventoryPanel;
-        private InventorySlotComponent[] _slotList;
+        [SerializeField]
+        private List<InventorySlotComponent> _slotList;
         private InputManager _inputManager;
 
         private bool _keyPressedInventory = false;
         protected override void SetInitialValues()
         {
-            _slotList = this.GetComponentsInChildren<InventorySlotComponent>();
+            _slotList.AddRange(this.GetComponentsInChildren<InventorySlotComponent>());
             _inputManager = GameObject.FindObjectOfType<InputManager>();
             _inventoryPanel.SetActive(false);
         }

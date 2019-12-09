@@ -16,4 +16,6 @@ MonoBehaviour:
   _description: Used to plant carbage
   _stackable: 1
   _inventorySprite: {fileID: 21300000, guid: 399849937c7dcd84f83bc9c0ba98e734, type: 3}
+  _dropAnimatorController: {fileID: 9100000, guid: 936b4af239c2aac45ba08e9022a68206,
+    type: 2}
   _maxStackableAmout: 5

@@ -1,7 +1,9 @@
 ﻿using Assets.Scripts.Components.GenericUI;
 using Assets.Scripts.Components.InventorySlot;
+using Assets.Scripts.Components.ItemDrop;
 using Assets.Scripts.Managers.UI;
 using Assets.Scripts.ScriptableComponents.Item;
+using Assets.Scripts.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,10 @@ namespace Assets.Scripts.Components.Draggable
     public class InventoryDraggableItemComponent : BaseComponent
     {
 #pragma warning disable 0649
+        [Header("Required Fields")]
+        [SerializeField]
+        private GameObject _itemDropPrefab;
+
         [Header("Configuration")]
         [SerializeField]
         [Range(0, 1)]
@@ -90,7 +96,13 @@ namespace Assets.Scripts.Components.Draggable
                     _inventorySlot.EnableSlot();
                 }
             }
-            else
+            else if (targetInventorySlot == null) // => Drop Item
+            {
+                GameObject itemDropGameObject = Instantiate(_itemDropPrefab, this.gameObject.transform.position, Quaternion.identity);
+                itemDropGameObject.GetComponentInChildren<ItemDropComponent>().SetCurrentItem(_inventorySlot.CurrentItem);
+                _inventorySlot.RemoveItem();
+            }
+            else // => Same slot
             {
                 _inventorySlot.EnableSlot();
             }
@@ -116,7 +128,10 @@ namespace Assets.Scripts.Components.Draggable
             return results;
         }
 
-        protected override void ValidateValues() { }
+        protected override void ValidateValues()
+        {
+            if (_itemDropPrefab == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_itemDropPrefab), this.gameObject.name));
+        }
 
         protected override void SetInitialValues()
         {

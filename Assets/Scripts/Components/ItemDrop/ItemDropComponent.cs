@@ -1,23 +1,45 @@
 ﻿using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
+using Assets.Scripts.ScriptableComponents.Item;
 using Assets.Scripts.Utils;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.Components.ItemDrop
 {
+    [RequireComponent(typeof(Animator))]
     public class ItemDropComponent : BaseComponent
     {
-        
+        public ItemScriptable itemMock;
+
+        [Header("Required Fields")]
+        [SerializeField]
+        private TextMeshProUGUI _txtItemName;
+
         [Header("Configuration")]
         [SerializeField]
-        [Range(0,3)]
+        [Range(0, 3)]
         private float _radioToPickup;
+
+        public GameObject ParentGameObject => transform.parent.gameObject;
 
         private InputManager _inputManager;
         private PlayerStateManager _playerState;
-       
+        private Animator _animator;
+        private ItemDTO currentItem;
+
         private bool _mousePressed = false;
+
+        private void Start()
+        {
+            if (itemMock != null)
+                this.SetCurrentItem(new ItemDTO()
+                {
+                    Amount = 1,
+                    Item = itemMock
+                });
+        }
 
         private void OnMouseOver()
         {
@@ -32,10 +54,22 @@ namespace Assets.Scripts.Components.ItemDrop
             }
         }
 
-        public void PickupThisItem()
+
+        public void SetCurrentItem(ItemDTO item)
         {
-            Debug.Log("Pegou o item");
-            Destroy(this.transform.parent.gameObject);
+            currentItem = item;
+            _txtItemName.SetText(currentItem.Item.Name);
+            _animator.runtimeAnimatorController = currentItem.Item.DropAnimatorController;
+        }
+
+        public ItemDTO PickupThisItem()
+        {
+            return currentItem;
+        }
+
+        public void DestroyGameObject()
+        {
+            Destroy(ParentGameObject);
         }
 
         public void OnClickObject()
@@ -48,6 +82,7 @@ namespace Assets.Scripts.Components.ItemDrop
         {
             _inputManager = GameObject.FindObjectOfType<InputManager>();
             _playerState = GameObject.FindObjectOfType<PlayerStateManager>();
+            _animator = this.GetComponent<Animator>();
 
             if (_radioToPickup == 0) _radioToPickup = 1.5f;
         }
@@ -56,6 +91,8 @@ namespace Assets.Scripts.Components.ItemDrop
         {
             if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inputManager), this.gameObject.name));
             if (_playerState == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_playerState), this.gameObject.name));
+            if (_animator == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_animator), this.gameObject.name));
+            if (_txtItemName == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_txtItemName), this.gameObject.name));
         }
     }
 }

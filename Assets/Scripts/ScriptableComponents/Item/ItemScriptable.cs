@@ -17,6 +17,8 @@ namespace Assets.Scripts.ScriptableComponents.Item
         private bool _stackable;
         [SerializeField]
         private Sprite _inventorySprite;
+        [SerializeField]
+        private RuntimeAnimatorController _dropAnimatorController;
         #endregion
 
         #region Configuration Fields
@@ -30,6 +32,7 @@ namespace Assets.Scripts.ScriptableComponents.Item
         public string Description => _description;
         public Sprite InventorySprite => _inventorySprite;
         public bool Stackable => _stackable;
+        public RuntimeAnimatorController DropAnimatorController => _dropAnimatorController;
 
         // => If Stackable
         public int MaxStackableAmout => _maxStackableAmout;
