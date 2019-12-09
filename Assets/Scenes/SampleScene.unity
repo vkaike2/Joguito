@@ -120,6 +120,53 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &76000631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 76000632}
+  - component: {fileID: 76000633}
+  m_Layer: 0
+  m_Name: RadioToPickup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &76000632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76000631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.02, y: -0.283, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1464389284}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &76000633
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76000631}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0056113005, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.3248338
 --- !u!1 &123298058
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +635,7 @@ GameObject:
   - component: {fileID: 294035994}
   - component: {fileID: 294035993}
   - component: {fileID: 294035996}
+  - component: {fileID: 294035997}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -653,7 +701,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294035990}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.32, y: 0.77, z: 0}
+  m_LocalPosition: {x: -0.22, y: -0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1168009767}
@@ -672,8 +720,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031f57727c39677438d1f3b9e5948946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerState: {fileID: 1946097417}
-  _inputManager: {fileID: 1946097419}
   _velocity: 200
   _stopRange: 0.2
 --- !u!50 &294035994
@@ -725,9 +771,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 294035990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c821cc0aaeed2cb4a80026c79cbd68f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0fabefb9e46734595002ef8d822b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &294035997
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294035990}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.016795397, y: 0.11471772}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5177312, y: 0.07681538}
+    oldSize: {x: 1.625, y: 1.625}
+    newSize: {x: 1.625, y: 1.625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.94087195, y: 0.38786888}
+  m_EdgeRadius: 0
 --- !u!1 &318299546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2620,6 +2692,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1880177256}
+  - {fileID: 76000632}
   m_Father: {fileID: 1681922181}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2719,6 +2792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2413e52996fa5e246a382be2910d1ad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _radioToPickup: 0
 --- !u!1 &1515564773
 GameObject:
   m_ObjectHideFlags: 0

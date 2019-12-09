@@ -1,24 +1,21 @@
-﻿using Assets.Scripts.Managers.Inputs;
+﻿using Assets.Scripts.Components.Interactable;
+using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Utils;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Components.MovementMouse
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(InteractableComponent))]
     public class MovementMouseComponent : BaseComponent
     {
 #pragma warning disable 0649
-        #region Required Fields
-        [Header("Required Fields")]
-        [SerializeField]
         private PlayerStateManager _playerState;
-        [SerializeField]
         private InputManager _inputManager;
-        #endregion
 
-        #region Configuration Fields
         [Header("Configuration Fields")]
         [Tooltip("velocity of the gameObject")]
         [SerializeField]
@@ -27,39 +24,81 @@ namespace Assets.Scripts.Components.MovementMouse
         [Tooltip("range where gameObject stop walk from click position")]
         [SerializeField]
         private float _stopRange;
-        #endregion
-#pragma warning restore 0649
 
-        #region Unity Componnents
+        public bool Active => true;
+
         private Animator _animator;
         private Rigidbody2D _rigidBody2D;
-        #endregion
+        private InteractableComponent _interactableComponent;
 
         private MovementCursorComponentAnimatorVariables _animatorVariables;
 
         private Vector2 _mouseDirection;
         private Vector2 _mouseOnClickPosition;
 
-        private void FixedUpdate() => this.MovementObject();
+        private Coroutine _MoveToExcatPosition;
+#pragma warning restore 0649
 
-        public void ObjectGoTo(Vector2 position)
+
+        private void Start()
         {
-            this.MovementObject(position);
+            _playerState.SetMovementMouseComponent(this);
         }
 
-        private void MovementObject(Vector2? movePosition = null)
+        private void OnDestroy()
         {
-            if (movePosition != null)
+            _playerState.RemoveMovementMouseComponent(this);
+        }
+
+        private void FixedUpdate() => this.MovementObject();
+
+        public void ObjectGoTo(Vector2 position, float? stopRange)
+        {
+            if (_MoveToExcatPosition == null)
             {
-                _mouseOnClickPosition = movePosition.Value;
-                _mouseDirection = (_mouseOnClickPosition - (Vector2)transform.position).normalized;
+                _MoveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
             }
+        }
+
+        IEnumerator MoveToExactPosition(Vector2 movePosition, float? stopRange)
+        {
+            Vector2 mouseDirection = (movePosition - (Vector2)transform.position).normalized;
+            //_mouseOnClickPosition = movePosition;
+
+            while (Vector2.Distance(movePosition, transform.position) >= stopRange)
+            {
+                _rigidBody2D.velocity = mouseDirection * (_velocity * Time.deltaTime);
+                this.ChangePlayerSide(_rigidBody2D.velocity.x >= 0);
+
+                yield return new WaitForFixedUpdate();
+            }
+
+            _rigidBody2D.velocity = Vector2.zero;
+            _MoveToExcatPosition = null;
+        }
+
+        private void MovementObject()
+        {
+            _animator.SetBool(_animatorVariables.Running, _rigidBody2D.velocity != Vector2.zero);
 
             if (_inputManager.MouseLeftButton == 1 && !_playerState.PlayerCantMove)
             {
                 _mouseOnClickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 _mouseDirection = (_mouseOnClickPosition - (Vector2)transform.position).normalized;
+
+                if (_MoveToExcatPosition != null)
+                {
+                    StopCoroutine(_MoveToExcatPosition);
+                    _MoveToExcatPosition = null;
+                    _interactableComponent.RemoveInteractableState();
+                }
             }
+
+            if (_MoveToExcatPosition != null)
+            {
+                _mouseOnClickPosition = transform.position;
+                return;
+            };
 
             if (Vector2.Distance(_mouseOnClickPosition, transform.position) >= _stopRange)
             {
@@ -70,8 +109,8 @@ namespace Assets.Scripts.Components.MovementMouse
             {
                 _rigidBody2D.velocity = Vector2.zero;
             }
-            _animator.SetBool(_animatorVariables.Running, _rigidBody2D.velocity != Vector2.zero);
         }
+
         private void ChangePlayerSide(bool right)
         {
             this.transform.rotation = new Quaternion(0, right ? 0 : 180, 0, 0);
@@ -86,14 +125,14 @@ namespace Assets.Scripts.Components.MovementMouse
 
         protected override void SetInitialValues()
         {
-            // => Unity Components
             _animator = this.GetComponent<Animator>();
             _rigidBody2D = this.GetComponent<Rigidbody2D>();
+            _interactableComponent = this.GetComponent<InteractableComponent>();
+            _playerState = GameObject.FindObjectOfType<PlayerStateManager>();
+            _inputManager = GameObject.FindObjectOfType<InputManager>();
 
-            // => Animator Variables
             _animatorVariables = new MovementCursorComponentAnimatorVariables();
 
-            // => Configuration fields
             if (_velocity == 0) _velocity = 5;
             if (_stopRange == 0) _stopRange = 0.2f;
         }
