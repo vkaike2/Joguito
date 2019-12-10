@@ -11,6 +11,10 @@ namespace Assets.Scripts.Managers.Inputs
         Mouse_Left_Button,
         Inventory,
         Z,
-        Alt
+        Alt,
+        Q,
+        W,
+        E,
+        R
     }
 }

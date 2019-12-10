@@ -41,7 +41,7 @@ namespace Assets.Scripts.Components.GenericUI
             });
             trigger.triggers.Add(pointerExit);
 
-            _uiManager.SetGenericUI(this);
+            _uiManager.SetGenericUIComponent(this);
         }
 
         private void OnMouseOver()
@@ -61,7 +61,7 @@ namespace Assets.Scripts.Components.GenericUI
         }
         private void OnDestroy()
         {
-            _uiManager.RemoveGenericUI(this);
+            _uiManager.RemoveGenericUIComponent(this);
         }
 
         public void SetMouseInUi(bool value)

@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Components.Inventory;
 using Assets.Scripts.Components.ItemDrop;
+using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.ScriptableComponents.Item;
@@ -10,6 +11,7 @@ namespace Assets.Scripts.Components.Interactable
 {
     public class InteractableComponent : BaseComponent
     {
+#pragma warning disable 0649
         [Header("Required Fields")]
         [SerializeField]
         private InventoryComponent _inventoryComponent;
@@ -18,6 +20,7 @@ namespace Assets.Scripts.Components.Interactable
         private PlayerStateManager _playerStateManager;
         private EnumInteractableState _currentInteractableState;
         private int? _interactableInstanceId;
+#pragma warning restore 0649
 
         public bool Active => true;
 

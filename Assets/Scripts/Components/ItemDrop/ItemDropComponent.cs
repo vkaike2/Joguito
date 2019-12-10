@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Components.MovementMouse;
+using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.ScriptableComponents.Item;

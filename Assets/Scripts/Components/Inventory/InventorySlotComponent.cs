@@ -4,6 +4,7 @@ using Assets.Scripts.Components.Draggable;
 using Assets.Scripts.ScriptableComponents.Item;
 using TMPro;
 using Assets.Scripts.Utils;
+using Assets.Scripts.DTOs;
 
 namespace Assets.Scripts.Components.InventorySlot
 {

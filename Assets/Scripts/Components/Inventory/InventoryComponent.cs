@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Components.InventorySlot;
+using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.ScriptableComponents.Item;
 using System.Collections.Generic;
