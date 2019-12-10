@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Managers.Inputs
 {
+    [HelpURL("https://slimwiki.com/vkaike9/inputmanager")]
     public class InputManager : BaseManager
     {
         public float MouseLeftButton { get; private set; }

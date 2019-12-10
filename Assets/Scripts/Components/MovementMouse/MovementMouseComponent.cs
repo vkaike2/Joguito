@@ -55,15 +55,12 @@ namespace Assets.Scripts.Components.MovementMouse
         public void ObjectGoTo(Vector2 position, float? stopRange)
         {
             if (_MoveToExcatPosition == null)
-            {
                 _MoveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
-            }
         }
 
         IEnumerator MoveToExactPosition(Vector2 movePosition, float? stopRange)
         {
             Vector2 mouseDirection = (movePosition - (Vector2)transform.position).normalized;
-            //_mouseOnClickPosition = movePosition;
 
             while (Vector2.Distance(movePosition, transform.position) >= stopRange)
             {

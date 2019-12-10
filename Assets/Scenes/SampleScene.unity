@@ -120,6 +120,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &51984410 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6024550001340401454, guid: ccce422d3131970448e17862e343feea,
+    type: 3}
+  m_PrefabInstance: {fileID: 326501874}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a738dc2beca9154c829d197e1d6c566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &176288966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1360,6 +1372,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbb270380229494ca71c2365c88d69b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &591302531 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6024550001340401454, guid: ccce422d3131970448e17862e343feea,
+    type: 3}
+  m_PrefabInstance: {fileID: 1427903440}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a738dc2beca9154c829d197e1d6c566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &710137891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,9 +1436,9 @@ MonoBehaviour:
   _inventoryPanel: {fileID: 245130255}
   _slotList:
   - {fileID: 1424187871828121280}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 591302531}
+  - {fileID: 51984410}
+  - {fileID: 2048784246}
   mockItem: {fileID: 11400000, guid: cc845eb22c4305c43b7054b09750c5fa, type: 2}
   mockItem2: {fileID: 11400000, guid: 57edb656539129b449595ad290943026, type: 2}
 --- !u!224 &792514523 stripped
@@ -3999,6 +4023,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputManager: {fileID: 1946097419}
   _togleableList: []
+--- !u!114 &2048784246 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6024550001340401454, guid: ccce422d3131970448e17862e343feea,
+    type: 3}
+  m_PrefabInstance: {fileID: 1122077186}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a738dc2beca9154c829d197e1d6c566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2094956165
 PrefabInstance:
   m_ObjectHideFlags: 0
