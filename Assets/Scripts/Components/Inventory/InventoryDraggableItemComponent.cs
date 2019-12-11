@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Assets.Scripts.Managers.PlayerState;
 
 namespace Assets.Scripts.Components.Draggable
 {
@@ -132,6 +133,7 @@ namespace Assets.Scripts.Components.Draggable
         protected override void SetInitialValues()
         {
             _gereciUIComponent = this.GetComponent<GenericUIComponent>();
+
             if (_offsetClickValue == 0f) _offsetClickValue = 0.35f;
             if (_offsetDragValue == 0f) _offsetDragValue = 0.30f;
         }
