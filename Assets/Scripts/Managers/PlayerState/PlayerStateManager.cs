@@ -8,6 +8,7 @@ using Assets.Scripts.Components.Interactable;
 
 namespace Assets.Scripts.Managers.PlayerState
 {
+    [HelpURL("https://slimwiki.com/vkaike9/playerstatemanager")]
     public class PlayerStateManager : BaseManager
     {
 #pragma warning disable 0649

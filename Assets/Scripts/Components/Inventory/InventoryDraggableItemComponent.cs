@@ -1,20 +1,16 @@
 ﻿using Assets.Scripts.Components.GenericUI;
 using Assets.Scripts.Components.InventorySlot;
 using Assets.Scripts.Components.ItemDrop;
-using Assets.Scripts.Managers.UI;
-using Assets.Scripts.ScriptableComponents.Item;
 using Assets.Scripts.Utils;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Components.Draggable
 {
+    [HelpURL("https://slimwiki.com/vkaike9/inventorydraggableitemcomponent")]
     [RequireComponent(typeof(Image))]
     public class InventoryDraggableItemComponent : BaseComponent
     {
@@ -113,7 +109,7 @@ namespace Assets.Scripts.Components.Draggable
             _gereciUIComponent.SetMouseInUi(false);
         }
 
-        public List<RaycastResult> RaycastMouse()
+        private List<RaycastResult> RaycastMouse()
         {
             PointerEventData pointerData = new PointerEventData(EventSystem.current)
             {

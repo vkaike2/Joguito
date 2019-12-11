@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Managers.Item
 {
+    [HelpURL("https://slimwiki.com/vkaike9/itemmanager")]
     public class ItemManager : BaseManager
     {
 #pragma warning disable 0649

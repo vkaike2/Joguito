@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Components.GenericUI
 {
+    [HelpURL("https://slimwiki.com/vkaike9/genericuicomponent")]
     [RequireComponent(typeof(EventTrigger))]
     public class GenericUIComponent : BaseComponent/*, IPointerEnterHandler, IPointerExitHandler*/
     {
@@ -13,8 +14,6 @@ namespace Assets.Scripts.Components.GenericUI
         public bool MouseInUI { get; private set; }
 
         private bool _canControll = true;
-
-        public GameObject ThisGameObject => this.gameObject;
 
         private void Start()
         {
@@ -78,17 +77,5 @@ namespace Assets.Scripts.Components.GenericUI
         {
             _uiManager = GameObject.FindObjectOfType<UIManager>();
         }
-
-        //public void OnPointerEnter(PointerEventData eventData)
-        //{
-        //    Debug.Log("Enter" + MouseInUI);
-        //    //MouseInUI = true;
-        //}
-
-        //public void OnPointerExit(PointerEventData eventData)
-        //{
-        //    Debug.Log("Exit" + MouseInUI);
-        //    //MouseInUI = false;
-        //}
     }
 }

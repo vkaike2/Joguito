@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Managers.UI
 {
+    [HelpURL("https://slimwiki.com/vkaike9/uimanager")]
     public class UIManager : BaseManager
     {
 #pragma warning disable 0649
@@ -15,9 +16,9 @@ namespace Assets.Scripts.Managers.UI
         [SerializeField]
         [Tooltip("All the slots 4 max")]
         private ActionSlotComponent[] ActionSlotComponentlist;
-        public List<GenericUIComponent> GenericUIList { get; private set; }
-
         private InputManager _inputManager;
+
+        public List<GenericUIComponent> GenericUIList { get; private set; }
 #pragma warning restore 0649
 
         private void Start()

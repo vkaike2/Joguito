@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.Inventory
 {
+    [HelpURL("https://slimwiki.com/vkaike9/inventorycomponent")]
     public class InventoryComponent : BaseComponent
     {
         [Header("RequiredFields")]

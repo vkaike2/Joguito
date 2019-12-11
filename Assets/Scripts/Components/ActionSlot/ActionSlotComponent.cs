@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Components.ActionSlot
 {
+    [HelpURL("https://slimwiki.com/vkaike9/actionslotcomponent")]
     [RequireComponent(typeof(InventorySlotComponent))]
     [RequireComponent(typeof(Image))]
     public class ActionSlotComponent : BaseComponent

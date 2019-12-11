@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.MovementMouse
 {
+    [HelpURL("https://slimwiki.com/vkaike9/movementmousecomponent")]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(InteractableComponent))]

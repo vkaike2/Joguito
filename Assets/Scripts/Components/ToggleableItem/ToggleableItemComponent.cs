@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.ToggleableItem
 {
+    [HelpURL("https://slimwiki.com/vkaike9/toggleableitemcomponent")]
     public class ToggleableItemComponent : BaseComponent
     {
         private Canvas _childrenCanvas;

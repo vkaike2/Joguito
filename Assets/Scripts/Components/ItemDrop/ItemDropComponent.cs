@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Components.MovementMouse;
-using Assets.Scripts.DTOs;
+﻿using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.ScriptableComponents.Item;
@@ -9,6 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.ItemDrop
 {
+    [HelpURL("https://slimwiki.com/vkaike9/itemdropcomponent")]
     [RequireComponent(typeof(Animator))]
     public class ItemDropComponent : BaseComponent
     {

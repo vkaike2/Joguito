@@ -4,13 +4,12 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Components.Draggable
 {
+    [HelpURL("https://slimwiki.com/vkaike9/draggablecomponent")]
     public class DraggableComponent : EventTrigger
     {
         private Vector2? _offset;
         private bool _isDragging = false;
         
-        public GameObject ThisGameObject => this.gameObject;
-
         public void Update()
         {
             if (_isDragging)

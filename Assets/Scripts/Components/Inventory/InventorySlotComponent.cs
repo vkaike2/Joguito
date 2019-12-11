@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Components.Draggable;
-using Assets.Scripts.ScriptableComponents.Item;
 using TMPro;
 using Assets.Scripts.Utils;
 using Assets.Scripts.DTOs;
 
 namespace Assets.Scripts.Components.InventorySlot
 {
+    [HelpURL("https://slimwiki.com/vkaike9/inventoryslotcomponent")]
     public class InventorySlotComponent : BaseComponent
     {
 #pragma warning disable 0649
@@ -17,7 +17,6 @@ namespace Assets.Scripts.Components.InventorySlot
         [SerializeField]
         private TextMeshProUGUI _txtAmount;
         private InventoryDraggableItemComponent _draggableItem;
-
 
         public Image CurrentImage => _currentImage;
         public ItemDTO CurrentItem { get; private set; }
@@ -91,7 +90,7 @@ namespace Assets.Scripts.Components.InventorySlot
             _txtAmount.enabled = false;
         }
 
-        public void UpdateAmount()
+        private void UpdateAmount()
         {
             _txtAmount.enabled = CurrentItem.Item.Stackable;
             _txtAmount.SetText(CurrentItem.Amount == 0 ? "" : CurrentItem.Amount.ToString());

@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.Interactable
 {
+    [HelpURL("https://slimwiki.com/vkaike9/interactablecomponent")]
     public class InteractableComponent : BaseComponent
     {
 #pragma warning disable 0649
