@@ -623,7 +623,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!95 &294035995
@@ -2451,7 +2451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _plantComponent: {fileID: 1499459631}
-  _radioToInteract: 0.5
+  _radioToInteract: 0.1
 --- !u!61 &1181239580
 BoxCollider2D:
   m_ObjectHideFlags: 0

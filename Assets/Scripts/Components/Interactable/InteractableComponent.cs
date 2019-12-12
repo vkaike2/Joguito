@@ -79,19 +79,19 @@ namespace Assets.Scripts.Components.Interactable
 
         private void ManageEveryInteractionType(Collider2D collision)
         {
+            //Debug.Log(collision.gameObject.name);
             if (_interactableInstanceId == null) return;
-
             switch (_currentInteractableState)
             {
                 case EnumInteractableState.Nothing:
                     break;
                 case EnumInteractableState.PickupItem:
                     this.PickUpItem(collision);
-                    this.RemoveInteractableState();
+               
                     break;
                 case EnumInteractableState.Plant:
                     this.ToPlant(collision);
-                    this.RemoveInteractableState();
+                   
                     break;
                 default:
                     break;
@@ -107,6 +107,8 @@ namespace Assets.Scripts.Components.Interactable
             ItemDTO itemDto = itemDropComponent.PickupThisItem();
             itemDropComponent.DestroyGameObject();
             _inventoryComponent.AddItem(itemDto);
+
+            this.RemoveInteractableState();
         }
         private void ToPlant(Collider2D collision)
         {
@@ -120,6 +122,8 @@ namespace Assets.Scripts.Components.Interactable
 
             ItemDTO itemDto = selectedActionSlot.GetOneItem();
             plantSpotComponent.PlantThisSeed(itemDto);
+
+            this.RemoveInteractableState();
         }
 
     }

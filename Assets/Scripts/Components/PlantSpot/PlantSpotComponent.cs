@@ -71,6 +71,7 @@ namespace Assets.Scripts.Components.PlantSpot
         public void PlantThisSeed(ItemDTO itemDto)
         {
             _plantComponent.SetPlant(itemDto);
+            _plantSpotState = EnumPlantSpotState.HasPlant;
         }
 
         protected override void SetInitialValues()
