@@ -90,6 +90,28 @@ namespace Assets.Scripts.Components.InventorySlot
             _txtAmount.enabled = false;
         }
 
+        public ItemDTO GetOneItem()
+        {
+            if (CurrentItem == null || CurrentItem.Item == null) Debug.LogError("You are tring to get one item from a empty slot");
+
+            ItemDTO itemToReturn = new ItemDTO()
+            {
+                Amount = 1,
+                Item = CurrentItem.Item
+            };
+
+            // => Has only one item
+            if (CurrentItem.Amount == 1)
+            {
+                this.RemoveItem();
+                return itemToReturn;
+            }
+
+            CurrentItem.Amount--;
+            this.UpdateAmount();
+            return itemToReturn;
+        }
+
         private void UpdateAmount()
         {
             _txtAmount.enabled = CurrentItem.Item.Stackable;
@@ -108,5 +130,6 @@ namespace Assets.Scripts.Components.InventorySlot
             _txtAmount.enabled = false;
             _draggableItem = GameObject.FindObjectOfType<InventoryDraggableItemComponent>();
         }
+
     }
 }

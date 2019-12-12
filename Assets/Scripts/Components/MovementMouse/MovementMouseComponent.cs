@@ -32,7 +32,7 @@ namespace Assets.Scripts.Components.MovementMouse
         private Rigidbody2D _rigidBody2D;
         private InteractableComponent _interactableComponent;
 
-        private MovementCursorComponentAnimatorVariables _animatorVariables;
+        private MovementCursorAnimatorVariables _animatorVariables;
 
         private Vector2 _mouseDirection;
         private Vector2 _mouseOnClickPosition;
@@ -129,7 +129,7 @@ namespace Assets.Scripts.Components.MovementMouse
             _playerState = GameObject.FindObjectOfType<PlayerStateManager>();
             _inputManager = GameObject.FindObjectOfType<InputManager>();
 
-            _animatorVariables = new MovementCursorComponentAnimatorVariables();
+            _animatorVariables = new MovementCursorAnimatorVariables();
 
             if (_velocity == 0) _velocity = 5;
             if (_stopRange == 0) _stopRange = 0.2f;

@@ -9,6 +9,7 @@ namespace Assets.Scripts.Components.Interactable
     public enum EnumInteractableState
     {
         Nothing,
-        PickupItem
+        PickupItem,
+        Plant
     }
 }

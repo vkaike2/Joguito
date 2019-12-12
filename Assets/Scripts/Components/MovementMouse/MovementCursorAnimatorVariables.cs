@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.MovementMouse
 {
-    public class MovementCursorComponentAnimatorVariables
+    public class MovementCursorAnimatorVariables
     {
         public int Running => Animator.StringToHash("running");
     }

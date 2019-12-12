@@ -1,8 +1,11 @@
-﻿using Assets.Scripts.Components.Inventory;
+﻿using Assets.Scripts.Components.ActionSlot;
+using Assets.Scripts.Components.Inventory;
 using Assets.Scripts.Components.ItemDrop;
+using Assets.Scripts.Components.PlantSpot;
 using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
+using Assets.Scripts.Managers.UI;
 using Assets.Scripts.ScriptableComponents.Item;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -19,6 +22,7 @@ namespace Assets.Scripts.Components.Interactable
 
         private InputManager _inputManager;
         private PlayerStateManager _playerStateManager;
+        private UIManager _uiManager;
         private EnumInteractableState _currentInteractableState;
         private int? _interactableInstanceId;
 #pragma warning restore 0649
@@ -51,6 +55,7 @@ namespace Assets.Scripts.Components.Interactable
         {
             _inputManager = GameObject.FindObjectOfType<InputManager>();
             _playerStateManager = GameObject.FindObjectOfType<PlayerStateManager>();
+            _uiManager = GameObject.FindObjectOfType<UIManager>();
             _currentInteractableState = EnumInteractableState.Nothing;
         }
 
@@ -59,30 +64,34 @@ namespace Assets.Scripts.Components.Interactable
             if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inputManager), this.gameObject.name));
             if (_playerStateManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_playerStateManager), this.gameObject.name));
             if (_inventoryComponent == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inventoryComponent), this.gameObject.name));
+            if (_uiManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_uiManager), this.gameObject.name));
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            switch (_currentInteractableState)
-            {
-                case EnumInteractableState.Nothing:
-                    break;
-                case EnumInteractableState.PickupItem:
-                    this.PickUpItem(collision);
-                    break;
-                default:
-                    break;
-            }
+            ManageEveryInteractionType(collision);
         }
 
         private void OnTriggerStay2D(Collider2D collision)
         {
+            ManageEveryInteractionType(collision);
+        }
+
+        private void ManageEveryInteractionType(Collider2D collision)
+        {
+            if (_interactableInstanceId == null) return;
+
             switch (_currentInteractableState)
             {
                 case EnumInteractableState.Nothing:
                     break;
                 case EnumInteractableState.PickupItem:
                     this.PickUpItem(collision);
+                    this.RemoveInteractableState();
+                    break;
+                case EnumInteractableState.Plant:
+                    this.ToPlant(collision);
+                    this.RemoveInteractableState();
                     break;
                 default:
                     break;
@@ -91,8 +100,6 @@ namespace Assets.Scripts.Components.Interactable
 
         private void PickUpItem(Collider2D collision)
         {
-            if (_interactableInstanceId == null) return;
-
             ItemDropComponent itemDropComponent = collision.gameObject.GetComponentInParent<ItemDropComponent>();
             if (itemDropComponent == null) return;
             if (itemDropComponent.GetInstanceID() != _interactableInstanceId) return;
@@ -100,8 +107,19 @@ namespace Assets.Scripts.Components.Interactable
             ItemDTO itemDto = itemDropComponent.PickupThisItem();
             itemDropComponent.DestroyGameObject();
             _inventoryComponent.AddItem(itemDto);
+        }
+        private void ToPlant(Collider2D collision)
+        {
+            PlantSpotComponent plantSpotComponent = collision.gameObject.GetComponent<PlantSpotComponent>();
+            if (plantSpotComponent == null) return;
+            if (plantSpotComponent.GetInstanceID() != _interactableInstanceId) return;
 
-            this.RemoveInteractableState();
+            ActionSlotComponent selectedActionSlot = _uiManager.GetSelectedActionSlot();
+            if (!selectedActionSlot.ItemCanBeUsedToPlant()) return;
+            if (!plantSpotComponent.CanAcceptNewSeed()) return;
+
+            ItemDTO itemDto = selectedActionSlot.GetOneItem();
+            plantSpotComponent.PlantThisSeed(itemDto);
         }
 
     }

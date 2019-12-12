@@ -15,7 +15,7 @@ namespace Assets.Scripts.Managers.UI
         [Header("Required Fields")]
         [SerializeField]
         [Tooltip("All the slots 4 max")]
-        private ActionSlotComponent[] ActionSlotComponentlist;
+        private ActionSlotComponent[] _actionSlotComponentlist;
         private InputManager _inputManager;
 
         public List<GenericUIComponent> GenericUIList { get; private set; }
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Managers.UI
 
         private void Start()
         {
-            ActionSlotComponentlist[0].SelectSlot();
+            _actionSlotComponentlist[0].SelectSlot();
         }
 
         private void Update()
@@ -31,36 +31,41 @@ namespace Assets.Scripts.Managers.UI
             this.ControllTheSelectedSlots();
         }
 
+        public ActionSlotComponent GetSelectedActionSlot()
+        {
+            return _actionSlotComponentlist.FirstOrDefault(e => e.IsSelected);
+        }
+
         private void ControllTheSelectedSlots()
         {
-            if (_inputManager.SlotOne == 1 && !ActionSlotComponentlist[0].IsSelected)
+            if (_inputManager.SlotOne == 1 && !_actionSlotComponentlist[0].IsSelected)
             {
                 DiselectEveryActionSlot();
-                ActionSlotComponentlist[0].SelectSlot();
+                _actionSlotComponentlist[0].SelectSlot();
             }
 
-            if (_inputManager.SlotTwo == 1 && !ActionSlotComponentlist[1].IsSelected)
+            if (_inputManager.SlotTwo == 1 && !_actionSlotComponentlist[1].IsSelected)
             {
                 DiselectEveryActionSlot();
-                ActionSlotComponentlist[1].SelectSlot();
+                _actionSlotComponentlist[1].SelectSlot();
             }
 
-            if (_inputManager.SlotThree == 1 && !ActionSlotComponentlist[2].IsSelected)
+            if (_inputManager.SlotThree == 1 && !_actionSlotComponentlist[2].IsSelected)
             {
                 DiselectEveryActionSlot();
-                ActionSlotComponentlist[2].SelectSlot();
+                _actionSlotComponentlist[2].SelectSlot();
             }
 
-            if (_inputManager.SlotFor == 1 && !ActionSlotComponentlist[3].IsSelected)
+            if (_inputManager.SlotFor == 1 && !_actionSlotComponentlist[3].IsSelected)
             {
                 DiselectEveryActionSlot();
-                ActionSlotComponentlist[3].SelectSlot();
+                _actionSlotComponentlist[3].SelectSlot();
             }
         }
 
         private void DiselectEveryActionSlot()
         {
-            foreach (var actionSlot in ActionSlotComponentlist)
+            foreach (var actionSlot in _actionSlotComponentlist)
             {
                 actionSlot.DeselectSlot();
             }  
@@ -78,8 +83,8 @@ namespace Assets.Scripts.Managers.UI
 
         protected override void ValidateValues()
         {
-            if (!ActionSlotComponentlist.Any()) Debug.LogError("UIManager need to have at least one ActionSlot");
-            if (ActionSlotComponentlist.Count() != 4) Debug.LogError("This manager is prepared to have only 4 slots!");
+            if (!_actionSlotComponentlist.Any()) Debug.LogError("UIManager need to have at least one ActionSlot");
+            if (_actionSlotComponentlist.Count() != 4) Debug.LogError("This manager is prepared to have only 4 slots!");
             if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inputManager), this.gameObject.name));
         }
 

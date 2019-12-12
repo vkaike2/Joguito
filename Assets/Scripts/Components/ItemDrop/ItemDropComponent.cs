@@ -44,6 +44,11 @@ namespace Assets.Scripts.Components.ItemDrop
 
         private void OnMouseOver()
         {
+            NewMethod();
+        }
+
+        private void NewMethod()
+        {
             if (_inputManager.MouseLeftButton == 1 && !_mousePressed)
             {
                 _mousePressed = true;
@@ -54,7 +59,6 @@ namespace Assets.Scripts.Components.ItemDrop
                 _mousePressed = false;
             }
         }
-
 
         public void SetCurrentItem(ItemDTO item)
         {

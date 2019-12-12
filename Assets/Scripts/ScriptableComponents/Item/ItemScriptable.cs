@@ -16,9 +16,21 @@ namespace Assets.Scripts.ScriptableComponents.Item
         [SerializeField]
         private bool _stackable;
         [SerializeField]
+        private EnumItemScriptableType _itemType;
+
+        [Header("Inventory Configurations")]
+        [SerializeField]
         private Sprite _inventorySprite;
+
+        [Header("Floor Configurations")]
         [SerializeField]
         private RuntimeAnimatorController _dropAnimatorController;
+
+        [Header("Planting Configurations")]
+        [SerializeField]
+        private RuntimeAnimatorController _plantingAnimatorController;
+        [SerializeField]
+        private float _secondsToBeReady;
 
         [Header("If Stackable")]
         [SerializeField]
@@ -30,6 +42,9 @@ namespace Assets.Scripts.ScriptableComponents.Item
         public Sprite InventorySprite => _inventorySprite;
         public bool Stackable => _stackable;
         public RuntimeAnimatorController DropAnimatorController => _dropAnimatorController;
+        public RuntimeAnimatorController PlantingAnimatorController => _plantingAnimatorController;
+        public EnumItemScriptableType ItemType => _itemType;
+        public float SecondsToBeReadry => _secondsToBeReady;
 
         // => If Stackable
         public int MaxStackableAmout => _maxStackableAmout;
@@ -40,6 +55,8 @@ namespace Assets.Scripts.ScriptableComponents.Item
             if (string.IsNullOrEmpty(_description)) Debug.LogError($"The value of {nameof(Description)} cannot be null in some iten");
             if (_inventorySprite == null) Debug.LogError($"The value of {nameof(InventorySprite)} cannot be null in some iten");
             if (_dropAnimatorController == null) Debug.LogError($"The value of {nameof(_dropAnimatorController)} cannot be null in some iten");
+            if (_plantingAnimatorController == null) Debug.LogError($"The value of {nameof(_plantingAnimatorController)} cannot be null in some iten");
+            if (_secondsToBeReady == 0) Debug.LogError($"The value of {nameof(_secondsToBeReady)} cannot be 0 in some iten");
 
             if (_stackable)
                 if (_maxStackableAmout == 0) Debug.LogError($"The value of {nameof(MaxStackableAmout)} cannot be 0 in some iten");

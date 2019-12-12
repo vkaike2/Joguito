@@ -1,5 +1,8 @@
-﻿using Assets.Scripts.Components.InventorySlot;
+﻿using System;
+using Assets.Scripts.Components.InventorySlot;
+using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.UI;
+using Assets.Scripts.ScriptableComponents.Item;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,6 +42,20 @@ namespace Assets.Scripts.Components.ActionSlot
         {
             if (_image == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_image), this.gameObject.name));
             if (_inventorySlotComponent == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inventorySlotComponent), this.gameObject.name));
+        }
+
+        public bool ItemCanBeUsedToPlant()
+        {
+            if (_inventorySlotComponent.CurrentItem == null || _inventorySlotComponent.CurrentItem.Item == null) return false;
+
+            if (_inventorySlotComponent.CurrentItem.Item.ItemType == EnumItemScriptableType.Seed) return true;
+
+            return false;
+        }
+
+        internal ItemDTO GetOneItem()
+        {
+            return _inventorySlotComponent.GetOneItem();
         }
     }
 }

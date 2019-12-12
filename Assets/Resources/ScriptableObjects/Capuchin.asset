@@ -15,8 +15,12 @@ MonoBehaviour:
   _name: CAPUCHIN SEED
   _description: A seed to plant a bealtiful flower
   _stackable: 1
+  _itemType: 0
   _inventorySprite: {fileID: 4280556112787438231, guid: 15872809d44ca314ab3039e1db9892ea,
     type: 3}
   _dropAnimatorController: {fileID: 9100000, guid: 936b4af239c2aac45ba08e9022a68206,
     type: 2}
+  _plantingAnimatorController: {fileID: 9100000, guid: 3032d4b2d9b925249aa87c655d6bad81,
+    type: 2}
+  _secondsToBeReady: 5
   _maxStackableAmout: 3
