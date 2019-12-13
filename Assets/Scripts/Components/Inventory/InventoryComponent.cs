@@ -61,6 +61,11 @@ namespace Assets.Scripts.Components.Inventory
             }
         }
 
+        public bool InventoryIsFull()
+        {
+            return !_slotList.Any(e => e.CurrentItem == null);
+        }
+
         public void AddItem(ItemDTO newItem)
         {
             InventorySlotComponent emptySlot = _slotList.FirstOrDefault(e => e.CheckIfCanAcceptItem(newItem));

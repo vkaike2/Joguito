@@ -10,17 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 027b9882079913f4c9a625a5b468bfdc, type: 3}
-  m_Name: Capuchin
+  m_Name: Capuchin_Flower
   m_EditorClassIdentifier: 
-  _name: CAPUCHIN SEED
+  _name: CAPUCHIN FLOWER
   _description: A seed to plant a bealtiful flower
   _stackable: 1
-  _itemType: 0
+  _itemType: 1
   _inventorySprite: {fileID: 4280556112787438231, guid: 15872809d44ca314ab3039e1db9892ea,
     type: 3}
+  _maxStackableAmout: 5
   _dropAnimatorController: {fileID: 9100000, guid: 936b4af239c2aac45ba08e9022a68206,
     type: 2}
-  _plantingAnimatorController: {fileID: 9100000, guid: 3032d4b2d9b925249aa87c655d6bad81,
-    type: 2}
-  _secondsToBeReady: 5
-  _maxStackableAmout: 3
+  _plantingAnimatorController: {fileID: 0}
+  _secondsToBeReady: 0
+  _flower: {fileID: 0}
+  _minMaxAmountSeedsItGives:
+    _min: 1
+    _max: 3

@@ -8,6 +8,7 @@ namespace Assets.Scripts.ScriptableComponents.Item
 {
     public enum EnumItemScriptableType
     {
-        Seed
+        Seed,
+        Flower
     }
 }

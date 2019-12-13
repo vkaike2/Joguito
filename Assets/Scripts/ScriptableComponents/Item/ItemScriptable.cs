@@ -7,7 +7,7 @@ namespace Assets.Scripts.ScriptableComponents.Item
     public class ItemScriptable : ScriptableBase
     {
 #pragma warning disable 0649
-        [Header("RequiredFields")]
+        [Header("Common Fields")]
         [SerializeField]
         private string _name;
         [TextArea]
@@ -22,6 +22,10 @@ namespace Assets.Scripts.ScriptableComponents.Item
         [SerializeField]
         private Sprite _inventorySprite;
 
+        [Header("If Stackable")]
+        [SerializeField]
+        private int _maxStackableAmout;
+
         [Header("Floor Configurations")]
         [SerializeField]
         private RuntimeAnimatorController _dropAnimatorController;
@@ -31,10 +35,13 @@ namespace Assets.Scripts.ScriptableComponents.Item
         private RuntimeAnimatorController _plantingAnimatorController;
         [SerializeField]
         private float _secondsToBeReady;
-
-        [Header("If Stackable")]
         [SerializeField]
-        private int _maxStackableAmout;
+        private ItemScriptable _flower;
+
+        [Header("Flower Configuration")]
+        [SerializeField]
+        private MinMaxAmoutSeeds _minMaxAmountSeedsItGives;
+
 #pragma warning restore 0649
 
         public string Name => _name;
@@ -45,9 +52,9 @@ namespace Assets.Scripts.ScriptableComponents.Item
         public RuntimeAnimatorController PlantingAnimatorController => _plantingAnimatorController;
         public EnumItemScriptableType ItemType => _itemType;
         public float SecondsToBeReadry => _secondsToBeReady;
-
-        // => If Stackable
+        public ItemScriptable Flower => _flower;
         public int MaxStackableAmout => _maxStackableAmout;
+        public int GetAmoutSeedItGives => Random.Range(_minMaxAmountSeedsItGives.Min, _minMaxAmountSeedsItGives.Max);
 
         protected override void ValidateValues()
         {
@@ -55,13 +62,26 @@ namespace Assets.Scripts.ScriptableComponents.Item
             if (string.IsNullOrEmpty(_description)) Debug.LogError($"The value of {nameof(Description)} cannot be null in some iten");
             if (_inventorySprite == null) Debug.LogError($"The value of {nameof(InventorySprite)} cannot be null in some iten");
             if (_dropAnimatorController == null) Debug.LogError($"The value of {nameof(_dropAnimatorController)} cannot be null in some iten");
-            if (_plantingAnimatorController == null) Debug.LogError($"The value of {nameof(_plantingAnimatorController)} cannot be null in some iten");
-            if (_secondsToBeReady == 0) Debug.LogError($"The value of {nameof(_secondsToBeReady)} cannot be 0 in some iten");
 
             if (_stackable)
                 if (_maxStackableAmout == 0) Debug.LogError($"The value of {nameof(MaxStackableAmout)} cannot be 0 in some iten");
+
+            switch (_itemType)
+            {
+                case EnumItemScriptableType.Seed:
+                    if (_plantingAnimatorController == null) Debug.LogError($"The value of {nameof(_plantingAnimatorController)} cannot be null in some iten");
+                    if (_flower == null) Debug.LogError($"The value of {nameof(_flower)} cannot be null in some seed iten");
+                    if (_secondsToBeReady == 0) Debug.LogError($"The value of {nameof(_secondsToBeReady)} cannot be 0 in some iten");
+                    break;
+                case EnumItemScriptableType.Flower:
+                    if (_minMaxAmountSeedsItGives.Min == 0) Debug.LogError($"The value of {nameof(_minMaxAmountSeedsItGives.Min)} cannot be 0 in some flower iten");
+                    if (_minMaxAmountSeedsItGives.Max < _minMaxAmountSeedsItGives.Min) Debug.LogError($"The value of {nameof(_minMaxAmountSeedsItGives.Max)} cannot be les than Min");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
-  
+
 }
