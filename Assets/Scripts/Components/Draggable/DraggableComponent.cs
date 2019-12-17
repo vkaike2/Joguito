@@ -4,13 +4,35 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Components.Draggable
 {
-    [HelpURL("https://slimwiki.com/vkaike9/draggablecomponent")]
+    /// <summary>
+    ///     Turns a UI object into a draggable UI
+    /// </summary>
     public class DraggableComponent : EventTrigger
     {
+        #region PRIVATE ATRIBUTES
         private Vector2? _offset;
         private bool _isDragging = false;
-        
-        public void Update()
+        #endregion
+
+        #region UNTIY METHODS
+        private void Update()
+        {
+            DragObject();
+        }
+
+        public override void OnPointerDown(PointerEventData eventData)
+        {
+            GetTheOffsetValue();
+        }
+
+        public override void OnPointerUp(PointerEventData eventData)
+        {
+            ResetOffsetValue();
+        }
+        #endregion
+
+        #region PRIVATE METHODS
+        private void DragObject()
         {
             if (_isDragging)
             {
@@ -18,9 +40,9 @@ namespace Assets.Scripts.Components.Draggable
             }
         }
 
-        public override void OnPointerDown(PointerEventData eventData)
+        private void GetTheOffsetValue()
         {
-            if(!_offset.HasValue)
+            if (!_offset.HasValue)
             {
                 _offset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             }
@@ -28,14 +50,15 @@ namespace Assets.Scripts.Components.Draggable
             _isDragging = true;
         }
 
-        public override void OnPointerUp(PointerEventData eventData)
+        private void ResetOffsetValue()
         {
-            if(_offset.HasValue)
+            if (_offset.HasValue)
             {
                 _offset = null;
             }
 
             _isDragging = false;
         }
+        #endregion
     }
 }

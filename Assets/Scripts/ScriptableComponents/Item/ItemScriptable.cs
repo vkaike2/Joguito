@@ -30,7 +30,7 @@ namespace Assets.Scripts.ScriptableComponents.Item
         [SerializeField]
         private RuntimeAnimatorController _dropAnimatorController;
 
-        [Header("Planting Configurations")]
+        [Header("Seed Configurations")]
         [SerializeField]
         private RuntimeAnimatorController _plantingAnimatorController;
         [SerializeField]
@@ -39,6 +39,8 @@ namespace Assets.Scripts.ScriptableComponents.Item
         private ItemScriptable _flower;
 
         [Header("Flower Configuration")]
+        [SerializeField]
+        private int _amoutFlowerItGivesWhenHarvest;
         [SerializeField]
         private MinMaxAmoutSeeds _minMaxAmountSeedsItGives;
 
@@ -55,6 +57,7 @@ namespace Assets.Scripts.ScriptableComponents.Item
         public ItemScriptable Flower => _flower;
         public int MaxStackableAmout => _maxStackableAmout;
         public int GetAmoutSeedItGives => Random.Range(_minMaxAmountSeedsItGives.Min, _minMaxAmountSeedsItGives.Max);
+        public int AmoutFlowerItGivesWhenHarvest => _amoutFlowerItGivesWhenHarvest;
 
         protected override void ValidateValues()
         {
@@ -76,6 +79,7 @@ namespace Assets.Scripts.ScriptableComponents.Item
                 case EnumItemScriptableType.Flower:
                     if (_minMaxAmountSeedsItGives.Min == 0) Debug.LogError($"The value of {nameof(_minMaxAmountSeedsItGives.Min)} cannot be 0 in some flower iten");
                     if (_minMaxAmountSeedsItGives.Max < _minMaxAmountSeedsItGives.Min) Debug.LogError($"The value of {nameof(_minMaxAmountSeedsItGives.Max)} cannot be les than Min");
+                    if (_amoutFlowerItGivesWhenHarvest == 0) Debug.LogError($"The value of {nameof(_amoutFlowerItGivesWhenHarvest)} cannot be 0");
                     break;
                 default:
                     break;

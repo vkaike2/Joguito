@@ -8,12 +8,17 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.ItemDrop
 {
-    [HelpURL("https://slimwiki.com/vkaike9/itemdropcomponent")]
+    /// <summary>
+    ///     Represents an iten drop on the floor
+    /// </summary>
     [RequireComponent(typeof(Animator))]
     public class ItemDropComponent : BaseComponent
     {
-        public ItemScriptable itemMock;
+        #region PUBLIC ATRIBUTES
+        public GameObject ParentGameObject => transform.parent.gameObject;
+        #endregion
 
+        #region SERIALIZABLE FIELDS
         [Header("Required Fields")]
         [SerializeField]
         private TextMeshProUGUI _txtItemName;
@@ -22,44 +27,24 @@ namespace Assets.Scripts.Components.ItemDrop
         [SerializeField]
         [Range(0, 3)]
         private float _radioToPickup;
+        #endregion
 
-        public GameObject ParentGameObject => transform.parent.gameObject;
-
+        #region PRIVATE FIELDS
         private InputManager _inputManager;
         private PlayerStateManager _playerState;
         private Animator _animator;
         private ItemDTO currentItem;
-
         private bool _mousePressed = false;
+        #endregion
 
-        private void Start()
-        {
-            if (itemMock != null)
-                this.SetCurrentItem(new ItemDTO()
-                {
-                    Amount = 1,
-                    Item = itemMock
-                });
-        }
-
+        #region UNITY METHODS
         private void OnMouseOver()
         {
-            NewMethod();
+            ManageThePlayersClick();
         }
+        #endregion
 
-        private void NewMethod()
-        {
-            if (_inputManager.MouseLeftButton == 1 && !_mousePressed)
-            {
-                _mousePressed = true;
-                OnClickObject();
-            }
-            else if (_inputManager.MouseLeftButton == 0 && _mousePressed)
-            {
-                _mousePressed = false;
-            }
-        }
-
+        #region PUBLIC METHODS
         public void SetCurrentItem(ItemDTO item)
         {
             currentItem = item;
@@ -82,7 +67,24 @@ namespace Assets.Scripts.Components.ItemDrop
             _playerState.GetActiveMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToPickup);
             _playerState.GetActiveInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.PickupItem, this.GetInstanceID());
         }
+        #endregion
 
+        #region PRIVATE METHODS
+        private void ManageThePlayersClick()
+        {
+            if (_inputManager.MouseLeftButton == 1 && !_mousePressed)
+            {
+                _mousePressed = true;
+                OnClickObject();
+            }
+            else if (_inputManager.MouseLeftButton == 0 && _mousePressed)
+            {
+                _mousePressed = false;
+            }
+        }
+        #endregion
+
+        #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
             _inputManager = GameObject.FindObjectOfType<InputManager>();
@@ -99,5 +101,6 @@ namespace Assets.Scripts.Components.ItemDrop
             if (_animator == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_animator), this.gameObject.name));
             if (_txtItemName == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_txtItemName), this.gameObject.name));
         }
+        #endregion
     }
 }

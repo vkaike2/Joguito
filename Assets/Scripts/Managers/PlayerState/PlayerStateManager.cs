@@ -8,26 +8,29 @@ using Assets.Scripts.Components.Interactable;
 
 namespace Assets.Scripts.Managers.PlayerState
 {
-    [HelpURL("https://slimwiki.com/vkaike9/playerstatemanager")]
+    /// <summary>
+    ///     Manage every state from player
+    /// </summary>
     public class PlayerStateManager : BaseManager
     {
+        #region PUBLIC ATRIBUTES
+        public bool PlayerCantMove => _uiManager.GenericUIList != null && _uiManager.GenericUIList.Any(e => e.MouseInUI);
+        #endregion
+
+        #region SERIALIZABLE ATRIBUTES
 #pragma warning disable 0649
         [Header("RequiredFields")]
         [SerializeField]
         private UIManager _uiManager;
+#pragma warning restore 0649
+        #endregion
 
+        #region PRIVATE ATRIBUTES
         private List<MovementMouseComponent> _movementMouseComponentList;
         private List<InteractableComponent> _interactableComponentList;
-#pragma warning restore 0649
+        #endregion
 
-        public bool PlayerCantMove => _uiManager.GenericUIList != null && _uiManager.GenericUIList.Any(e => e.MouseInUI);
-
-        protected override void SetInitialValues()
-        {
-            _movementMouseComponentList = new List<MovementMouseComponent>();
-            _interactableComponentList = new List<InteractableComponent>();
-        }
-
+        #region PUBLIC METHODS
         public MovementMouseComponent GetActiveMovementMouseComponent()
         {
             return _movementMouseComponentList.FirstOrDefault(e => e.Active);
@@ -57,11 +60,19 @@ namespace Assets.Scripts.Managers.PlayerState
         {
             _interactableComponentList.Remove(interactableComponent);
         }
+        #endregion
 
+        #region ABSTRACT ATRIBUTES
         protected override void ValidateValues()
         {
             // => Required Fields
             if (_uiManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_uiManager), this.gameObject.name));
         }
+        protected override void SetInitialValues()
+        {
+            _movementMouseComponentList = new List<MovementMouseComponent>();
+            _interactableComponentList = new List<InteractableComponent>();
+        }
+        #endregion
     }
 }

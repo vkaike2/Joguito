@@ -9,16 +9,23 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Components.ActionSlot
 {
-    [HelpURL("https://slimwiki.com/vkaike9/actionslotcomponent")]
+    /// <summary>
+    ///     Transforms a InventorySlotComponent into a Action Slot
+    /// </summary>
     [RequireComponent(typeof(InventorySlotComponent))]
     [RequireComponent(typeof(Image))]
     public class ActionSlotComponent : BaseComponent
     {
+        #region PUBLIC ATRIBUTES
+        public bool IsSelected { get; private set; }
+        #endregion
+
+        #region PRIVATE ATRIBUTES
         private Image _image;
         private InventorySlotComponent _inventorySlotComponent;
+        #endregion
 
-        public bool IsSelected { get; private set; }
-
+        #region PUBLIC METHODS
         public void SelectSlot()
         {
             IsSelected = true;
@@ -31,6 +38,22 @@ namespace Assets.Scripts.Components.ActionSlot
             _image.color = Color.white;
         }
 
+        public bool ItemCanBeUsedToPlant()
+        {
+            if (_inventorySlotComponent.CurrentItem == null || _inventorySlotComponent.CurrentItem.Item == null) return false;
+
+            if (_inventorySlotComponent.CurrentItem.Item.ItemType == EnumItemScriptableType.Seed) return true;
+
+            return false;
+        }
+
+        public ItemDTO GetOneItem()
+        {
+            return _inventorySlotComponent.GetOneItem();
+        }
+        #endregion
+
+        #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
             IsSelected = false;
@@ -43,19 +66,6 @@ namespace Assets.Scripts.Components.ActionSlot
             if (_image == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_image), this.gameObject.name));
             if (_inventorySlotComponent == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inventorySlotComponent), this.gameObject.name));
         }
-
-        public bool ItemCanBeUsedToPlant()
-        {
-            if (_inventorySlotComponent.CurrentItem == null || _inventorySlotComponent.CurrentItem.Item == null) return false;
-
-            if (_inventorySlotComponent.CurrentItem.Item.ItemType == EnumItemScriptableType.Seed) return true;
-
-            return false;
-        }
-
-        internal ItemDTO GetOneItem()
-        {
-            return _inventorySlotComponent.GetOneItem();
-        }
+        #endregion
     }
 }

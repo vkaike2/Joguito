@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.DTOs
 {
+    [Serializable]
     public class ItemDTO
     {
         public ItemScriptable Item { get; set; }

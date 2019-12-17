@@ -6,9 +6,16 @@ using UnityEngine;
 
 namespace Assets.Scripts.Managers.Item
 {
-    [HelpURL("https://slimwiki.com/vkaike9/itemmanager")]
+    /// <summary>
+    ///     Manage all itens in the floor
+    /// </summary>
     public class ItemManager : BaseManager
     {
+        #region PUBLIC ATRIBUTES
+        public bool ItemNameIsVisible { get; private set; }
+        #endregion
+
+        #region SERIALIZABLE ATRIBUTES
 #pragma warning disable 0649
         [Header("Requeired Fields")]
         [SerializeField]
@@ -16,15 +23,32 @@ namespace Assets.Scripts.Managers.Item
         [SerializeField]
         private List<ToggleableItemComponent> _togleableList;
 #pragma warning restore 0649
+        #endregion
 
-        public bool ItemNameIsVisible { get; private set; }
+        #region PRIVATE ATRIBUTES
         private bool _keyToggleItempressed = false;
+        #endregion
 
+        #region PUBLIC METHODS
+        public void SetToggleabeItem(ToggleableItemComponent toggleableItem)
+        {
+            _togleableList.Add(toggleableItem);
+        }
+
+        public void RemoveToggleableItem(ToggleableItemComponent toggleableItem)
+        {
+            _togleableList.Remove(toggleableItem);
+        }
+        #endregion
+
+        #region UNITY METHODS
         private void Update()
         {
             ToggleItemVisibility();
         }
+        #endregion
 
+        #region PRIVATE METHODS
         private void ToggleItemVisibility()
         {
             if (_inputManager.ToggleItem == 1 && !_keyToggleItempressed)
@@ -52,17 +76,9 @@ namespace Assets.Scripts.Managers.Item
                 }
             }
         }
+        #endregion
 
-        public void SetToggleabeItem(ToggleableItemComponent toggleableItem)
-        {
-            _togleableList.Add(toggleableItem);
-        }
-
-        public void RemoveToggleableItem(ToggleableItemComponent toggleableItem)
-        {
-            _togleableList.Remove(toggleableItem);
-        }
-
+        #region ABSTRACT ATRIBUTES
         protected override void SetInitialValues()
         {
             ItemNameIsVisible = true;
@@ -72,5 +88,6 @@ namespace Assets.Scripts.Managers.Item
         {
             if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inputManager), this.gameObject.name));
         }
+        #endregion
     }
 }

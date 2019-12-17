@@ -7,9 +7,17 @@ using Assets.Scripts.DTOs;
 
 namespace Assets.Scripts.Components.InventorySlot
 {
-    [HelpURL("https://slimwiki.com/vkaike9/inventoryslotcomponent")]
+    /// <summary>
+    ///     Represents a inventory slot or a slot from action slot
+    /// </summary>
     public class InventorySlotComponent : BaseComponent
     {
+        #region PUBLIC ATRIBUTES
+        public Image CurrentImage => _currentImage;
+        public ItemDTO CurrentItem { get; private set; }
+        #endregion
+
+        #region SERIALIZABLE ATRIBUTES
 #pragma warning disable 0649
         [Header("Required Fields")]
         [SerializeField]
@@ -17,12 +25,10 @@ namespace Assets.Scripts.Components.InventorySlot
         [SerializeField]
         private TextMeshProUGUI _txtAmount;
         private InventoryDraggableItemComponent _draggableItem;
-
-        public Image CurrentImage => _currentImage;
-        public ItemDTO CurrentItem { get; private set; }
 #pragma warning restore 0649
+        #endregion
 
-
+        #region PUBLIC METHODS
         // => This event will call when player click on the inventory Slot
         public void OnClick()
         {
@@ -111,13 +117,17 @@ namespace Assets.Scripts.Components.InventorySlot
             this.UpdateAmount();
             return itemToReturn;
         }
+        #endregion
 
+        #region PRIVATE METHODS
         private void UpdateAmount()
         {
             _txtAmount.enabled = CurrentItem.Item.Stackable;
             _txtAmount.SetText(CurrentItem.Amount == 0 ? "" : CurrentItem.Amount.ToString());
         }
+        #endregion
 
+        #region ABSTRACT ATRIBUTES
         protected override void ValidateValues()
         {
             if (_currentImage == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_currentImage), this.gameObject.name));
@@ -130,6 +140,6 @@ namespace Assets.Scripts.Components.InventorySlot
             _txtAmount.enabled = false;
             _draggableItem = GameObject.FindObjectOfType<InventoryDraggableItemComponent>();
         }
-
+        #endregion
     }
 }

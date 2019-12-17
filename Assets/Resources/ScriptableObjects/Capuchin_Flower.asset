@@ -13,17 +13,18 @@ MonoBehaviour:
   m_Name: Capuchin_Flower
   m_EditorClassIdentifier: 
   _name: CAPUCHIN FLOWER
-  _description: A seed to plant a bealtiful flower
+  _description: A bealtiful flower used to eat
   _stackable: 1
   _itemType: 1
-  _inventorySprite: {fileID: 4280556112787438231, guid: 15872809d44ca314ab3039e1db9892ea,
+  _inventorySprite: {fileID: 612188036482887025, guid: 0392f78ce19730d428c171d50763b7c7,
     type: 3}
   _maxStackableAmout: 5
-  _dropAnimatorController: {fileID: 9100000, guid: 936b4af239c2aac45ba08e9022a68206,
+  _dropAnimatorController: {fileID: 9100000, guid: 49d02ff881cc2a44a9281fefe0d1a201,
     type: 2}
   _plantingAnimatorController: {fileID: 0}
   _secondsToBeReady: 0
   _flower: {fileID: 0}
+  _amoutFlowerItGivesWhenHarvest: 1
   _minMaxAmountSeedsItGives:
     _min: 1
     _max: 3

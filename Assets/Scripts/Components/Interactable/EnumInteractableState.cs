@@ -5,6 +5,8 @@
         Nothing,
         PickupItem,
         Plant,
-        TakeSeed
+        TakeSeed,
+        TakeFlower,
+        EatFlower
     }
 }

@@ -7,21 +7,31 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.Plant
 {
+    /// <summary>
+    ///     This component represents a plant from the plantspot prefab
+    /// </summary>
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(SpriteRenderer))]
     public class PlantComponent : BaseComponent
     {
+        #region PUBLIC ATRIBUTES
+        public ItemScriptable CurrentScriptableSeedType => _currentPlant.Item;
+        public bool CanAcceptNewPlant => _currentPlant == null;
+        #endregion
+
+        #region SERIALIZABLE ATRIBUTES
         [Header("Required Fields")]
         [SerializeField]
         private PlantSpotComponent _plantSpotComponent;
+        #endregion
 
+        #region PRIVATE ATRIBUTES
         private Animator _animator;
         private PlantAnimatorVariables _animatorVariables;
         private ItemDTO _currentPlant;
-        public ItemScriptable CurrentScriptableSeedType => _currentPlant.Item;
+        #endregion
 
-        public bool CanAcceptNewPlant => _currentPlant == null;
-
+        #region PUBLIC METHODS
         public void SetPlant(ItemDTO plant)
         {
             if (_currentPlant != null) Debug.LogError("You cannot set a plant if the PlantComponent already have a flower!");
@@ -38,7 +48,9 @@ namespace Assets.Scripts.Components.Plant
             _currentPlant = null;
             _animator.runtimeAnimatorController = null;
         }
+        #endregion
 
+        #region COROUTINES
         IEnumerator StartPlantingProcces(float plantingTimeProccess)
         {
             yield return new WaitForSeconds(plantingTimeProccess / 2);
@@ -47,8 +59,9 @@ namespace Assets.Scripts.Components.Plant
             _animator.SetTrigger(_animatorVariables.FinalState);
             _plantSpotComponent.SetState(EnumPlantSpotState.Ready, this.transform.parent.gameObject.GetInstanceID());
         }
+        #endregion
 
-
+        #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
             _animator = this.GetComponent<Animator>();
@@ -60,5 +73,6 @@ namespace Assets.Scripts.Components.Plant
             if (_animator == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_animator), this.gameObject.name));
             if (_plantSpotComponent == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_plantSpotComponent), this.gameObject.name));
         }
+        #endregion
     }
 }

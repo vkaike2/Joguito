@@ -2,6 +2,7 @@
 using Assets.Scripts.Components.Inventory;
 using Assets.Scripts.Components.ItemDrop;
 using Assets.Scripts.Components.PlantSpot;
+using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
@@ -12,37 +13,38 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.Interactable
 {
-    [HelpURL("https://slimwiki.com/vkaike9/interactablecomponent")]
+    /// <summary>
+    ///     Make possible to the player interact with other prefabs
+    /// </summary>
     [RequireComponent(typeof(Animator))]
     public class InteractableComponent : BaseComponent
     {
-#pragma warning disable 0649
+        #region PUBLIC ATRIBUTES
+        public bool Active => true;
+        #endregion
+
+        #region SERIALIZABLE ATRIBUTES
         [Header("Required Fields")]
         [SerializeField]
         private InventoryComponent _inventoryComponent;
+        [SerializeField]
+        private StomachComponent _stomachComponent;
+        [SerializeField]
+        private GameObject _itemDropPrefab;
+        #endregion
 
+        #region PRIVATE ATRIBUTES
         private InputManager _inputManager;
         private PlayerStateManager _playerStateManager;
         private UIManager _uiManager;
         private EnumInteractableState _currentInteractableState;
         private int? _interactableInstanceId;
         private Animator _animator;
-        private RemoveAuxiliarObjects _animatorVariables;
+        private InteractableAnimatorVariables _animatorVariables;
         private bool _isPlanting = false;
-#pragma warning restore 0649
+        #endregion
 
-        public bool Active => true;
-
-        private void Start()
-        {
-            _playerStateManager.SetInteractableComponent(this);
-        }
-
-        private void OnDestroy()
-        {
-            _playerStateManager.RemoveInteractableComponent(this);
-        }
-
+        #region PUBLIC METHODS
         public void RemoveInteractableState()
         {
             _currentInteractableState = EnumInteractableState.Nothing;
@@ -56,25 +58,36 @@ namespace Assets.Scripts.Components.Interactable
             _interactableInstanceId = instanceId;
         }
 
-        protected override void SetInitialValues()
+        public bool IsInteracting()
         {
-            _inputManager = GameObject.FindObjectOfType<InputManager>();
-            _playerStateManager = GameObject.FindObjectOfType<PlayerStateManager>();
-            _uiManager = GameObject.FindObjectOfType<UIManager>();
-            _animator = this.GetComponent<Animator>();
-            _currentInteractableState = EnumInteractableState.Nothing;
-
-            _animatorVariables = new RemoveAuxiliarObjects();
+            return _currentInteractableState != EnumInteractableState.Nothing;
         }
 
-        protected override void ValidateValues()
+        public void Animator_ToPlant()
         {
-            if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inputManager), this.gameObject.name));
-            if (_playerStateManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_playerStateManager), this.gameObject.name));
-            if (_inventoryComponent == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inventoryComponent), this.gameObject.name));
-            if (_uiManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_uiManager), this.gameObject.name));
+            if (_animatorVariables.PlantSpotComponent == null) Debug.LogError("The auxiliar PlantSpotComponent Cannot be null while Planting");
+            if (_animatorVariables.SelectedActionSlot == null) Debug.LogError("The auxiliar SelectedActionSlot Cannot be null while Planting");
+
+            ItemDTO itemDto = _animatorVariables.SelectedActionSlot.GetOneItem();
+            _animatorVariables.PlantSpotComponent.PlantThisSeed(itemDto);
+            this.RemoveInteractableState();
+            _isPlanting = false;
+        }
+        #endregion
+
+        #region UNITY METHODS
+        private void Start()
+        {
+            _playerStateManager.SetInteractableComponent(this);
         }
 
+        private void OnDestroy()
+        {
+            _playerStateManager.RemoveInteractableComponent(this);
+        }
+        #endregion
+
+        #region COLLIDER METHODS
         private void OnTriggerEnter2D(Collider2D collision)
         {
             ManageEveryInteractionType(collision);
@@ -84,7 +97,9 @@ namespace Assets.Scripts.Components.Interactable
         {
             ManageEveryInteractionType(collision);
         }
+        #endregion
 
+        #region PRIVATE METHODS
         private void ManageEveryInteractionType(Collider2D collision)
         {
             if (_interactableInstanceId == null) return;
@@ -103,6 +118,12 @@ namespace Assets.Scripts.Components.Interactable
                 case EnumInteractableState.TakeSeed:
                     this.ToTakeSeed(collision);
                     break;
+                case EnumInteractableState.TakeFlower:
+                    this.TakeFlower(collision);
+                    break;
+                case EnumInteractableState.EatFlower:
+                    this.EatFlower(collision);
+                    break;
                 default:
                     break;
             }
@@ -115,20 +136,28 @@ namespace Assets.Scripts.Components.Interactable
             if (itemDropComponent == null) return;
             if (itemDropComponent.GetInstanceID() != _interactableInstanceId) return;
 
+            if (_inventoryComponent.InventoryIsFull())
+            {
+                Debug.LogError("Inventory Is Full while tryng to harverst seeds!");
+                return;
+            }
+
             ItemDTO itemDto = itemDropComponent.PickupThisItem();
             itemDropComponent.DestroyGameObject();
             _inventoryComponent.AddItem(itemDto);
-
             this.RemoveInteractableState();
+
         }
         private void ToPlant(Collider2D collision)
         {
             PlantSpotComponent plantSpotComponent = collision.gameObject.GetComponent<PlantSpotComponent>();
             if (plantSpotComponent == null) return;
+
             if (plantSpotComponent.GetInstanceID() != _interactableInstanceId) return;
 
             ActionSlotComponent selectedActionSlot = _uiManager.GetSelectedActionSlot();
             if (!plantSpotComponent.CanAcceptNewSeed()) return;
+
             if (!selectedActionSlot.ItemCanBeUsedToPlant()) return;
 
             _animatorVariables.PlantSpotComponent = plantSpotComponent;
@@ -138,10 +167,20 @@ namespace Assets.Scripts.Components.Interactable
         }
         private void ToTakeSeed(Collider2D collision)
         {
-            PlantSpotComponent plantSpotComponent = collision.gameObject.GetComponent<PlantSpotComponent>();
+            PlantSpotComponent plantSpotComponent = this.HarvestPlnantValidatios(collision);
             if (plantSpotComponent == null) return;
-            if (plantSpotComponent.GetInstanceID() != _interactableInstanceId) return;
-            if (!plantSpotComponent.IsReadyToHarvest()) return;
+
+            if (_inventoryComponent.InventoryIsFull()) return;
+
+            ItemDTO seeds = plantSpotComponent.TakeSeeds();
+            _inventoryComponent.AddItem(seeds);
+            plantSpotComponent.ResetPlantSpot();
+            this.RemoveInteractableState();
+        }
+        private void TakeFlower(Collider2D collision)
+        {
+            PlantSpotComponent plantSpotComponent = this.HarvestPlnantValidatios(collision);
+            if (plantSpotComponent == null) return;
 
             if (_inventoryComponent.InventoryIsFull())
             {
@@ -149,23 +188,84 @@ namespace Assets.Scripts.Components.Interactable
                 return;
             }
 
-            ItemDTO seeds = plantSpotComponent.TakeSeeds();
-            _inventoryComponent.AddItem(seeds);
+            ItemDTO flower = plantSpotComponent.TakeFlower();
+            _inventoryComponent.AddItem(flower);
             plantSpotComponent.ResetPlantSpot();
             this.RemoveInteractableState();
         }
-
-
-        public void Animator_ToPlant()
+        private void EatFlower(Collider2D collision)
         {
-            if (_animatorVariables.PlantSpotComponent == null) Debug.LogError("The auxiliar PlantSpotComponent Cannot be null while Planting");
-            if (_animatorVariables.SelectedActionSlot == null) Debug.LogError("The auxiliar SelectedActionSlot Cannot be null while Planting");
+            PlantSpotComponent plantSpotComponent = this.HarvestPlnantValidatios(collision);
+            if (plantSpotComponent == null) return;
 
-            ItemDTO itemDto = _animatorVariables.SelectedActionSlot.GetOneItem();
-            _animatorVariables.PlantSpotComponent.PlantThisSeed(itemDto);
+            if (_stomachComponent.StomachCantAcceptNewFood())
+            {
+                Debug.LogError("Player stomach Is Full while tryng to eat a flower!");
+                this.RemoveInteractableState();
+                return;
+            }
+
+            ItemDTO flower = plantSpotComponent.TakeFlower();
+            _stomachComponent.AddFood(new ItemDTO()
+            {
+                Item = flower.Item,
+                Amount = 1
+            });
+            flower.Amount--;
+
+            plantSpotComponent.ResetPlantSpot();
+
+            if (flower.Amount <= 0)
+            {
+                this.RemoveInteractableState();
+                return;
+            }
+
+            if (_inventoryComponent.InventoryIsFull())
+            {
+                GameObject itemDropGameObject = Instantiate(_itemDropPrefab, this.gameObject.transform.position, Quaternion.identity);
+                itemDropGameObject.GetComponentInChildren<ItemDropComponent>().SetCurrentItem(flower);
+            }
+            else
+            {
+                _inventoryComponent.AddItem(flower);
+            }
+
             this.RemoveInteractableState();
-            _isPlanting = false;
         }
 
+        private PlantSpotComponent HarvestPlnantValidatios(Collider2D collision)
+        {
+            PlantSpotComponent plantSpotComponent = collision.gameObject.GetComponent<PlantSpotComponent>();
+            if (plantSpotComponent == null) return null;
+            if (plantSpotComponent.GetInstanceID() != _interactableInstanceId) return null;
+            if (!plantSpotComponent.IsReadyToHarvest()) return null;
+
+            return plantSpotComponent;
+        }
+        #endregion
+
+        #region ABSTRACT ATRIBUTES
+        protected override void SetInitialValues()
+        {
+            _inputManager = GameObject.FindObjectOfType<InputManager>();
+            _playerStateManager = GameObject.FindObjectOfType<PlayerStateManager>();
+            _uiManager = GameObject.FindObjectOfType<UIManager>();
+            _animator = this.GetComponent<Animator>();
+            _currentInteractableState = EnumInteractableState.Nothing;
+
+            _animatorVariables = new InteractableAnimatorVariables();
+        }
+
+        protected override void ValidateValues()
+        {
+            if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inputManager), this.gameObject.name));
+            if (_playerStateManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_playerStateManager), this.gameObject.name));
+            if (_inventoryComponent == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inventoryComponent), this.gameObject.name));
+            if (_uiManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_uiManager), this.gameObject.name));
+            if (_stomachComponent == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_stomachComponent), this.gameObject.name));
+            if (_itemDropPrefab == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_itemDropPrefab), this.gameObject.name));
+        }
+        #endregion
     }
 }

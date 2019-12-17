@@ -7,16 +7,20 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.MovementMouse
 {
-    [HelpURL("https://slimwiki.com/vkaike9/movementmousecomponent")]
+    /// <summary>
+    ///     Used to movement a object using the mouse
+    /// </summary>
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(InteractableComponent))]
     public class MovementMouseComponent : BaseComponent
     {
-#pragma warning disable 0649
-        private PlayerStateManager _playerState;
-        private InputManager _inputManager;
+        #region PUBLIC ATRIBUTES
+        public bool Active => true;
+        #endregion
 
+        #region SERIALIZABLE ATRIBUTES
+#pragma warning disable 0649
         [Header("Configuration Fields")]
         [Tooltip("velocity of the gameObject")]
         [SerializeField]
@@ -25,22 +29,31 @@ namespace Assets.Scripts.Components.MovementMouse
         [Tooltip("range where gameObject stop walk from click position")]
         [SerializeField]
         private float _stopRange;
+#pragma warning restore 0649
+        #endregion
 
-        public bool Active => true;
-
+        #region PRIVATE ATRIBUTES
+        private PlayerStateManager _playerState;
+        private InputManager _inputManager;
         private Animator _animator;
         private Rigidbody2D _rigidBody2D;
         private InteractableComponent _interactableComponent;
-
         private MovementCursorAnimatorVariables _animatorVariables;
-
         private Vector2 _mouseDirection;
         private Vector2 _mouseOnClickPosition;
-
         private Coroutine _MoveToExcatPosition;
-#pragma warning restore 0649
+        #endregion
 
 
+        #region PUBLIC METHODS
+        public void ObjectGoTo(Vector2 position, float? stopRange)
+        {
+            if (_MoveToExcatPosition == null)
+                _MoveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
+        }
+        #endregion
+
+        #region UNITY METHODS
         private void Start()
         {
             _playerState.SetMovementMouseComponent(this);
@@ -52,13 +65,9 @@ namespace Assets.Scripts.Components.MovementMouse
         }
 
         private void FixedUpdate() => this.MovementObject();
+        #endregion
 
-        public void ObjectGoTo(Vector2 position, float? stopRange)
-        {
-            if (_MoveToExcatPosition == null)
-                _MoveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
-        }
-
+        #region COROUTINES
         IEnumerator MoveToExactPosition(Vector2 movePosition, float? stopRange)
         {
             Vector2 mouseDirection = (movePosition - (Vector2)transform.position).normalized;
@@ -74,7 +83,9 @@ namespace Assets.Scripts.Components.MovementMouse
             _rigidBody2D.velocity = Vector2.zero;
             _MoveToExcatPosition = null;
         }
+        #endregion
 
+        #region PRIVATE METHODS
         private void MovementObject()
         {
             _animator.SetBool(_animatorVariables.Running, _rigidBody2D.velocity != Vector2.zero);
@@ -84,12 +95,16 @@ namespace Assets.Scripts.Components.MovementMouse
                 _mouseOnClickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 _mouseDirection = (_mouseOnClickPosition - (Vector2)transform.position).normalized;
 
-                if (_MoveToExcatPosition != null)
+                if (_interactableComponent.IsInteracting())
                 {
-                    StopCoroutine(_MoveToExcatPosition);
-                    _MoveToExcatPosition = null;
+                    if (_MoveToExcatPosition != null)
+                    {
+                        StopCoroutine(_MoveToExcatPosition);
+                        _MoveToExcatPosition = null;
+                    }
                     _interactableComponent.RemoveInteractableState();
                 }
+
             }
 
             if (_MoveToExcatPosition != null)
@@ -108,12 +123,14 @@ namespace Assets.Scripts.Components.MovementMouse
                 _rigidBody2D.velocity = Vector2.zero;
             }
         }
-
+        
         private void ChangePlayerSide(bool right)
         {
             this.transform.rotation = new Quaternion(0, right ? 0 : 180, 0, 0);
         }
+        #endregion
 
+        #region ABSTRACT METHODS
         protected override void ValidateValues()
         {
             // => Required Fields
@@ -134,5 +151,6 @@ namespace Assets.Scripts.Components.MovementMouse
             if (_velocity == 0) _velocity = 5;
             if (_stopRange == 0) _stopRange = 0.2f;
         }
+        #endregion
     }
 }

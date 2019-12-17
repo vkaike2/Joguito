@@ -8,13 +8,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Assets.Scripts.Managers.PlayerState;
+using Assets.Scripts.DTOs;
 
 namespace Assets.Scripts.Components.Draggable
 {
-    [HelpURL("https://slimwiki.com/vkaike9/inventorydraggableitemcomponent")]
+    /// <summary>
+    ///     Used to drag itens between the inventory and action slots
+    /// </summary>
     [RequireComponent(typeof(Image))]
     public class InventoryDraggableItemComponent : BaseComponent
     {
+
+        #region SERIALIZABLE ATRIBUTES
 #pragma warning disable 0649
         [Header("Required Fields")]
         [SerializeField]
@@ -28,36 +33,30 @@ namespace Assets.Scripts.Components.Draggable
         [Range(0, 1)]
         private float _offsetDragValue;
 #pragma warning restore 0649
+        #endregion
 
+        #region PUBLIC ATRIBUTES
+        public GameObject ThisGameObject => this.gameObject;
+        #endregion
+
+        #region PRIVATE ATRIBUTES
         private Vector2? _offset;
-
         private bool _isDragging;
         private Vector3 _initialPosition;
         private Image _image;
         private GenericUIComponent _gereciUIComponent;
+        private InventorySlotComponent _dragInventorySlot;
+        private ItemDTO _dragItem;
+        #endregion
 
-        public GameObject ThisGameObject => this.gameObject;
-
-        private InventorySlotComponent _inventorySlot;
-
-        private void Start()
-        {
-            _initialPosition = this.transform.position;
-            _image = this.GetComponent<Image>();
-            _image.enabled = false;
-        }
-
-        private void Update()
-        {
-            if (!_isDragging) return;
-            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - _offset.Value;
-        }
-
+        #region PUBLIC METHODS
         public void StartDragging(InventorySlotComponent slot)
         {
             if (_isDragging) return;
 
-            _inventorySlot = slot;
+            _dragInventorySlot = slot;
+            _dragItem = _dragInventorySlot.CurrentItem;
+            _dragInventorySlot.RemoveItem();
             transform.position = slot.gameObject.transform.position;
             _offset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
@@ -81,27 +80,25 @@ namespace Assets.Scripts.Components.Draggable
                 .Select(e => e.gameObject.GetComponent<InventorySlotComponent>())
                 .FirstOrDefault();
 
-            if (targetInventorySlot != null && targetInventorySlot.GetInstanceID() != _inventorySlot.GetInstanceID())
+            if (targetInventorySlot != null && targetInventorySlot.GetInstanceID() != _dragInventorySlot.GetInstanceID())
             {
-                if (targetInventorySlot.CheckIfCanAcceptItem(_inventorySlot.CurrentItem))
+                if (targetInventorySlot.CheckIfCanAcceptItem(_dragItem))
                 {
-                    targetInventorySlot.SetItem(_inventorySlot.CurrentItem);
-                    _inventorySlot.RemoveItem();
+                    targetInventorySlot.SetItem(_dragItem);
                 }
                 else
                 {
-                    _inventorySlot.EnableSlot();
+                    _dragInventorySlot.SetItem(_dragItem);
                 }
             }
             else if (targetInventorySlot == null) // => Drop Item
             {
                 GameObject itemDropGameObject = Instantiate(_itemDropPrefab, this.gameObject.transform.position, Quaternion.identity);
-                itemDropGameObject.GetComponentInChildren<ItemDropComponent>().SetCurrentItem(_inventorySlot.CurrentItem);
-                _inventorySlot.RemoveItem();
+                itemDropGameObject.GetComponentInChildren<ItemDropComponent>().SetCurrentItem(_dragItem);
             }
             else // => Same slot
             {
-                _inventorySlot.EnableSlot();
+                _dragInventorySlot.SetItem(_dragItem);
             }
 
             _image.enabled = false;
@@ -109,7 +106,24 @@ namespace Assets.Scripts.Components.Draggable
             _isDragging = false;
             _gereciUIComponent.SetMouseInUi(false);
         }
+        #endregion
 
+        #region UNITY METHODS
+        private void Start()
+        {
+            _initialPosition = this.transform.position;
+            _image = this.GetComponent<Image>();
+            _image.enabled = false;
+        }
+
+        private void Update()
+        {
+            if (!_isDragging) return;
+            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - _offset.Value;
+        }
+        #endregion
+
+        #region PRIVATE ATRIBUTES
         private List<RaycastResult> RaycastMouse()
         {
             PointerEventData pointerData = new PointerEventData(EventSystem.current)
@@ -124,7 +138,9 @@ namespace Assets.Scripts.Components.Draggable
 
             return results;
         }
+        #endregion
 
+        #region ABSTRACT METHODS
         protected override void ValidateValues()
         {
             if (_itemDropPrefab == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_itemDropPrefab), this.gameObject.name));
@@ -137,5 +153,6 @@ namespace Assets.Scripts.Components.Draggable
             if (_offsetClickValue == 0f) _offsetClickValue = 0.35f;
             if (_offsetDragValue == 0f) _offsetDragValue = 0.30f;
         }
+        #endregion
     }
 }

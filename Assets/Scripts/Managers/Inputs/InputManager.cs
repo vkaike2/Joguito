@@ -6,9 +6,12 @@ using UnityEngine;
 
 namespace Assets.Scripts.Managers.Inputs
 {
-    [HelpURL("https://slimwiki.com/vkaike9/inputmanager")]
+    /// <summary>
+    ///     Capture every input in the game
+    /// </summary>
     public class InputManager : BaseManager
     {
+        #region PUBLIC ATRIBUTES
         public float MouseLeftButton { get; private set; }
         public float Inventory { get; private set; }
         public float ToggleItem { get; private set; }
@@ -18,9 +21,13 @@ namespace Assets.Scripts.Managers.Inputs
         public float SlotTwo { get; private set; }
         public float SlotThree { get; private set; }
         public float SlotFor { get; private set; }
+        #endregion
 
+        #region UNITY METHODS
         void Update() => CaptureInputs();
+        #endregion
 
+        #region PRIVATE METHODS
         private void CaptureInputs()
         {
             this.MouseLeftButton = Input.GetAxisRaw(EnumInputs.Mouse_Left_Button.ToString());
@@ -33,8 +40,11 @@ namespace Assets.Scripts.Managers.Inputs
             this.SlotThree = Input.GetAxisRaw(EnumInputs.E.ToString());
             this.SlotFor = Input.GetAxisRaw(EnumInputs.R.ToString());
         }
+        #endregion
 
+        #region ABSTRACT METHODS
         protected override void ValidateValues() { }
         protected override void SetInitialValues() { }
+        #endregion
     }
 }

@@ -8,19 +8,44 @@ using UnityEngine;
 
 namespace Assets.Scripts.Managers.UI
 {
-    [HelpURL("https://slimwiki.com/vkaike9/uimanager")]
+    /// <summary>
+    ///     Manage every UI in the game
+    /// </summary>
     public class UIManager : BaseManager
     {
+        #region PUBLIC ATRIBUTES
+        public List<GenericUIComponent> GenericUIList { get; private set; }
+        #endregion
+
+        #region SERIALIZABLE ATRIBUTES
 #pragma warning disable 0649
         [Header("Required Fields")]
         [SerializeField]
         [Tooltip("All the slots 4 max")]
         private ActionSlotComponent[] _actionSlotComponentlist;
         private InputManager _inputManager;
-
-        public List<GenericUIComponent> GenericUIList { get; private set; }
 #pragma warning restore 0649
+        #endregion
 
+        #region PUBLIC METHODS
+        public ActionSlotComponent GetSelectedActionSlot()
+        {
+            return _actionSlotComponentlist.FirstOrDefault(e => e.IsSelected);
+        }
+
+        public void SetGenericUIComponent(GenericUIComponent genericUIComponent)
+        {
+            GenericUIList.Add(genericUIComponent);
+        }
+
+        public void RemoveGenericUIComponent(GenericUIComponent genericUIComponent)
+        {
+            GenericUIList.Remove(genericUIComponent);
+        }
+
+        #endregion
+
+        #region UNTIY METHODS
         private void Start()
         {
             _actionSlotComponentlist[0].SelectSlot();
@@ -30,12 +55,9 @@ namespace Assets.Scripts.Managers.UI
         {
             this.ControllTheSelectedSlots();
         }
+        #endregion
 
-        public ActionSlotComponent GetSelectedActionSlot()
-        {
-            return _actionSlotComponentlist.FirstOrDefault(e => e.IsSelected);
-        }
-
+        #region PRIVATE ATRIBUTES
         private void ControllTheSelectedSlots()
         {
             if (_inputManager.SlotOne == 1 && !_actionSlotComponentlist[0].IsSelected)
@@ -70,17 +92,9 @@ namespace Assets.Scripts.Managers.UI
                 actionSlot.DeselectSlot();
             }  
         }
+        #endregion
 
-        public void SetGenericUIComponent(GenericUIComponent genericUIComponent)
-        {
-            GenericUIList.Add(genericUIComponent);
-        }
-
-        public void RemoveGenericUIComponent(GenericUIComponent genericUIComponent)
-        {
-            GenericUIList.Remove(genericUIComponent);
-        }
-
+        #region ABSTRACT METHODS
         protected override void ValidateValues()
         {
             if (!_actionSlotComponentlist.Any()) Debug.LogError("UIManager need to have at least one ActionSlot");
@@ -93,5 +107,6 @@ namespace Assets.Scripts.Managers.UI
             _inputManager = GameObject.FindObjectOfType<InputManager>();
             GenericUIList = new List<GenericUIComponent>();
         }
+        #endregion
     }
 }

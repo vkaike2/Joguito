@@ -9,9 +9,13 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.PlantSpot
 {
+    /// <summary>
+    ///     Representes the place where the player plant and harvest
+    /// </summary>
     [RequireComponent(typeof(Animator))]
     public class PlantSpotComponent : BaseComponent
     {
+        #region SERIALIZABLE ATRIBUTES
         [Header("Requird Fields")]
         [SerializeField]
         private PlantComponent _plantComponent;
@@ -22,15 +26,18 @@ namespace Assets.Scripts.Components.PlantSpot
         [SerializeField]
         [Range(0, 3)]
         private float _radioToInteract;
+        #endregion
 
+        #region PRIVATE ATRIBUTES
         private Animator _animator;
         private PlantSpotAnimatorVariables _animatorVariables;
         private PlayerStateManager _playerState;
         private InputManager _inputManager;
         private EnumPlantSpotState _plantSpotState;
-
         private bool _mousePressed = false;
+        #endregion
 
+        #region UNITY METHODS
         private void OnMouseOver()
         {
             this.ChangePlantSpotMouseOverAnimation(true);
@@ -41,7 +48,9 @@ namespace Assets.Scripts.Components.PlantSpot
         {
             this.ChangePlantSpotMouseOverAnimation(false);
         }
+        #endregion
 
+        #region PRIVATE METHODS
         private void ChangePlantSpotMouseOverAnimation(bool value)
         {
             _animator.SetBool(_animatorVariables.MouseOver, value);
@@ -77,19 +86,29 @@ namespace Assets.Scripts.Components.PlantSpot
             _playerState.GetActiveInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.Plant, this.GetInstanceID());
             _playerState.GetActiveMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
         }
+        #endregion
 
+        #region PUBLIC METHODS
         public void Btn_TakeSeed()
         {
             _playerState.GetActiveInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.TakeSeed, this.GetInstanceID());
+            _playerState.GetActiveMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
+        }
+        public void Btn_TakeFlower()
+        {
+            _playerState.GetActiveInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.TakeFlower, this.GetInstanceID());
+            _playerState.GetActiveMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
+        }
+        public void Btn_EatFlower()
+        {
+            _playerState.GetActiveInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.EatFlower, this.GetInstanceID());
             _playerState.GetActiveMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
         }
 
         public ItemDTO TakeSeeds()
         {
             if (_plantSpotState != EnumPlantSpotState.Ready)
-            {
                 Debug.LogError("You are trying to get the seeds of a plant spot thats isn't ready!");
-            }
 
             ItemScriptable seedType = _plantComponent.CurrentScriptableSeedType;
             return new ItemDTO()
@@ -99,13 +118,27 @@ namespace Assets.Scripts.Components.PlantSpot
             };
         }
 
+        public ItemDTO TakeFlower()
+        {
+            if (_plantSpotState != EnumPlantSpotState.Ready)
+                Debug.LogError("You are trying to get the flower of a plant spot thats isn't ready!");
+
+            ItemScriptable flower = _plantComponent.CurrentScriptableSeedType.Flower;
+
+            return new ItemDTO()
+            {
+                Item = flower,
+                Amount = flower.AmoutFlowerItGivesWhenHarvest
+            };
+        }
+
         public void ResetPlantSpot()
         {
             _plantComponent.RemovePlant();
             _plantSpotState = EnumPlantSpotState.Empty;
         }
 
-        internal void SetState(EnumPlantSpotState newState, int parentIntanceID)
+        public void SetState(EnumPlantSpotState newState, int parentIntanceID)
         {
             if (parentIntanceID != this.transform.parent.gameObject.GetInstanceID()) Debug.LogError("You are trying to change the state of a a gameplant that isnt yours;");
             _plantSpotState = newState;
@@ -119,6 +152,13 @@ namespace Assets.Scripts.Components.PlantSpot
             _plantSpotState = EnumPlantSpotState.HasPlant;
         }
 
+        public bool IsReadyToHarvest()
+        {
+            return _plantSpotState == EnumPlantSpotState.Ready;
+        }
+        #endregion
+
+        #region ABSTRACT ATRIBUTES
         protected override void SetInitialValues()
         {
             _playerState = GameObject.FindObjectOfType<PlayerStateManager>();
@@ -139,10 +179,6 @@ namespace Assets.Scripts.Components.PlantSpot
             if (_plantComponent == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_plantComponent), this.gameObject.name));
             if (_internalCanvas == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_internalCanvas), this.gameObject.name));
         }
-
-        internal bool IsReadyToHarvest()
-        {
-            return _plantSpotState == EnumPlantSpotState.Ready;
-        }
+        #endregion
     }
 }

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.Interactable
 {
-    public class RemoveAuxiliarObjects
+    public class InteractableAnimatorVariables
     {
         public int PlantSeed => Animator.StringToHash("plant-seed");
 
