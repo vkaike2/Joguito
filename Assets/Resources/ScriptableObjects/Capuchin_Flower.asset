@@ -26,5 +26,6 @@ MonoBehaviour:
   _flower: {fileID: 0}
   _amoutFlowerItGivesWhenHarvest: 1
   _minMaxAmountSeedsItGives:
-    _min: 1
+    _min: 2
     _max: 3
+  _digestionTime: 5

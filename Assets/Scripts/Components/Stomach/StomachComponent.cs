@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DTOs;
 using Assets.Scripts.ScriptableComponents.Item;
+using Assets.Scripts.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,8 @@ namespace Assets.Scripts.Components.Stomach
     /// </summary>
     public class StomachComponent : BaseComponent
     {
-        #region SERIALIZABLE ATRIBUTES
-        [Header("Configuration")]
-        [SerializeField]
-        private int _totalAmout;
-        private List<ItemDTO> _foodList;
+        #region PRIVATE ATRIBUTES
+        private StomachSlotComponent[] _stomachSlotComponentList;
         #endregion
 
         #region PUBLIC METHODS
@@ -26,27 +24,26 @@ namespace Assets.Scripts.Components.Stomach
         {
             if (food.Amount > 1 || food.Amount == 0) Debug.LogError("You can only eat one flower at ounce!");
             if (food.Item.ItemType != EnumItemScriptableType.Flower) Debug.LogError("You can only eat flowerrs in this world!");
-            if(_foodList.Count > _totalAmout) Debug.LogError($"Your somach can only have {_totalAmout} of foods!");
 
-            _foodList.Add(food);
+            StomachSlotComponent firstEmptySlot = _stomachSlotComponentList.FirstOrDefault(e => e.StomachSlotState == EnumStomachSlotState.Empty);
+            firstEmptySlot.AddFood(food.Item);
         }
 
         public bool StomachCantAcceptNewFood()
         {
-            return _foodList.Count >= _totalAmout;
+            return !_stomachSlotComponentList.Any(e => e.StomachSlotState == EnumStomachSlotState.Empty);
         }
         #endregion
 
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
-            _foodList = new List<ItemDTO>();
-
-            if (_totalAmout == 0) _totalAmout = 3;
+            _stomachSlotComponentList = this.GetComponentsInChildren<StomachSlotComponent>();
         }
 
         protected override void ValidateValues()
         {
+            if (!_stomachSlotComponentList.Any()) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_stomachSlotComponentList), this.gameObject.name));
         }
         #endregion
     }

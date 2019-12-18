@@ -43,6 +43,9 @@ namespace Assets.Scripts.ScriptableComponents.Item
         private int _amoutFlowerItGivesWhenHarvest;
         [SerializeField]
         private MinMaxAmoutSeeds _minMaxAmountSeedsItGives;
+        [SerializeField]
+        private float _digestionTime;
+
 
 #pragma warning restore 0649
 
@@ -58,6 +61,7 @@ namespace Assets.Scripts.ScriptableComponents.Item
         public int MaxStackableAmout => _maxStackableAmout;
         public int GetAmoutSeedItGives => Random.Range(_minMaxAmountSeedsItGives.Min, _minMaxAmountSeedsItGives.Max);
         public int AmoutFlowerItGivesWhenHarvest => _amoutFlowerItGivesWhenHarvest;
+        public float DigestionTime => _digestionTime;
 
         protected override void ValidateValues()
         {
@@ -80,6 +84,7 @@ namespace Assets.Scripts.ScriptableComponents.Item
                     if (_minMaxAmountSeedsItGives.Min == 0) Debug.LogError($"The value of {nameof(_minMaxAmountSeedsItGives.Min)} cannot be 0 in some flower iten");
                     if (_minMaxAmountSeedsItGives.Max < _minMaxAmountSeedsItGives.Min) Debug.LogError($"The value of {nameof(_minMaxAmountSeedsItGives.Max)} cannot be les than Min");
                     if (_amoutFlowerItGivesWhenHarvest == 0) Debug.LogError($"The value of {nameof(_amoutFlowerItGivesWhenHarvest)} cannot be 0");
+                    if (_digestionTime == 0f) Debug.LogError($"The value of {nameof(_digestionTime)} cannot be 0");
                     break;
                 default:
                     break;

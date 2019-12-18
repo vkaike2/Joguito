@@ -44,7 +44,6 @@ namespace Assets.Scripts.Components.MovementMouse
         private Coroutine _MoveToExcatPosition;
         #endregion
 
-
         #region PUBLIC METHODS
         public void ObjectGoTo(Vector2 position, float? stopRange)
         {
