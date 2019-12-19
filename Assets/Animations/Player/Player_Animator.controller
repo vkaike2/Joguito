@@ -36,7 +36,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 8986172721949940127}
-    m_Position: {x: 810, y: -100, z: 0}
+    m_Position: {x: 700, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8800348459186735336}
     m_Position: {x: 290, y: -110, z: 0}
@@ -45,7 +45,7 @@ AnimatorStateMachine:
     m_Position: {x: 50, y: -70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9035588675362858864}
-    m_Position: {x: 1160, y: 220, z: 0}
+    m_Position: {x: 80, y: 100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5548024714049260478}
     m_Position: {x: 290, y: -20, z: 0}
@@ -121,13 +121,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: plant-seed
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

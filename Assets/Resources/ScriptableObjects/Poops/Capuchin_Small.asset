@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc076d0025f5d6b48b7d6a456801ac24, type: 3}
-  m_Name: FirstPoop_small
+  m_Name: Capuchin_Small
   m_EditorClassIdentifier: 
-  _name: First Poop
+  _name: Capuchin_small
   _recipe:
   - {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
