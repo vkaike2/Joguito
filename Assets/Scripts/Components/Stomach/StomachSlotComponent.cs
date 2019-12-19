@@ -14,6 +14,7 @@ namespace Assets.Scripts.Components.Stomach
     {
         #region PUBLIC ATRIBUTES
         public EnumStomachSlotState StomachSlotState { get; private set; }
+        public int FlowerHashCode => _currentItem.GetHashCode();
         #endregion
 
         #region SERIALIZABLE FIELDS
@@ -36,6 +37,15 @@ namespace Assets.Scripts.Components.Stomach
             _image.sprite = item.InventorySprite;
             StomachSlotState = EnumStomachSlotState.Digesting;
             StartCoroutine(StartDigestion(_currentItem.DigestionTime));
+        }
+
+        public void RemoveFood()
+        {
+            _currentItem = null;
+            _image.enabled = true;
+            _cdwDigestionBar.enabled = false;
+            _image.sprite = null;
+            StomachSlotState = EnumStomachSlotState.Empty;
         }
 
         #endregion

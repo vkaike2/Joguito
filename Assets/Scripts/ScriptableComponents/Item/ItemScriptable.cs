@@ -45,8 +45,6 @@ namespace Assets.Scripts.ScriptableComponents.Item
         private MinMaxAmoutSeeds _minMaxAmountSeedsItGives;
         [SerializeField]
         private float _digestionTime;
-
-
 #pragma warning restore 0649
 
         public string Name => _name;

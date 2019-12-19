@@ -25,6 +25,8 @@ MonoBehaviour:
     type: 2}
   _secondsToBeReady: 1
   _flower: {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
+  _amoutFlowerItGivesWhenHarvest: 0
   _minMaxAmountSeedsItGives:
     _min: 0
     _max: 0
+  _digestionTime: 0

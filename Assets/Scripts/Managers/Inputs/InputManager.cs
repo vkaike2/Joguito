@@ -16,6 +16,8 @@ namespace Assets.Scripts.Managers.Inputs
         public float Inventory { get; private set; }
         public float ToggleItem { get; private set; }
         public float TroggleItemWhenPressed { get; private set; }
+        public float PoopButton { get; private set; }
+
 
         public float SlotOne { get; private set; }
         public float SlotTwo { get; private set; }
@@ -39,6 +41,8 @@ namespace Assets.Scripts.Managers.Inputs
             this.SlotTwo = Input.GetAxisRaw(EnumInputs.W.ToString());
             this.SlotThree = Input.GetAxisRaw(EnumInputs.E.ToString());
             this.SlotFor = Input.GetAxisRaw(EnumInputs.R.ToString());
+
+            this.PoopButton = Input.GetAxisRaw(EnumInputs.F.ToString());
         }
         #endregion
 

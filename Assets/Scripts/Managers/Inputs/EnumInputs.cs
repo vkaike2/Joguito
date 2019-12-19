@@ -15,6 +15,7 @@ namespace Assets.Scripts.Managers.Inputs
         Q,
         W,
         E,
-        R
+        R,
+        F
     }
 }
