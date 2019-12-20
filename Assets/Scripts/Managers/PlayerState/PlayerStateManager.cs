@@ -5,6 +5,7 @@ using Assets.Scripts.Utils;
 using System.Collections.Generic;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.Interactable;
+using Assets.Scripts.Components.Stomach;
 
 namespace Assets.Scripts.Managers.PlayerState
 {
@@ -14,7 +15,18 @@ namespace Assets.Scripts.Managers.PlayerState
     public class PlayerStateManager : BaseManager
     {
         #region PUBLIC ATRIBUTES
-        public bool PlayerCantMove => _uiManager.GenericUIList != null && _uiManager.GenericUIList.Any(e => e.MouseInUI);
+        public bool PlayerCantMove
+        {
+            get
+            {
+                bool mouseIsOverSomeUi = _uiManager.GenericUIList != null && _uiManager.GenericUIList.Any(e => e.MouseInUI);
+                bool playerIsDoingSomeAction = this.GetActiveStomachComponent().IsPooping || this.GetActiveInteractableComponent().IsPlantingOrEating;
+
+                return mouseIsOverSomeUi || playerIsDoingSomeAction;
+            }
+        }
+
+        public bool PlayerIsDoingSomeAction { get; set; }
         #endregion
 
         #region SERIALIZABLE ATRIBUTES
@@ -28,6 +40,7 @@ namespace Assets.Scripts.Managers.PlayerState
         #region PRIVATE ATRIBUTES
         private List<MovementMouseComponent> _movementMouseComponentList;
         private List<InteractableComponent> _interactableComponentList;
+        private List<StomachComponent> _stomachComponentList;
         #endregion
 
         #region PUBLIC METHODS
@@ -35,12 +48,10 @@ namespace Assets.Scripts.Managers.PlayerState
         {
             return _movementMouseComponentList.FirstOrDefault(e => e.Active);
         }
-
         public void SetMovementMouseComponent(MovementMouseComponent movementMouseComponent)
         {
             _movementMouseComponentList.Add(movementMouseComponent);
         }
-
         public void RemoveMovementMouseComponent(MovementMouseComponent movementMouseComponent)
         {
             _movementMouseComponentList.Remove(movementMouseComponent);
@@ -50,15 +61,26 @@ namespace Assets.Scripts.Managers.PlayerState
         {
             return _interactableComponentList.FirstOrDefault(e => e.Active);
         }
-
         public void SetInteractableComponent(InteractableComponent interactableComponent)
         {
             _interactableComponentList.Add(interactableComponent);
         }
-
         public void RemoveInteractableComponent(InteractableComponent interactableComponent)
         {
             _interactableComponentList.Remove(interactableComponent);
+        }
+
+        public StomachComponent GetActiveStomachComponent()
+        {
+            return _stomachComponentList.FirstOrDefault(e => e.Active);
+        }
+        public void SetStomachComponent(StomachComponent stomachComponent)
+        {
+            _stomachComponentList.Add(stomachComponent);
+        }
+        public void RemoveStomachComponent(StomachComponent stomachComponent)
+        {
+            _stomachComponentList.Remove(stomachComponent);
         }
         #endregion
 
@@ -72,6 +94,7 @@ namespace Assets.Scripts.Managers.PlayerState
         {
             _movementMouseComponentList = new List<MovementMouseComponent>();
             _interactableComponentList = new List<InteractableComponent>();
+            _stomachComponentList = new List<StomachComponent>();
         }
         #endregion
     }

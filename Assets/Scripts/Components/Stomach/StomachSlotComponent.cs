@@ -1,5 +1,7 @@
-﻿using Assets.Scripts.ScriptableComponents.Item;
+﻿using Assets.Scripts.DTOs;
+using Assets.Scripts.ScriptableComponents.Item;
 using Assets.Scripts.Utils;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +16,7 @@ namespace Assets.Scripts.Components.Stomach
     {
         #region PUBLIC ATRIBUTES
         public EnumStomachSlotState StomachSlotState { get; private set; }
-        public int FlowerHashCode => _currentItem.GetHashCode();
+        public Guid StomachItemId => _currentStomchItem.Id;
         #endregion
 
         #region SERIALIZABLE FIELDS
@@ -25,46 +27,31 @@ namespace Assets.Scripts.Components.Stomach
 
         #region PRIVATE ATRIBUTES
         private Image _image;
-        private ItemScriptable _currentItem;
+        private StomachItemDTO _currentStomchItem;
         #endregion
 
         #region PUBLIC METHODS
-        public void AddFood(ItemScriptable item)
+        public void AddFood(StomachItemDTO stomachItem)
         {
-            _currentItem = item;
+            _currentStomchItem = stomachItem;
             _image.enabled = true;
             _cdwDigestionBar.enabled = true;
-            _image.sprite = item.InventorySprite;
-            StomachSlotState = EnumStomachSlotState.Digesting;
-            StartCoroutine(StartDigestion(_currentItem.DigestionTime));
+            _cdwDigestionBar.fillAmount = 0f;
+            _image.sprite = stomachItem.Item.InventorySprite;
+            StomachSlotState = EnumStomachSlotState.HasFood;
         }
 
         public void RemoveFood()
         {
-            _currentItem = null;
-            _image.enabled = true;
+            _currentStomchItem = null;
             _cdwDigestionBar.enabled = false;
             _image.sprite = null;
             StomachSlotState = EnumStomachSlotState.Empty;
         }
 
-        #endregion
-
-        #region COROUTINES
-        IEnumerator StartDigestion(float digestionTime)
+        public void UpdateDigestionBar(float digestionPercent)
         {
-            float internalCdw = 0f;
-            _cdwDigestionBar.color = Color.white;
-
-            while (internalCdw <= digestionTime)
-            {
-                _cdwDigestionBar.fillAmount = internalCdw / digestionTime;
-                internalCdw += Time.deltaTime;
-                yield return new WaitForFixedUpdate();
-            }
-
-            StomachSlotState = EnumStomachSlotState.ReadyToPoop;
-            _cdwDigestionBar.color = Color.grey;
+            _cdwDigestionBar.fillAmount = digestionPercent;
         }
         #endregion
 
