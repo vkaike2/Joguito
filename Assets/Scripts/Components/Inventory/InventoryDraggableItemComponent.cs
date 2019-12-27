@@ -7,7 +7,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.DTOs;
 
 namespace Assets.Scripts.Components.Draggable
@@ -18,6 +17,9 @@ namespace Assets.Scripts.Components.Draggable
     [RequireComponent(typeof(Image))]
     public class InventoryDraggableItemComponent : BaseComponent
     {
+        #region PUBLIC ATRIBUTES
+        public GameObject ThisGameObject => this.gameObject;
+        #endregion
 
         #region SERIALIZABLE ATRIBUTES
 #pragma warning disable 0649
@@ -35,9 +37,6 @@ namespace Assets.Scripts.Components.Draggable
 #pragma warning restore 0649
         #endregion
 
-        #region PUBLIC ATRIBUTES
-        public GameObject ThisGameObject => this.gameObject;
-        #endregion
 
         #region PRIVATE ATRIBUTES
         private Vector2? _offset;

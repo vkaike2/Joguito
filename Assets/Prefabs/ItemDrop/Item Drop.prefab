@@ -591,7 +591,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2413e52996fa5e246a382be2910d1ad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemMock: {fileID: 0}
   _txtItemName: {fileID: 3386399705335021073}
   _radioToPickup: 0.1
 --- !u!1 &3386399706890442314

@@ -31,6 +31,18 @@ namespace Assets.Scripts.Components.Interactable
         private InventoryComponent _inventoryComponent;
         [SerializeField]
         private GameObject _itemDropPrefab;
+
+        [Header("Configuration Fields")]
+        [SerializeField]
+        private bool _canPickupItem;
+        [SerializeField]
+        private bool _canPlant;
+        [SerializeField]
+        private bool _canTakeSeed;
+        [SerializeField]
+        private bool _canTakeFlower;
+        [SerializeField]
+        private bool _canEatFlower;
         #endregion
 
         #region PRIVATE ATRIBUTES
@@ -56,6 +68,8 @@ namespace Assets.Scripts.Components.Interactable
 
         public void SetInteractableState(EnumInteractableState interactableState, int instanceId)
         {
+            if (!ValidateIfPlayerCanDoThings(interactableState)) return;
+
             _currentInteractableState = interactableState;
             _interactableInstanceId = instanceId;
         }
@@ -78,7 +92,7 @@ namespace Assets.Scripts.Components.Interactable
 
         public void Animator_ToEat()
         {
-            
+
             if (_animatorVariables.PlantSpotComponent == null) Debug.LogError("The auxiliar PlantSpotComponent Cannot be null while Planting");
 
             ItemDTO flower = _animatorVariables.PlantSpotComponent.TakeFlower();
@@ -139,6 +153,42 @@ namespace Assets.Scripts.Components.Interactable
         #endregion
 
         #region PRIVATE METHODS
+        private bool ValidateIfPlayerCanDoThings(EnumInteractableState interactableState)
+        {
+            if (!_canPickupItem && interactableState == EnumInteractableState.PickupItem)
+            {
+                Debug.LogError("You cannot pickup any item!");
+                return false;
+            }
+
+            if (!_canPlant && interactableState == EnumInteractableState.Plant)
+            {
+                Debug.LogError("You cannot plant any item!");
+                return false;
+            }
+
+            if (!_canTakeSeed && interactableState == EnumInteractableState.TakeSeed)
+            {
+                Debug.LogError("You cannot take this seed!");
+                return false;
+            }
+
+            if (!_canTakeFlower && interactableState == EnumInteractableState.TakeFlower)
+            {
+                Debug.LogError("You cannot take this flower!");
+                return false;
+            }
+
+            if (!_canEatFlower && interactableState == EnumInteractableState.EatFlower)
+            {
+                Debug.LogError("You cannot eat Flower!");
+                return false;
+            };
+
+            return true;
+        }
+
+
         private void ManageEveryInteractionType(Collider2D collision)
         {
             if (_interactableInstanceId == null) return;
@@ -191,10 +241,8 @@ namespace Assets.Scripts.Components.Interactable
         private void ToPlant(Collider2D collision)
         {
             PlantSpotComponent plantSpotComponent = collision.gameObject.GetComponent<PlantSpotComponent>();
-            //Debug.Log(plantSpotComponent == null);
             if (plantSpotComponent == null) return;
 
-            //Debug.Log(plantSpotComponent.GetInstanceID() != _interactableInstanceId);
             if (plantSpotComponent.GetInstanceID() != _interactableInstanceId) return;
 
             ActionSlotComponent selectedActionSlot = _uiManager.GetSelectedActionSlot();
@@ -250,36 +298,6 @@ namespace Assets.Scripts.Components.Interactable
             _isEating = true;
             _animatorVariables.PlantSpotComponent = plantSpotComponent;
             _animator.SetTrigger(_animatorVariables.Eat);
-
-            //ItemDTO flower = plantSpotComponent.TakeFlower();
-            //_stomachComponent.AddFood(new ItemDTO()
-            //{
-            //    Item = flower.Item,
-            //    Amount = 1
-            //});
-            //flower.Amount--;
-
-            //plantSpotComponent.ResetPlantSpot();
-
-
-
-            //if (flower.Amount <= 0)
-            //{
-            //    this.RemoveInteractableState();
-            //    return;
-            //}
-
-            //if (_inventoryComponent.InventoryIsFull())
-            //{
-            //    GameObject itemDropGameObject = Instantiate(_itemDropPrefab, this.gameObject.transform.position, Quaternion.identity);
-            //    itemDropGameObject.GetComponentInChildren<ItemDropComponent>().SetCurrentItem(flower);
-            //}
-            //else
-            //{
-            //    _inventoryComponent.AddItem(flower);
-            //}
-
-            //this.RemoveInteractableState();
         }
 
         private PlantSpotComponent HarvestPlnantValidatios(Collider2D collision)

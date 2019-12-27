@@ -2,7 +2,6 @@
 using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.ScriptableComponents.Item;
-using Assets.Scripts.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
