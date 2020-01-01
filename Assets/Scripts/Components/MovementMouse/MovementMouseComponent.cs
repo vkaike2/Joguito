@@ -20,7 +20,6 @@ namespace Assets.Scripts.Components.MovementMouse
         #endregion
 
         #region SERIALIZABLE ATRIBUTES
-#pragma warning disable 0649
         [Header("Configuration Fields")]
         [Tooltip("velocity of the gameObject")]
         [SerializeField]
@@ -29,7 +28,6 @@ namespace Assets.Scripts.Components.MovementMouse
         [Tooltip("range where gameObject stop walk from click position")]
         [SerializeField]
         private float _stopRange;
-#pragma warning restore 0649
         #endregion
 
         #region PRIVATE ATRIBUTES
@@ -63,7 +61,10 @@ namespace Assets.Scripts.Components.MovementMouse
             _playerState.RemoveMovementMouseComponent(this);
         }
 
-        private void FixedUpdate() => this.MovementObject();
+        private void FixedUpdate()
+        {
+            this.MovementObject();
+        }
         #endregion
 
         #region COROUTINES

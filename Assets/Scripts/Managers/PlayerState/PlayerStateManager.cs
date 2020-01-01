@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.Stomach;
+using Assets.Scripts.Structure.Player;
 
 namespace Assets.Scripts.Managers.PlayerState
 {
@@ -30,20 +31,24 @@ namespace Assets.Scripts.Managers.PlayerState
         #endregion
 
         #region SERIALIZABLE ATRIBUTES
-#pragma warning disable 0649
         [Header("RequiredFields")]
         [SerializeField]
         private UIManager _uiManager;
-#pragma warning restore 0649
         #endregion
 
         #region PRIVATE ATRIBUTES
         private List<MovementMouseComponent> _movementMouseComponentList;
         private List<InteractableComponent> _interactableComponentList;
         private List<StomachComponent> _stomachComponentList;
+        private List<PlayerStructure> _playerStrucutreList;
         #endregion
 
         #region PUBLIC METHODS
+        public void SetNewPlayerStrucutre(PlayerStructure playerStructure)
+        {
+            _playerStrucutreList.Add(playerStructure);
+        }
+
         public MovementMouseComponent GetActiveMovementMouseComponent()
         {
             return _movementMouseComponentList.FirstOrDefault(e => e.Active);
@@ -87,7 +92,6 @@ namespace Assets.Scripts.Managers.PlayerState
         #region ABSTRACT ATRIBUTES
         protected override void ValidateValues()
         {
-            // => Required Fields
             if (_uiManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_uiManager), this.gameObject.name));
         }
         protected override void SetInitialValues()
