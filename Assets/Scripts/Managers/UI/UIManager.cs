@@ -18,13 +18,17 @@ namespace Assets.Scripts.Managers.UI
         #endregion
 
         #region SERIALIZABLE ATRIBUTES
-#pragma warning disable 0649
         [Header("Required Fields")]
         [SerializeField]
         [Tooltip("All the slots 4 max")]
         private ActionSlotComponent[] _actionSlotComponentlist;
         private InputManager _inputManager;
-#pragma warning restore 0649
+        #endregion
+
+        #region PRIVATE ATRIBUTES
+        public bool HasInventory { get; set; }
+        public bool HasActionSlot { get; set; }
+
         #endregion
 
         #region PUBLIC METHODS
@@ -42,7 +46,6 @@ namespace Assets.Scripts.Managers.UI
         {
             GenericUIList.Remove(genericUIComponent);
         }
-
         #endregion
 
         #region UNTIY METHODS
@@ -57,9 +60,11 @@ namespace Assets.Scripts.Managers.UI
         }
         #endregion
 
-        #region PRIVATE ATRIBUTES
+        #region PRIVATE METHODS
         private void ControllTheSelectedSlots()
         {
+            if(!HasActionSlot) return;
+
             if (_inputManager.SlotOne == 1 && !_actionSlotComponentlist[0].IsSelected)
             {
                 DiselectEveryActionSlot();

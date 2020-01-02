@@ -23,6 +23,12 @@ namespace Assets.Scripts.Components.Interactable
         #region PUBLIC ATRIBUTES
         public bool Active => true;
         public bool IsPlantingOrEating => _isEating || _isPlanting;
+
+        public bool CanPickupItem => _canPickupItem;
+        public bool CanPlant => _canPlant;
+        public bool CanTakeSeed => _canTakeSeed;
+        public bool CanTakeFlower => _canTakeFlower;
+        public bool CanEatFlower => _canEatFlower;
         #endregion
 
         #region SERIALIZABLE ATRIBUTES

@@ -2,6 +2,7 @@
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.Managers.PlayerState;
+using Assets.Scripts.Managers.UI;
 using Assets.Scripts.Utils;
 using Cinemachine;
 using UnityEngine;
@@ -30,6 +31,7 @@ namespace Assets.Scripts.Structure.Player
         #region PRIVATE ATRIBUTES
         private PlayerStateManager _playerStateManage;
         private CinemachineVirtualCamera _cinemachine;
+        private UIManager _uIManager;
 
         private MovementMouseComponent _movementMouseComponent;
         private InteractableComponent _interactableComponent;
@@ -42,6 +44,11 @@ namespace Assets.Scripts.Structure.Player
             if (value)
             {
                 _cinemachine.Follow = this.transform;
+            }
+
+            if (!_isMainPlayer)
+            {
+
             }
 
             IsActive = value;
@@ -87,6 +94,7 @@ namespace Assets.Scripts.Structure.Player
         protected override void SetInitialValues()
         {
             _cinemachine = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
+            _uIManager = GameObject.FindObjectOfType<UIManager>();
             _playerStateManage = GameObject.FindObjectOfType<PlayerStateManager>();
             if (_canMoveByClick) _movementMouseComponent = this.GetComponent<MovementMouseComponent>();
             if (_canInteract) _interactableComponent = this.GetComponent<InteractableComponent>();

@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.Plant;
 using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
@@ -41,18 +42,15 @@ namespace Assets.Scripts.Components.PlantSpot
         #region PUBLIC METHODS
         public void Btn_TakeSeed()
         {
-            _playerState.GetActivePlayerStructure().GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.TakeSeed, this.GetInstanceID());
-            _playerState.GetActivePlayerStructure().GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
+            this.IniciateSomeInteraction(EnumInteractableState.TakeSeed);
         }
         public void Btn_TakeFlower()
         {
-            _playerState.GetActivePlayerStructure().GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.TakeFlower, this.GetInstanceID());
-            _playerState.GetActivePlayerStructure().GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
+            this.IniciateSomeInteraction(EnumInteractableState.TakeFlower);
         }
         public void Btn_EatFlower()
         {
-            _playerState.GetActivePlayerStructure().GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.EatFlower, this.GetInstanceID());
-            _playerState.GetActivePlayerStructure().GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
+            this.IniciateSomeInteraction(EnumInteractableState.EatFlower);
         }
 
         public ItemDTO TakeSeeds()
@@ -122,6 +120,18 @@ namespace Assets.Scripts.Components.PlantSpot
         #endregion
 
         #region PRIVATE METHODS
+
+        private void IniciateSomeInteraction(EnumInteractableState interactionState)
+        {
+            PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
+            InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
+            if (interactableComponent is null) return;
+
+            interactableComponent.SetInteractableState(interactionState, this.GetInstanceID());
+
+            playerStructure.GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
+        }
+
         private void ChangePlantSpotMouseOverAnimation(bool value)
         {
             _animator.SetBool(_animatorVariables.MouseOver, value);
@@ -156,8 +166,8 @@ namespace Assets.Scripts.Components.PlantSpot
 
             PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
 
-            playerStructure.GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.Plant, this.GetInstanceID());
-            playerStructure.GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
+
+            this.IniciateSomeInteraction(EnumInteractableState.Plant);
         }
         #endregion
 
