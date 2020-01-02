@@ -15,10 +15,6 @@ namespace Assets.Scripts.Components.MovementMouse
     [RequireComponent(typeof(InteractableComponent))]
     public class MovementMouseComponent : BaseComponent
     {
-        #region PUBLIC ATRIBUTES
-        public bool Active => true;
-        #endregion
-
         #region SERIALIZABLE ATRIBUTES
         [Header("Configuration Fields")]
         [Tooltip("velocity of the gameObject")]
@@ -51,18 +47,9 @@ namespace Assets.Scripts.Components.MovementMouse
         #endregion
 
         #region UNITY METHODS
-        private void Start()
-        {
-            _playerState.SetMovementMouseComponent(this);
-        }
-
-        private void OnDestroy()
-        {
-            _playerState.RemoveMovementMouseComponent(this);
-        }
-
         private void FixedUpdate()
         {
+            this.StopPlayer();
             this.MovementObject();
         }
         #endregion
@@ -71,7 +58,6 @@ namespace Assets.Scripts.Components.MovementMouse
         IEnumerator MoveToExactPosition(Vector2 movePosition, float? stopRange)
         {
             Vector2 mouseDirection = (movePosition - (Vector2)transform.position).normalized;
-
             while (Vector2.Distance(movePosition, transform.position) >= stopRange)
             {
                 _rigidBody2D.velocity = mouseDirection * (_velocity * Time.deltaTime);
@@ -81,6 +67,7 @@ namespace Assets.Scripts.Components.MovementMouse
             }
 
             _rigidBody2D.velocity = Vector2.zero;
+            _mouseOnClickPosition = transform.position;
             _MoveToExcatPosition = null;
         }
         #endregion
@@ -89,6 +76,8 @@ namespace Assets.Scripts.Components.MovementMouse
         private void MovementObject()
         {
             _animator.SetBool(_animatorVariables.Running, _rigidBody2D.velocity != Vector2.zero);
+
+            if (!_isActive) return;
 
             if (_inputManager.MouseLeftButton == 1 && !_playerState.PlayerCantMove)
             {
@@ -123,10 +112,21 @@ namespace Assets.Scripts.Components.MovementMouse
                 _rigidBody2D.velocity = Vector2.zero;
             }
         }
-        
+
+        private void StopPlayer()
+        {
+            if (_MoveToExcatPosition != null) return;
+
+            if (Vector2.Distance(_mouseOnClickPosition, transform.position) < _stopRange)
+            {
+                _rigidBody2D.velocity = Vector2.zero;
+            }
+        }
+
         private void ChangePlayerSide(bool right)
         {
-            this.transform.rotation = new Quaternion(0, right ? 0 : 180, 0, 0);
+            this.transform.localScale = new Vector2(right ? 1 : -1, 1);
+            //this.transform.localEulerAngles = new Vector3(0, right ? 0 : 180, 0);
         }
         #endregion
 
@@ -146,6 +146,7 @@ namespace Assets.Scripts.Components.MovementMouse
             _playerState = GameObject.FindObjectOfType<PlayerStateManager>();
             _inputManager = GameObject.FindObjectOfType<InputManager>();
 
+            _isActive = false;
             _animatorVariables = new MovementCursorAnimatorVariables();
 
             if (_velocity == 0) _velocity = 5;

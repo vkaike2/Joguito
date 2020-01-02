@@ -3,7 +3,6 @@ using UnityEngine;
 using System.Linq;
 using Assets.Scripts.Utils;
 using System.Collections.Generic;
-using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.Structure.Player;
@@ -21,9 +20,20 @@ namespace Assets.Scripts.Managers.PlayerState
             get
             {
                 bool mouseIsOverSomeUi = _uiManager.GenericUIList != null && _uiManager.GenericUIList.Any(e => e.MouseInUI);
-                bool playerIsDoingSomeAction = this.GetActiveStomachComponent().IsPooping || this.GetActiveInteractableComponent().IsPlantingOrEating;
 
-                return mouseIsOverSomeUi || playerIsDoingSomeAction;
+                bool playerIspooping = false;
+                StomachComponent stomachComponent = this.GetActivePlayerStructure().GetStomachComponent();
+                if(stomachComponent != null)
+                    playerIspooping = stomachComponent.IsPooping;
+
+
+                bool playerIsPlantingOrEating = false;
+                InteractableComponent interactableCompoment = this.GetActivePlayerStructure().GetInteractableComponent();
+                if (interactableCompoment != null)
+                    playerIsPlantingOrEating = interactableCompoment.IsPlantingOrEating;
+
+
+                return mouseIsOverSomeUi || playerIspooping || playerIsPlantingOrEating;
             }
         }
 
@@ -37,55 +47,65 @@ namespace Assets.Scripts.Managers.PlayerState
         #endregion
 
         #region PRIVATE ATRIBUTES
-        private List<MovementMouseComponent> _movementMouseComponentList;
-        private List<InteractableComponent> _interactableComponentList;
-        private List<StomachComponent> _stomachComponentList;
         private List<PlayerStructure> _playerStrucutreList;
         #endregion
 
         #region PUBLIC METHODS
         public void SetNewPlayerStrucutre(PlayerStructure playerStructure)
         {
+            if (!_playerStrucutreList.Any(e => e.IsActive) && playerStructure.IsMainPlayer)
+            {
+                playerStructure.ActivatePlayerStructure(true);
+            }
+
             _playerStrucutreList.Add(playerStructure);
         }
 
-        public MovementMouseComponent GetActiveMovementMouseComponent()
+        public void RemoveOnePlayerStructure(PlayerStructure playerStructure)
         {
-            return _movementMouseComponentList.FirstOrDefault(e => e.Active);
-        }
-        public void SetMovementMouseComponent(MovementMouseComponent movementMouseComponent)
-        {
-            _movementMouseComponentList.Add(movementMouseComponent);
-        }
-        public void RemoveMovementMouseComponent(MovementMouseComponent movementMouseComponent)
-        {
-            _movementMouseComponentList.Remove(movementMouseComponent);
+            _playerStrucutreList.Remove(playerStructure);
         }
 
-        public InteractableComponent GetActiveInteractableComponent()
+        public PlayerStructure GetActivePlayerStructure()
         {
-            return _interactableComponentList.FirstOrDefault(e => e.Active);
-        }
-        public void SetInteractableComponent(InteractableComponent interactableComponent)
-        {
-            _interactableComponentList.Add(interactableComponent);
-        }
-        public void RemoveInteractableComponent(InteractableComponent interactableComponent)
-        {
-            _interactableComponentList.Remove(interactableComponent);
-        }
+            PlayerStructure playerStructure = _playerStrucutreList.FirstOrDefault(e => e.IsActive);
+            if (playerStructure is null)
+                playerStructure = _playerStrucutreList.FirstOrDefault(e => e.IsMainPlayer);
 
-        public StomachComponent GetActiveStomachComponent()
-        {
-            return _stomachComponentList.FirstOrDefault(e => e.Active);
+            return playerStructure;
         }
-        public void SetStomachComponent(StomachComponent stomachComponent)
+        #endregion
+
+        #region UNITY METHODS
+        private void Update()
         {
-            _stomachComponentList.Add(stomachComponent);
-        }
-        public void RemoveStomachComponent(StomachComponent stomachComponent)
-        {
-            _stomachComponentList.Remove(stomachComponent);
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (!_playerStrucutreList.Any() && _playerStrucutreList.Count > 1) return;
+
+                int? intexOfSelectedOne = null;
+                for (int i = 0; i < _playerStrucutreList.Count; i++)
+                {
+                    if (_playerStrucutreList[i].IsActive)
+                    {
+                        _playerStrucutreList[i].ActivatePlayerStructure(false);
+                        intexOfSelectedOne = i;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                if (intexOfSelectedOne < _playerStrucutreList.Count - 1)
+                {
+                    _playerStrucutreList[intexOfSelectedOne.GetValueOrDefault() + 1].ActivatePlayerStructure(true);
+                }
+                else
+                {
+                    _playerStrucutreList[0].ActivatePlayerStructure(true);
+                }
+            }
         }
         #endregion
 
@@ -96,9 +116,7 @@ namespace Assets.Scripts.Managers.PlayerState
         }
         protected override void SetInitialValues()
         {
-            _movementMouseComponentList = new List<MovementMouseComponent>();
-            _interactableComponentList = new List<InteractableComponent>();
-            _stomachComponentList = new List<StomachComponent>();
+            _playerStrucutreList = new List<PlayerStructure>();
         }
         #endregion
     }

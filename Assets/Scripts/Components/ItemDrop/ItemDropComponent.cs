@@ -64,8 +64,8 @@ namespace Assets.Scripts.Components.ItemDrop
 
         public void OnClickObject()
         {
-            _playerState.GetActiveMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToPickup);
-            _playerState.GetActiveInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.PickupItem, this.GetInstanceID());
+            _playerState.GetActivePlayerStructure().GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToPickup);
+            _playerState.GetActivePlayerStructure().GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.PickupItem, this.GetInstanceID());
         }
         #endregion
 

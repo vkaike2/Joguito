@@ -68,7 +68,6 @@ namespace Assets.Scripts.Components.Stomach
         private void Start()
         {
             this.Activate();
-            _playerStateManager.SetStomachComponent(this);
         }
 
         private void Update()
@@ -76,10 +75,6 @@ namespace Assets.Scripts.Components.Stomach
             ManageTheButHole();
         }
 
-        private void OnDestroy()
-        {
-            _playerStateManager.RemoveStomachComponent(this);
-        }
         #endregion
 
         #region COROUTINES

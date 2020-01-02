@@ -4,6 +4,7 @@ using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.ScriptableComponents.Item;
+using Assets.Scripts.Structure.Player;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
@@ -37,72 +38,21 @@ namespace Assets.Scripts.Components.PlantSpot
         private bool _mousePressed = false;
         #endregion
 
-        #region UNITY METHODS
-        private void OnMouseOver()
-        {
-            this.ChangePlantSpotMouseOverAnimation(true);
-            this.ManageThePlayersClick();
-        }
-
-        private void OnMouseExit()
-        {
-            this.ChangePlantSpotMouseOverAnimation(false);
-        }
-        #endregion
-
-        #region PRIVATE METHODS
-        private void ChangePlantSpotMouseOverAnimation(bool value)
-        {
-            _animator.SetBool(_animatorVariables.MouseOver, value);
-        }
-
-        private void ToggleInternalUIMenu()
-        {
-            if (_plantSpotState != EnumPlantSpotState.Ready) return;
-
-            _internalCanvas.enabled = true;
-        }
-
-        private void ManageThePlayersClick()
-        {
-
-            if (_inputManager.MouseLeftButton == 1 && !_mousePressed)
-            {
-                _mousePressed = true;
-
-                ToggleInternalUIMenu();
-                StartPlantingProccess();
-            }
-            else if (_inputManager.MouseLeftButton == 0 && _mousePressed)
-            {
-                _mousePressed = false;
-            }
-        }
-
-        private void StartPlantingProccess()
-        {
-            if (_plantSpotState != EnumPlantSpotState.Empty) return;
-
-            _playerState.GetActiveInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.Plant, this.GetInstanceID());
-            _playerState.GetActiveMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
-        }
-        #endregion
-
         #region PUBLIC METHODS
         public void Btn_TakeSeed()
         {
-            _playerState.GetActiveInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.TakeSeed, this.GetInstanceID());
-            _playerState.GetActiveMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
+            _playerState.GetActivePlayerStructure().GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.TakeSeed, this.GetInstanceID());
+            _playerState.GetActivePlayerStructure().GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
         }
         public void Btn_TakeFlower()
         {
-            _playerState.GetActiveInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.TakeFlower, this.GetInstanceID());
-            _playerState.GetActiveMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
+            _playerState.GetActivePlayerStructure().GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.TakeFlower, this.GetInstanceID());
+            _playerState.GetActivePlayerStructure().GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
         }
         public void Btn_EatFlower()
         {
-            _playerState.GetActiveInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.EatFlower, this.GetInstanceID());
-            _playerState.GetActiveMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
+            _playerState.GetActivePlayerStructure().GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.EatFlower, this.GetInstanceID());
+            _playerState.GetActivePlayerStructure().GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
         }
 
         public ItemDTO TakeSeeds()
@@ -155,6 +105,59 @@ namespace Assets.Scripts.Components.PlantSpot
         public bool IsReadyToHarvest()
         {
             return _plantSpotState == EnumPlantSpotState.Ready;
+        }
+        #endregion
+
+        #region UNITY METHODS
+        private void OnMouseOver()
+        {
+            this.ChangePlantSpotMouseOverAnimation(true);
+            this.ManageThePlayersClick();
+        }
+
+        private void OnMouseExit()
+        {
+            this.ChangePlantSpotMouseOverAnimation(false);
+        }
+        #endregion
+
+        #region PRIVATE METHODS
+        private void ChangePlantSpotMouseOverAnimation(bool value)
+        {
+            _animator.SetBool(_animatorVariables.MouseOver, value);
+        }
+
+        private void ToggleInternalUIMenu()
+        {
+            if (_plantSpotState != EnumPlantSpotState.Ready) return;
+
+            _internalCanvas.enabled = true;
+        }
+
+        private void ManageThePlayersClick()
+        {
+
+            if (_inputManager.MouseLeftButton == 1 && !_mousePressed)
+            {
+                _mousePressed = true;
+
+                ToggleInternalUIMenu();
+                StartPlantingProccess();
+            }
+            else if (_inputManager.MouseLeftButton == 0 && _mousePressed)
+            {
+                _mousePressed = false;
+            }
+        }
+
+        private void StartPlantingProccess()
+        {
+            if (_plantSpotState != EnumPlantSpotState.Empty) return;
+
+            PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
+
+            playerStructure.GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.Plant, this.GetInstanceID());
+            playerStructure.GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
         }
         #endregion
 
