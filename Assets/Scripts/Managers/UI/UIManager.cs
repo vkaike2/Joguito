@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Components.ActionSlot;
 using Assets.Scripts.Components.GenericUI;
+using Assets.Scripts.Components.Inventory;
+using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -19,6 +22,13 @@ namespace Assets.Scripts.Managers.UI
 
         #region SERIALIZABLE ATRIBUTES
         [Header("Required Fields")]
+        [SerializeField]
+        private GameObject _stomachUIComponent;
+        [SerializeField]
+        private GameObject _inventoryComponent;
+        [SerializeField]
+        private GameObject _actionSlot;
+
         [SerializeField]
         [Tooltip("All the slots 4 max")]
         private ActionSlotComponent[] _actionSlotComponentlist;
@@ -52,6 +62,21 @@ namespace Assets.Scripts.Managers.UI
         private void Start()
         {
             _actionSlotComponentlist[0].SelectSlot();
+        }
+
+        internal void ActivateActionSlots(bool value)
+        {
+            _actionSlot.SetActive(value);
+        }
+
+        internal void ActivateStomach(bool value)
+        {
+            _stomachUIComponent.SetActive(value);
+        }
+
+        internal void ActivateInventory(bool value)
+        {
+            _inventoryComponent.SetActive(value);
         }
 
         private void Update()

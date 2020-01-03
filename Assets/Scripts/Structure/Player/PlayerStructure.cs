@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Components.Interactable;
+﻿using Assets.Scripts.Components.ActivePlayers;
+using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.Managers.PlayerState;
@@ -32,7 +33,8 @@ namespace Assets.Scripts.Structure.Player
         private PlayerStateManager _playerStateManage;
         private CinemachineVirtualCamera _cinemachine;
         private UIManager _uIManager;
-
+        private ActivePlayersUIComponent _activePlyarUI;
+        private int? slotInstanceId = null;
         private MovementMouseComponent _movementMouseComponent;
         private InteractableComponent _interactableComponent;
         private StomachComponent _stomachComponent;
@@ -46,10 +48,14 @@ namespace Assets.Scripts.Structure.Player
                 _cinemachine.Follow = this.transform;
             }
 
-            if (!_isMainPlayer)
-            {
+            if(slotInstanceId is null)
+                slotInstanceId = _activePlyarUI.CreateNewPlayerSlotCompoennt();
 
-            }
+            _activePlyarUI.ActivatePlayerSlot(slotInstanceId.Value);
+
+            _uIManager.ActivateInventory(_isMainPlayer);
+            _uIManager.ActivateActionSlots(_isMainPlayer);
+            _uIManager.ActivateStomach(_canPoop);
 
             IsActive = value;
             if (_canMoveByClick) _movementMouseComponent.SetActivationComponent(value);
@@ -96,6 +102,7 @@ namespace Assets.Scripts.Structure.Player
             _cinemachine = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
             _uIManager = GameObject.FindObjectOfType<UIManager>();
             _playerStateManage = GameObject.FindObjectOfType<PlayerStateManager>();
+            _activePlyarUI = GameObject.FindObjectOfType<ActivePlayersUIComponent>();
             if (_canMoveByClick) _movementMouseComponent = this.GetComponent<MovementMouseComponent>();
             if (_canInteract) _interactableComponent = this.GetComponent<InteractableComponent>();
             if (_canPoop) _stomachComponent = this.GetComponent<StomachComponent>();
