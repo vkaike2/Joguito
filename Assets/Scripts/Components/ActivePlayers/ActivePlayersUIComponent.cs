@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Components.ActivePlayers
 {
     public class ActivePlayersUIComponent : BaseComponent
     {
+        #region SERIALIZABLE FIELDS
+        [Header("Required Fields")]
+        [SerializeField]
+        private GameObject _ActivePlayerSlotPrefab;
+        #endregion
+
         #region PRIVATE ATRIBUTES
         private List<ActivePlayerSlotComponent> _playerSlotComponentList;
         #endregion
@@ -15,19 +22,8 @@ namespace Assets.Scripts.Components.ActivePlayers
         #region PUBLIC METHODS
         public int CreateNewPlayerSlotCompoennt()
         {
-            ActivePlayerSlotComponent lastSpawnedPlayerSlot;
-            if(_playerSlotComponentList.Count > 1)
-            {
-                lastSpawnedPlayerSlot = _playerSlotComponentList.LastOrDefault();
-            }
-            else
-            {
-                lastSpawnedPlayerSlot = _playerSlotComponentList.FirstOrDefault();
-            }
-
-
-            ActivePlayerSlotComponent nextSlot = lastSpawnedPlayerSlot.SpanwNewPlayerSlot();
-
+            ActivePlayerSlotComponent nextSlot = GameObject.Instantiate(_ActivePlayerSlotPrefab, this.transform).GetComponent<ActivePlayerSlotComponent>();
+            _playerSlotComponentList.Add(nextSlot);
             return nextSlot.GetInstanceID();
         }
 

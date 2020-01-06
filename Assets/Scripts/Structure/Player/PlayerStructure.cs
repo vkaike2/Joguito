@@ -48,9 +48,6 @@ namespace Assets.Scripts.Structure.Player
                 _cinemachine.Follow = this.transform;
             }
 
-            if(slotInstanceId is null)
-                slotInstanceId = _activePlyarUI.CreateNewPlayerSlotCompoennt();
-
             _activePlyarUI.ActivatePlayerSlot(slotInstanceId.Value);
 
             _uIManager.ActivateInventory(_isMainPlayer);
@@ -87,6 +84,7 @@ namespace Assets.Scripts.Structure.Player
         #region UNITY METHODS
         private void Start()
         {
+            slotInstanceId = _activePlyarUI.CreateNewPlayerSlotCompoennt();
             _playerStateManage.SetNewPlayerStrucutre(this);
         }
 
