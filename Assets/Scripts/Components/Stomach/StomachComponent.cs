@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.DTOs;
+﻿using Assets.Scripts.Components.ButtHole;
+using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.ScriptableComponents.Item;
@@ -8,8 +9,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Components.Stomach
@@ -33,6 +32,7 @@ namespace Assets.Scripts.Components.Stomach
         private Animator _animator;
         private StomachAnimatorVariables _animatorVariables;
         private PlayerStateManager _playerStateManager;
+        private PoopScriptable _currentPoop;
         #endregion
 
         #region PUBLIC METHODS
@@ -61,6 +61,12 @@ namespace Assets.Scripts.Components.Stomach
         public void Animator_StopPoop()
         {
             IsPooping = false;
+        }
+
+        public void Aniamtor_SetCurrentPoop()
+        {
+            this.GetComponentInChildren<ButtHoleComponent>().SetCurrentPoop(_currentPoop);
+            _currentPoop = null;
         }
         #endregion
 
@@ -100,7 +106,7 @@ namespace Assets.Scripts.Components.Stomach
                 List<StomachItemDTO> foodToPoopList = StomachItemList.Where(e => e.State == EnumStomachItemDTOState.ReadyToPoop).ToList();
                 string currentFlowersRecipeInStomach = String.Join("-", foodToPoopList.Select(e => e.Item.GetHashCode()).OrderBy(e => e).ToList());
 
-                PoopScriptable curentPoop = _poopList.FirstOrDefault(e => e.Recipe == currentFlowersRecipeInStomach);
+                _currentPoop = _poopList.FirstOrDefault(e => e.Recipe == currentFlowersRecipeInStomach);
 
                 IsPooping = true;
                 _animator.SetTrigger(_animatorVariables.Poop);

@@ -79,7 +79,7 @@ namespace Assets.Scripts.Managers.PlayerState
         #region UNITY METHODS
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.D))
             {
                 if (!_playerStrucutreList.Any() && _playerStrucutreList.Count > 1) return;
 

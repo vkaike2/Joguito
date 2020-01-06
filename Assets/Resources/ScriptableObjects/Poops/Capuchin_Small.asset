@@ -15,3 +15,5 @@ MonoBehaviour:
   _name: Capuchin_small
   _recipe:
   - {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
+  _poopPrefab: {fileID: 7047317695904368443, guid: 15e240257f870e84ab9201090c6f9b77,
+    type: 3}

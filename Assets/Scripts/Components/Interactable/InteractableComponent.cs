@@ -17,7 +17,6 @@ namespace Assets.Scripts.Components.Interactable
     ///     Make possible to the player interact with other prefabs
     /// </summary>
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(StomachComponent))]
     public class InteractableComponent : BaseComponent
     {
         #region PUBLIC ATRIBUTES

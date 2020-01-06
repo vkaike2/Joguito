@@ -12,7 +12,6 @@ namespace Assets.Scripts.Components.MovementMouse
     /// </summary>
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody2D))]
-    [RequireComponent(typeof(InteractableComponent))]
     public class MovementMouseComponent : BaseComponent
     {
         #region SERIALIZABLE ATRIBUTES

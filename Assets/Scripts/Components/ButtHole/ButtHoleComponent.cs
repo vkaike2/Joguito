@@ -1,9 +1,7 @@
-﻿using Assets.Scripts.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Assets.Scripts.Components.GenericPoop;
+using Assets.Scripts.ScriptableComponents.Poop;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.Components.ButtHole
@@ -15,13 +13,25 @@ namespace Assets.Scripts.Components.ButtHole
         [SerializeField]
         private Transform _spawnSpot;
         [SerializeField]
-        private GameObject _mockPoop;
+        private GameObject _genericPoopComponent;
+        #endregion
+
+        #region PRIVATE ATRIBUTES
+        private PoopScriptable _currentPoop;
         #endregion
 
         #region PUBLIC METHODS
         public void Anim_SpawnPoop()
         {
-            Instantiate(_mockPoop, _spawnSpot.position, Quaternion.identity);
+            GameObject gameObject = Instantiate(_genericPoopComponent, _spawnSpot.position, Quaternion.identity);
+            gameObject.GetComponent<GenericPoopComponent>().SetCurrentPoopScriptable(_currentPoop);
+
+            _currentPoop = null;
+        }
+
+        public void SetCurrentPoop(PoopScriptable currentPoop)
+        {
+            _currentPoop = currentPoop;
         }
         #endregion
 
