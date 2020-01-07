@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.ScriptableComponents.Poop;
+using Assets.Scripts.Structure.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;

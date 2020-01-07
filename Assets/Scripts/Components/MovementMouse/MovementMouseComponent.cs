@@ -35,6 +35,7 @@ namespace Assets.Scripts.Components.MovementMouse
         private Vector2 _mouseDirection;
         private Vector2 _mouseOnClickPosition;
         private Coroutine _MoveToExcatPosition;
+        private bool _internCanMove;
         #endregion
 
         #region PUBLIC METHODS
@@ -43,11 +44,22 @@ namespace Assets.Scripts.Components.MovementMouse
             if (_MoveToExcatPosition == null)
                 _MoveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
         }
+
+        public void Animator_CantMove()
+        {
+            _internCanMove = false;
+        }
+        public void Animator_CanMove()
+        {
+            _internCanMove = true;
+        }
         #endregion
 
         #region UNITY METHODS
         private void FixedUpdate()
         {
+            if (!_internCanMove) return;
+
             this.StopPlayer();
             this.MovementObject();
         }
@@ -139,6 +151,7 @@ namespace Assets.Scripts.Components.MovementMouse
 
         protected override void SetInitialValues()
         {
+            _internCanMove = true;
             _animator = this.GetComponent<Animator>();
             _rigidBody2D = this.GetComponent<Rigidbody2D>();
             _interactableComponent = this.GetComponent<InteractableComponent>();

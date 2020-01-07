@@ -15,6 +15,7 @@ namespace Assets.Scripts.Structure.Player
         #region PUBLIC ATRIBUTES
         public bool IsMainPlayer => _isMainPlayer;
         public bool IsActive { get; private set; }
+        public Sprite SpriteForActiveStatus => _spriteForActiveStatus;
         #endregion
 
         #region SERIALIZABLE ATRIBUTES
@@ -27,6 +28,8 @@ namespace Assets.Scripts.Structure.Player
         private bool _canInteract;
         [SerializeField]
         private bool _canPoop;
+        [SerializeField]
+        private Sprite _spriteForActiveStatus;
         #endregion
 
         #region PRIVATE ATRIBUTES
@@ -84,7 +87,7 @@ namespace Assets.Scripts.Structure.Player
         #region UNITY METHODS
         private void Start()
         {
-            slotInstanceId = _activePlyarUI.CreateNewPlayerSlotCompoennt();
+            slotInstanceId = _activePlyarUI.CreateNewPlayerSlotCompoennt(this);
             _playerStateManage.SetNewPlayerStrucutre(this);
         }
 

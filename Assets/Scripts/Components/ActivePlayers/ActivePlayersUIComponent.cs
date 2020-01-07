@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Assets.Scripts.Structure.Player;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Components.ActivePlayers
@@ -20,9 +18,10 @@ namespace Assets.Scripts.Components.ActivePlayers
         #endregion
 
         #region PUBLIC METHODS
-        public int CreateNewPlayerSlotCompoennt()
+        public int CreateNewPlayerSlotCompoennt(PlayerStructure playerStructure)
         {
             ActivePlayerSlotComponent nextSlot = GameObject.Instantiate(_ActivePlayerSlotPrefab, this.transform).GetComponent<ActivePlayerSlotComponent>();
+            nextSlot.SetPlayerStructure(playerStructure);
             _playerSlotComponentList.Add(nextSlot);
             return nextSlot.GetInstanceID();
         }

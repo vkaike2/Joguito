@@ -16,5 +16,5 @@ MonoBehaviour:
   _recipe:
   - {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
   - {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
-  _poopPrefab: {fileID: 7047317695904368443, guid: 15e240257f870e84ab9201090c6f9b77,
+  _poopPrefab: {fileID: 7047317695904368443, guid: 7b4ef64e85a8f4348b520bb179ee9f38,
     type: 3}

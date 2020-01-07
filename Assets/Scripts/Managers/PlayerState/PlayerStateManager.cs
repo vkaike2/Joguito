@@ -23,7 +23,7 @@ namespace Assets.Scripts.Managers.PlayerState
 
                 bool playerIspooping = false;
                 StomachComponent stomachComponent = this.GetActivePlayerStructure().GetStomachComponent();
-                if(stomachComponent != null)
+                if (stomachComponent != null)
                     playerIspooping = stomachComponent.IsPooping;
 
 
@@ -73,6 +73,18 @@ namespace Assets.Scripts.Managers.PlayerState
                 playerStructure = _playerStrucutreList.FirstOrDefault(e => e.IsMainPlayer);
 
             return playerStructure;
+        }
+
+        public void ActiveNewPlayerStructure(int playerStructureInstanceId)
+        {
+            foreach (PlayerStructure playerStructure in _playerStrucutreList)
+            {
+                playerStructure.ActivatePlayerStructure(false);
+            }
+
+            PlayerStructure activePlayerStructure = _playerStrucutreList.FirstOrDefault(e => e.GetInstanceID() == playerStructureInstanceId);
+            activePlayerStructure.ActivatePlayerStructure(true);
+
         }
         #endregion
 

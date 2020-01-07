@@ -18,6 +18,8 @@ namespace Assets.Scripts.Components.ButtHole
 
         #region PRIVATE ATRIBUTES
         private PoopScriptable _currentPoop;
+        private Animator _animator;
+        private ButtHoleAnimatorVariables _animatorVariables;
         #endregion
 
         #region PUBLIC METHODS
@@ -32,12 +34,15 @@ namespace Assets.Scripts.Components.ButtHole
         public void SetCurrentPoop(PoopScriptable currentPoop)
         {
             _currentPoop = currentPoop;
+            _animator.SetTrigger(_animatorVariables.StartPoop);
         }
         #endregion
 
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
+            _animator = this.GetComponent<Animator>();
+            _animatorVariables = new ButtHoleAnimatorVariables();
         }
 
         protected override void ValidateValues()

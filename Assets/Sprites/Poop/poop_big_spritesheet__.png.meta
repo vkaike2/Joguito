@@ -1,103 +1,136 @@
 fileFormatVersion: 2
-guid: c1a4436f5e9e73a4bb9d6abe6d28e982
+guid: c61bd3b77dde5904fad3f0ae5d81332c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2431581820453806788
-    second: poop_medium_spritesheet_0
+      213: -6353404289686207586
+    second: poop_big_spritesheet___0
   - first:
-      213: -9111780522108894007
-    second: poop_medium_spritesheet_1
+      213: 7881785659302345965
+    second: poop_big_spritesheet___1
   - first:
-      213: 7328767410470965991
-    second: poop_medium_spritesheet_2
+      213: 8421993445024631265
+    second: poop_big_spritesheet___2
   - first:
-      213: -37061705121905267
-    second: poop_medium_spritesheet_3
+      213: 4576520970104108435
+    second: poop_big_spritesheet___3
   - first:
-      213: 3098212756071737223
-    second: poop_medium_spritesheet_4
+      213: 5062468284590747591
+    second: poop_big_spritesheet___4
   - first:
-      213: -1065697289784234944
-    second: poop_medium_spritesheet_5
+      213: -3741125435942774080
+    second: poop_big_spritesheet___5
   - first:
-      213: -6432834163609727235
-    second: poop_medium_spritesheet_6
+      213: -5391689400951272308
+    second: poop_big_spritesheet___6
   - first:
-      213: -2994809065830684761
-    second: poop_medium_spritesheet_7
+      213: -4845480886624719539
+    second: poop_big_spritesheet___7
   - first:
-      213: 2555952977717590706
-    second: poop_medium_spritesheet_8
+      213: -4289189548200907097
+    second: poop_big_spritesheet___8
   - first:
-      213: -9018927065769391790
-    second: poop_medium_spritesheet_9
+      213: -1125020598447049055
+    second: poop_big_spritesheet___9
   - first:
-      213: -8164364282199207043
-    second: poop_medium_spritesheet_10
+      213: 7195176181493492193
+    second: poop_big_spritesheet___10
   - first:
-      213: 1911901937650361129
-    second: poop_medium_spritesheet_11
+      213: 5502532639123510053
+    second: poop_big_spritesheet___11
   - first:
-      213: 7504282887163621316
-    second: poop_medium_spritesheet_12
+      213: -4981406456731968675
+    second: poop_big_spritesheet___12
   - first:
-      213: 3032909997086963595
-    second: poop_medium_spritesheet_13
+      213: 8872051854092021581
+    second: poop_big_spritesheet___13
   - first:
-      213: -2269470615283439246
-    second: poop_medium_spritesheet_14
+      213: 6211069577524883125
+    second: poop_big_spritesheet___14
   - first:
-      213: 4679053686696913100
-    second: poop_medium_spritesheet_15
+      213: -3438493557461407998
+    second: poop_big_spritesheet___15
   - first:
-      213: 4063341234968123460
-    second: poop_medium_spritesheet_16
+      213: 3137663918907802251
+    second: poop_big_spritesheet___16
   - first:
-      213: 4687866739753404483
-    second: poop_medium_spritesheet_17
+      213: 2522695305722841413
+    second: poop_big_spritesheet___17
   - first:
-      213: -5290068663267228315
-    second: poop_medium_spritesheet_18
+      213: -8311514397821700812
+    second: poop_big_spritesheet___18
   - first:
-      213: 1896698314243766823
-    second: poop_medium_spritesheet_19
+      213: -3053110558813856059
+    second: poop_big_spritesheet___19
   - first:
-      213: 8747622448331188401
-    second: poop_medium_spritesheet_20
+      213: 8391953782963269167
+    second: poop_big_spritesheet___20
   - first:
-      213: -8499207120428518757
-    second: poop_medium_spritesheet_21
+      213: -3622881307073541179
+    second: poop_big_spritesheet___21
   - first:
-      213: -8504016200176118339
-    second: poop_medium_spritesheet_22
+      213: -4637978715959749040
+    second: poop_big_spritesheet___22
   - first:
-      213: 5806348772830813428
-    second: poop_medium_spritesheet_23
+      213: -462222313131149422
+    second: poop_big_spritesheet___23
   - first:
-      213: -7297954737268939695
-    second: poop_medium_spritesheet_24
+      213: -6913132543209906860
+    second: poop_big_spritesheet___24
   - first:
-      213: -391199970503139033
-    second: poop_medium_spritesheet_25
+      213: -5590007290186713370
+    second: poop_big_spritesheet___25
   - first:
-      213: 8214172427738251374
-    second: poop_medium_spritesheet_26
+      213: 3149938634401616638
+    second: poop_big_spritesheet___26
   - first:
-      213: 2377380950409399145
-    second: poop_medium_spritesheet_27
+      213: 1047249142578835810
+    second: poop_big_spritesheet___27
   - first:
-      213: -2203095871052213596
-    second: poop_medium_spritesheet_28
+      213: -5447003758547453169
+    second: poop_big_spritesheet___28
   - first:
-      213: 8483344794992811064
-    second: poop_medium_spritesheet_29
+      213: 5005907340092726386
+    second: poop_big_spritesheet___29
   - first:
-      213: -4703190102516827482
-    second: poop_medium_spritesheet_30
+      213: -8676146325383259959
+    second: poop_big_spritesheet___30
   - first:
-      213: 1103406602015490229
-    second: poop_medium_spritesheet_31
+      213: -7005111394596534068
+    second: poop_big_spritesheet___31
+  - first:
+      213: -1080726073226854157
+    second: poop_big_spritesheet___32
+  - first:
+      213: 5320294332348708635
+    second: poop_big_spritesheet___33
+  - first:
+      213: 3814335147585805593
+    second: poop_big_spritesheet___34
+  - first:
+      213: 7860792947241706036
+    second: poop_big_spritesheet___35
+  - first:
+      213: 8000734080393013936
+    second: poop_big_spritesheet___36
+  - first:
+      213: 1437494732197426482
+    second: poop_big_spritesheet___37
+  - first:
+      213: -2867526962849420085
+    second: poop_big_spritesheet___38
+  - first:
+      213: 5954556549069669155
+    second: poop_big_spritesheet___39
+  - first:
+      213: -9218486288189782214
+    second: poop_big_spritesheet___40
+  - first:
+      213: -3623055966829465671
+    second: poop_big_spritesheet___41
+  - first:
+      213: -1900148177866440937
+    second: poop_big_spritesheet___42
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -138,7 +171,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -182,11 +215,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: poop_medium_spritesheet_0
+      name: poop_big_spritesheet___0
       rect:
         serializedVersion: 2
         x: 0
-        y: 78
+        y: 156
         width: 26
         height: 26
       alignment: 9
@@ -196,18 +229,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25daf5ef56696894f936234892e19f29
-      internalID: -2431581820453806788
+      spriteID: 0197ae138ca29ab42a7e0341af278d1d
+      internalID: -6353404289686207586
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_1
+      name: poop_big_spritesheet___1
       rect:
         serializedVersion: 2
         x: 26
-        y: 78
+        y: 156
         width: 26
         height: 26
       alignment: 9
@@ -217,18 +250,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3783fa55b289a5d49adb00eb06d2a5b6
-      internalID: -9111780522108894007
+      spriteID: fbdbac4c90f90594480ae213de172b62
+      internalID: 7881785659302345965
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_2
+      name: poop_big_spritesheet___2
       rect:
         serializedVersion: 2
         x: 52
-        y: 78
+        y: 156
         width: 26
         height: 26
       alignment: 9
@@ -238,18 +271,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a55d3dc7a5aa9f94892cef7305fe019f
-      internalID: 7328767410470965991
+      spriteID: c166e0a227335fd4b8d30165f8d16d33
+      internalID: 8421993445024631265
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_3
+      name: poop_big_spritesheet___3
       rect:
         serializedVersion: 2
         x: 78
-        y: 78
+        y: 156
         width: 26
         height: 26
       alignment: 9
@@ -259,18 +292,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f01d1332cf7020c45a2aeba619ac7e2e
-      internalID: -37061705121905267
+      spriteID: ad38f9749b918644ba2a7eb4410e202e
+      internalID: 4576520970104108435
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_4
+      name: poop_big_spritesheet___4
       rect:
         serializedVersion: 2
         x: 104
-        y: 78
+        y: 156
         width: 26
         height: 26
       alignment: 9
@@ -280,18 +313,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be3579bf35562e141aba63eebe3a14a8
-      internalID: 3098212756071737223
+      spriteID: 7230ae9e07632424492590b1996a7d7b
+      internalID: 5062468284590747591
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_5
+      name: poop_big_spritesheet___5
       rect:
         serializedVersion: 2
         x: 130
-        y: 78
+        y: 156
         width: 26
         height: 26
       alignment: 9
@@ -301,18 +334,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75ac34b321d2db74281eff5144c38cfd
-      internalID: -1065697289784234944
+      spriteID: efe702d899e54744bac38a90fdcca044
+      internalID: -3741125435942774080
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_6
+      name: poop_big_spritesheet___6
       rect:
         serializedVersion: 2
         x: 156
-        y: 78
+        y: 156
         width: 26
         height: 26
       alignment: 9
@@ -322,18 +355,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 642cc4fb2cbf4b34e93f3edcadb5fbac
-      internalID: -6432834163609727235
+      spriteID: c5a0561f44da28642a88ef842bd090f3
+      internalID: -5391689400951272308
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_7
+      name: poop_big_spritesheet___7
       rect:
         serializedVersion: 2
         x: 182
-        y: 78
+        y: 156
         width: 26
         height: 26
       alignment: 9
@@ -343,18 +376,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f99251fc87fe94a47800bf173f1dfbf1
-      internalID: -2994809065830684761
+      spriteID: 7cb8ee65161ccc744935d07d469c2ae3
+      internalID: -4845480886624719539
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_8
+      name: poop_big_spritesheet___8
       rect:
         serializedVersion: 2
         x: 208
-        y: 78
+        y: 156
         width: 26
         height: 26
       alignment: 9
@@ -364,17 +397,311 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4958a7d6ea95277489fd931bea148498
-      internalID: 2555952977717590706
+      spriteID: 588835aec21bcd147a1d27b069a2cdc9
+      internalID: -4289189548200907097
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_9
+      name: poop_big_spritesheet___9
       rect:
         serializedVersion: 2
         x: 234
+        y: 156
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 297979dbd4e0bcf41a1a4d30189016dd
+      internalID: -1125020598447049055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 130
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 042f695a5d7175a4ebbe4aca9e00bb66
+      internalID: 7195176181493492193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___11
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 130
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ade47e22e33c4e49820e00a6b766a40
+      internalID: 5502532639123510053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___12
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 130
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0128a20d73e7b354f8215eaff7445727
+      internalID: -4981406456731968675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___13
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 130
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 587c10d66fb95e0428b161e9411d52a7
+      internalID: 8872051854092021581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___14
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 130
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9a6cdc4624da1545b9a509276a54e8f
+      internalID: 6211069577524883125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___15
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 130
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 486afe25a2bfc3d47b081cb45d548b0e
+      internalID: -3438493557461407998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___16
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 130
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47a8608514c1eb44fb6697bc807d2a90
+      internalID: 3137663918907802251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___17
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 130
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d4aae6e17f52814fb6aa60c490695da
+      internalID: 2522695305722841413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 104
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b450268ca802684c87c33ab5480041d
+      internalID: -8311514397821700812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___19
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 104
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0660eb9d1e137e0409e2d83637ca41c8
+      internalID: -3053110558813856059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___20
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 104
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5862dd273a1f4084f97233dd33beaac3
+      internalID: 8391953782963269167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___21
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 104
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22b8136c5a363d8498304d55cabc9040
+      internalID: -3622881307073541179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___22
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 104
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7e122684ffc43b4dabba6b8d83ffc3b
+      internalID: -4637978715959749040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___23
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 78
         width: 26
         height: 26
@@ -385,39 +712,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 237c9898fb213a045a4f951f24923aee
-      internalID: -9018927065769391790
+      spriteID: 93332bc5bdd77434382caba3f1dde6c2
+      internalID: -462222313131149422
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_10
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 52
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2f05f8ebb11f3b84bbc547a8d920741c
-      internalID: -8164364282199207043
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_11
+      name: poop_big_spritesheet___24
       rect:
         serializedVersion: 2
         x: 26
-        y: 52
+        y: 78
         width: 26
         height: 26
       alignment: 9
@@ -427,18 +733,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 594b9075925df05439ca9444d91e1b4c
-      internalID: 1911901937650361129
+      spriteID: a44a13976a7edd6448e4956ab162747d
+      internalID: -6913132543209906860
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_12
+      name: poop_big_spritesheet___25
       rect:
         serializedVersion: 2
         x: 52
-        y: 52
+        y: 78
         width: 26
         height: 26
       alignment: 9
@@ -448,18 +754,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6aff4c31413809a4f93c6400d4a3ff1a
-      internalID: 7504282887163621316
+      spriteID: c6359da0b85af254787f1fca5d5bbefe
+      internalID: -5590007290186713370
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_13
+      name: poop_big_spritesheet___26
       rect:
         serializedVersion: 2
         x: 78
-        y: 52
+        y: 78
         width: 26
         height: 26
       alignment: 9
@@ -469,18 +775,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d11cc294ffb3b864fbb9d665919fd8dd
-      internalID: 3032909997086963595
+      spriteID: 090f70e4d1a71e94ea9cc14107cd47e1
+      internalID: 3149938634401616638
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_14
+      name: poop_big_spritesheet___27
       rect:
         serializedVersion: 2
         x: 104
-        y: 52
+        y: 78
         width: 26
         height: 26
       alignment: 9
@@ -490,18 +796,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bfce44176a75c154088dfc9afc9b6bc6
-      internalID: -2269470615283439246
+      spriteID: 90cc554e2f6d1514fba4a4f278186adc
+      internalID: 1047249142578835810
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_15
+      name: poop_big_spritesheet___28
       rect:
         serializedVersion: 2
         x: 130
-        y: 52
+        y: 78
         width: 26
         height: 26
       alignment: 9
@@ -511,18 +817,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1cc80c9d943d0549aedf0aeb222bf7e
-      internalID: 4679053686696913100
+      spriteID: b73d8ed7b85aa3a479a75302070dfa43
+      internalID: -5447003758547453169
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_16
+      name: poop_big_spritesheet___29
       rect:
         serializedVersion: 2
         x: 156
-        y: 52
+        y: 78
         width: 26
         height: 26
       alignment: 9
@@ -532,18 +838,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c59af4fdc6ae8242ac98af880c420c6
-      internalID: 4063341234968123460
+      spriteID: 7cb2111d260483b4bab3f71ecdc460fb
+      internalID: 5005907340092726386
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_17
+      name: poop_big_spritesheet___30
       rect:
         serializedVersion: 2
         x: 182
-        y: 52
+        y: 78
         width: 26
         height: 26
       alignment: 9
@@ -553,290 +859,164 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 087d7b4c0424b684ab36e5a5197a80e0
-      internalID: 4687866739753404483
+      spriteID: 5022c81403995944c9f0fdb7909c5769
+      internalID: -8676146325383259959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poop_medium_spritesheet_18
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 26
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 018d95a65aeff0543ba7aa723f5094e5
-      internalID: -5290068663267228315
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_19
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 26
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4db110419d73bfc4992cec9df7423ed9
-      internalID: 1896698314243766823
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_20
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 26
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3616ce9d641e862428766d5f815855e7
-      internalID: 8747622448331188401
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_21
-      rect:
-        serializedVersion: 2
-        x: 78
-        y: 26
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3ce1e36c1409704449f5ece5b513bd5c
-      internalID: -8499207120428518757
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_22
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 26
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 11be8924145079745a1fd497a499ed3f
-      internalID: -8504016200176118339
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_23
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 206f11b1b2e7b364ea6001693c1a8cdb
-      internalID: 5806348772830813428
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_24
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 0
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 72f4ab68f93a8b34c932e3b349e43e97
-      internalID: -7297954737268939695
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_25
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 0
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8d5fa1a0057a58048b3b46938393c4e6
-      internalID: -391199970503139033
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_26
-      rect:
-        serializedVersion: 2
-        x: 78
-        y: 0
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d2b06674d2730c9479377c49a7472f1e
-      internalID: 8214172427738251374
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_27
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 0
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 14512dc14fbf57b4ca4e52fe4f39019c
-      internalID: 2377380950409399145
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_28
-      rect:
-        serializedVersion: 2
-        x: 130
-        y: 0
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 93e5f769efafc5147b98c523428b9062
-      internalID: -2203095871052213596
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_29
-      rect:
-        serializedVersion: 2
-        x: 156
-        y: 0
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c90d8c0963427c34ba0f9a2de5e7e4b3
-      internalID: 8483344794992811064
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_30
-      rect:
-        serializedVersion: 2
-        x: 182
-        y: 0
-        width: 26
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06265347}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4bbba44b375fd6440a150ac8e63b948c
-      internalID: -4703190102516827482
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poop_medium_spritesheet_31
+      name: poop_big_spritesheet___31
       rect:
         serializedVersion: 2
         x: 208
+        y: 78
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89b98f242255afc4e8caf4163bbc63e4
+      internalID: -7005111394596534068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 52
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3ace878f76026a448682feaa9422d21
+      internalID: -1080726073226854157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 26
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39da95851d935e44cb1002cc0494536d
+      internalID: 5320294332348708635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___34
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 26
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c75d65128d7481142b36182fd15c51c4
+      internalID: 3814335147585805593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___35
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 26
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d3d63743b2186b4cba796c54755d6df
+      internalID: 7860792947241706036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___36
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 26
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 214fcae86f14d3e4999f52c87049b0cc
+      internalID: 8000734080393013936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___37
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 26
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ea4d6d96b44304587f5baeee6d7e84
+      internalID: 1437494732197426482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___38
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
         width: 26
         height: 26
@@ -847,8 +1027,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8cc0e031e760c9948b183a161cb5cd65
-      internalID: 1103406602015490229
+      spriteID: 31b516eb75c66044f87b12674ca593bb
+      internalID: -2867526962849420085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___39
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 0
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c628f5607fca0a4bad71a3f0aac21f3
+      internalID: 5954556549069669155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___40
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 0
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eaaccc1b8a46a2d45bf57ba9eeb12c3a
+      internalID: -9218486288189782214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___41
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 0
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc632345c8de9f147ad11195f4be42c8
+      internalID: -3623055966829465671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poop_big_spritesheet___42
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 0
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06265347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5399e47a12ac7b43b184a6c5f42494c
+      internalID: -1900148177866440937
       vertices: []
       indices: 
       edges: []

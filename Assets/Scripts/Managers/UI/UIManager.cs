@@ -35,11 +35,6 @@ namespace Assets.Scripts.Managers.UI
         private InputManager _inputManager;
         #endregion
 
-        #region PRIVATE ATRIBUTES
-        public bool HasInventory { get; set; }
-        public bool HasActionSlot { get; set; }
-
-        #endregion
 
         #region PUBLIC METHODS
         public ActionSlotComponent GetSelectedActionSlot()
@@ -88,8 +83,6 @@ namespace Assets.Scripts.Managers.UI
         #region PRIVATE METHODS
         private void ControllTheSelectedSlots()
         {
-            if(!HasActionSlot) return;
-
             if (_inputManager.SlotOne == 1 && !_actionSlotComponentlist[0].IsSelected)
             {
                 DiselectEveryActionSlot();

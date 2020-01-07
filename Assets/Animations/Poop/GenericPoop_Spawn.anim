@@ -22,16 +22,16 @@ AnimationClip:
     - time: 0
       value: {fileID: 8410399059329570916, guid: 8ee93d70b338d6748adaffa42f70a39b,
         type: 3}
-    - time: 0.18333334
+    - time: 0.15
       value: {fileID: -2313298278493960291, guid: 8ee93d70b338d6748adaffa42f70a39b,
         type: 3}
-    - time: 0.36666667
+    - time: 0.28333333
       value: {fileID: -2022460086979274208, guid: 8ee93d70b338d6748adaffa42f70a39b,
         type: 3}
-    - time: 0.56666666
+    - time: 0.43333334
       value: {fileID: 5088770128707428459, guid: 8ee93d70b338d6748adaffa42f70a39b,
         type: 3}
-    - time: 0.75
+    - time: 0.5833333
       value: {fileID: -7442428356239754280, guid: 8ee93d70b338d6748adaffa42f70a39b,
         type: 3}
     attribute: m_Sprite
@@ -63,7 +63,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.76666665
+    m_StopTime: 0.59999996
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -83,7 +83,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.75
+  - time: 0.5833333
     functionName: Animator_SpawnPoop
     data: 
     objectReferenceParameter: {fileID: 0}

@@ -328,6 +328,8 @@ MonoBehaviour:
   _canMoveByClick: 1
   _canInteract: 1
   _canPoop: 1
+  _spriteForActiveStatus: {fileID: -339892771922585380, guid: 23ebede7d09f4d24eb30dd7d863862dd,
+    type: 3}
 --- !u!1 &4069819738969034097
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,7 +348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4069819738969034096
 Transform:
   m_ObjectHideFlags: 0
@@ -443,5 +445,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnSpot: {fileID: 4069819738257440080}
-  _mockPoop: {fileID: 7281980993496840148, guid: 8f046f9e7d29ec5468ccd5b71c0a7ea8,
+  _genericPoopComponent: {fileID: 7281980993496840148, guid: 8f046f9e7d29ec5468ccd5b71c0a7ea8,
     type: 3}
