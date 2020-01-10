@@ -28,4 +28,4 @@ MonoBehaviour:
   _minMaxAmountSeedsItGives:
     _min: 2
     _max: 3
-  _digestionTime: 2
+  _digestionTime: 1

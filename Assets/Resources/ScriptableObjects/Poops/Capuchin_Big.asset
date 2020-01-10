@@ -19,3 +19,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
   _poopPrefab: {fileID: 7047317695904368443, guid: 15d3979bf06b1f24b9b0b081c2ecf17f,
     type: 3}
+  _deathCooldown: 5

@@ -4,8 +4,10 @@ using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Managers.UI;
+using Assets.Scripts.ScriptableComponents.Poop;
 using Assets.Scripts.Utils;
 using Cinemachine;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Structure.Player
@@ -41,6 +43,8 @@ namespace Assets.Scripts.Structure.Player
         private MovementMouseComponent _movementMouseComponent;
         private InteractableComponent _interactableComponent;
         private StomachComponent _stomachComponent;
+        private PlayerAnimatorVariables _animatorVariables;
+        private Animator _animator;
         #endregion
 
         #region PUBLIC METHODS
@@ -63,6 +67,11 @@ namespace Assets.Scripts.Structure.Player
             if (_canPoop) _stomachComponent.SetActivationComponent(value);
         }
 
+        public void TurnItIntoAPoop(PoopScriptable poopScriptable )
+        {
+            this.StartCoroutine(StartDeathCooldown(poopScriptable.DeathCooldown));
+        }
+
         public StomachComponent GetStomachComponent()
         {
             if (!_canInteract) return null;
@@ -82,6 +91,11 @@ namespace Assets.Scripts.Structure.Player
 
             return _interactableComponent;
         }
+
+        public void Animator_PoopKamikaze()
+        {
+            Destroy(this.gameObject);
+        }
         #endregion
 
         #region UNITY METHODS
@@ -93,17 +107,37 @@ namespace Assets.Scripts.Structure.Player
 
         private void OnDestroy()
         {
+            _activePlyarUI.DesactivePlayerSlot(slotInstanceId.Value);
             _playerStateManage.RemoveOnePlayerStructure(this);
+        }
+        #endregion
+
+
+        #region COROUTINES
+        IEnumerator StartDeathCooldown(float _deathCooldown)
+        {
+            float internalCdw = 0f;
+
+            while (internalCdw <= _deathCooldown)
+            {
+                internalCdw += Time.deltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+
+            _animator.SetTrigger(_animatorVariables.Die);
         }
         #endregion
 
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
+            _animatorVariables = new PlayerAnimatorVariables();
             _cinemachine = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
             _uIManager = GameObject.FindObjectOfType<UIManager>();
             _playerStateManage = GameObject.FindObjectOfType<PlayerStateManager>();
             _activePlyarUI = GameObject.FindObjectOfType<ActivePlayersUIComponent>();
+            _animator = this.GetComponent<Animator>();
+
             if (_canMoveByClick) _movementMouseComponent = this.GetComponent<MovementMouseComponent>();
             if (_canInteract) _interactableComponent = this.GetComponent<InteractableComponent>();
             if (_canPoop) _stomachComponent = this.GetComponent<StomachComponent>();

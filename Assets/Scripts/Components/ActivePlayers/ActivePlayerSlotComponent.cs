@@ -11,6 +11,7 @@ namespace Assets.Scripts.Components.ActivePlayers
     {
         #region PUBLIC ATRIBUTES
         public bool IsActive { get; private set; }
+        public int CurrentPLayerStructureInstanceId => _currentPlayerStructure.GetInstanceID();
         #endregion
 
         #region PRIVATE ATRIBUTES

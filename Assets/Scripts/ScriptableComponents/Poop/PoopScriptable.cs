@@ -19,6 +19,8 @@ namespace Assets.Scripts.ScriptableComponents.Poop
         private ItemScriptable[] _recipe;
         [SerializeField]
         private GameObject _poopPrefab;
+        [SerializeField]
+        private float _deathCooldown;
 
 
         public string Name => _name;
@@ -31,12 +33,14 @@ namespace Assets.Scripts.ScriptableComponents.Poop
             }
         }
         public GameObject PoopPrefab => _poopPrefab;
+        public float DeathCooldown => _deathCooldown;
 
         protected override void ValidateValues()
         {
             if (_name == null) Debug.LogError("The value of Name cannot be null in some poop");
             if (_recipe == null) Debug.LogError("The value of Recipe cannot be null in some poop");
             if (_poopPrefab == null) Debug.LogError("The value of PoopPrefab cannot be null in some poop");
+            if (_deathCooldown == 0) Debug.LogError("The value of _deathCooldown cannot be 0 in some poop");
         }
     }
 }
