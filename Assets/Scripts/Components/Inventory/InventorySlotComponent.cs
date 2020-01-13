@@ -4,6 +4,7 @@ using Assets.Scripts.Components.Draggable;
 using TMPro;
 using Assets.Scripts.Utils;
 using Assets.Scripts.DTOs;
+using Assets.Scripts.Managers.Inputs;
 
 namespace Assets.Scripts.Components.InventorySlot
 {
@@ -28,16 +29,21 @@ namespace Assets.Scripts.Components.InventorySlot
 #pragma warning restore 0649
         #endregion
 
+        #region PRIVATE ATRIBUTES
+        private InputManager _inputManager;
+        private bool _mousePressed = false;
+        private bool _onMouseOver = false;
+        #endregion
+
         #region PUBLIC METHODS
-        // => This event will call when player click on the inventory Slot
-        public void OnClick()
+        public void OnPointEnter()
         {
-            if (CurrentItem?.Item != null)
-            {
-                _currentImage.enabled = false;
-                _txtAmount.enabled = false;
-                _draggableItem.StartDragging(this);
-            }
+            _onMouseOver = true;
+        }
+
+        public void OnPointExit()
+        {
+            _onMouseOver = false;
         }
 
         public void EnableSlot()
@@ -119,11 +125,35 @@ namespace Assets.Scripts.Components.InventorySlot
         }
         #endregion
 
+        #region UNITY METHODS
+        private void Update()
+        {
+            ManageTheClick();
+        }
+        #endregion
+
         #region PRIVATE METHODS
         private void UpdateAmount()
         {
             _txtAmount.enabled = CurrentItem.Item.Stackable;
             _txtAmount.SetText(CurrentItem.Amount == 0 ? "" : CurrentItem.Amount.ToString());
+        }
+
+        private void ManageTheClick()
+        {
+            if (CurrentItem?.Item is null) return;
+            if (!_onMouseOver) return;
+
+            if (!_mousePressed && _inputManager.MouseLeftButton == 1)
+            {
+                _mousePressed = true;
+
+                _currentImage.enabled = false;
+                _txtAmount.enabled = false;
+                _draggableItem.StartDragging(this);
+            }
+            else if (_inputManager.MouseLeftButton == 0 && _mousePressed)
+                _mousePressed = false;
         }
         #endregion
 
@@ -138,6 +168,7 @@ namespace Assets.Scripts.Components.InventorySlot
         protected override void SetInitialValues()
         {
             _txtAmount.enabled = false;
+            _inputManager = GameObject.FindObjectOfType<InputManager>();
             _draggableItem = GameObject.FindObjectOfType<InventoryDraggableItemComponent>();
         }
         #endregion

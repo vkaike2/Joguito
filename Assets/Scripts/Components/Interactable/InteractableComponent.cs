@@ -133,6 +133,13 @@ namespace Assets.Scripts.Components.Interactable
         }
         #endregion
 
+        #region UNITY METHODS
+        private void OnMouseOver()
+        {
+            Debug.Log("sadsad");
+        }
+        #endregion
+
         #region COLLIDER METHODS
         private void OnTriggerEnter2D(Collider2D collision)
         {

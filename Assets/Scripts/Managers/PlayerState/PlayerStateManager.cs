@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.Structure.Player;
+using Assets.Scripts.Components.Draggable;
 
 namespace Assets.Scripts.Managers.PlayerState
 {
@@ -19,6 +20,8 @@ namespace Assets.Scripts.Managers.PlayerState
         {
             get
             {
+
+                List<Components.GenericUI.GenericUIComponent> test = _uiManager.GenericUIList.Where(e => e.MouseInUI).ToList();
                 bool mouseIsOverSomeUi = _uiManager.GenericUIList != null && _uiManager.GenericUIList.Any(e => e.MouseInUI);
 
                 bool playerIspooping = false;
@@ -32,12 +35,14 @@ namespace Assets.Scripts.Managers.PlayerState
                 if (interactableCompoment != null)
                     playerIsPlantingOrEating = interactableCompoment.IsPlantingOrEating;
 
+                if (PlayerIsDoingSomeAction)
+                    return true;
 
                 return mouseIsOverSomeUi || playerIspooping || playerIsPlantingOrEating;
             }
         }
 
-        public bool PlayerIsDoingSomeAction { get; set; }
+        public bool PlayerIsDoingSomeAction => _inventoryDraggableItemComponnent != null && _inventoryDraggableItemComponnent.IsDragging;
         #endregion
 
         #region SERIALIZABLE ATRIBUTES
@@ -48,6 +53,7 @@ namespace Assets.Scripts.Managers.PlayerState
 
         #region PRIVATE ATRIBUTES
         private List<PlayerStructure> _playerStrucutreList;
+        private InventoryDraggableItemComponent _inventoryDraggableItemComponnent;
         #endregion
 
         #region PUBLIC METHODS
@@ -83,7 +89,8 @@ namespace Assets.Scripts.Managers.PlayerState
             }
 
             PlayerStructure activePlayerStructure = _playerStrucutreList.FirstOrDefault(e => e.GetInstanceID() == playerStructureInstanceId);
-            activePlayerStructure.ActivatePlayerStructure(true);
+            if (activePlayerStructure != null)
+                activePlayerStructure.ActivatePlayerStructure(true);
 
         }
         #endregion
@@ -125,6 +132,7 @@ namespace Assets.Scripts.Managers.PlayerState
         protected override void ValidateValues()
         {
             if (_uiManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_uiManager), this.gameObject.name));
+            _inventoryDraggableItemComponnent = GameObject.FindObjectOfType<InventoryDraggableItemComponent>();
         }
         protected override void SetInitialValues()
         {

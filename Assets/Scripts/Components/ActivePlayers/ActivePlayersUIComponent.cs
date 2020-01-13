@@ -39,8 +39,12 @@ namespace Assets.Scripts.Components.ActivePlayers
 
         public void DesactivePlayerSlot(int instanceId)
         {
-            ActivePlayerSlotComponent currentSlot = _playerSlotComponentList.FirstOrDefault(e => e.GetInstanceID() == instanceId);
+
+            ActivePlayerSlotComponent currentSlot = _playerSlotComponentList.FirstOrDefault(e => e != null && e.GetInstanceID() == instanceId);
+            if (currentSlot is null) return;
+
             _playerSlotComponentList.Remove(currentSlot);
+
             Destroy(currentSlot.gameObject);
 
             _playerStateManager.ActiveNewPlayerStructure(_playerSlotComponentList.Select(e => e.CurrentPLayerStructureInstanceId).FirstOrDefault());

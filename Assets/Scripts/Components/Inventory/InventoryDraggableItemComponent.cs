@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Assets.Scripts.DTOs;
+using Assets.Scripts.Components.Interactable;
+using System.Collections;
 
 namespace Assets.Scripts.Components.Draggable
 {
@@ -19,6 +21,7 @@ namespace Assets.Scripts.Components.Draggable
     {
         #region PUBLIC ATRIBUTES
         public GameObject ThisGameObject => this.gameObject;
+        public bool IsDragging { get; private set; }
         #endregion
 
         #region SERIALIZABLE ATRIBUTES
@@ -40,10 +43,8 @@ namespace Assets.Scripts.Components.Draggable
 
         #region PRIVATE ATRIBUTES
         private Vector2? _offset;
-        private bool _isDragging;
         private Vector3 _initialPosition;
         private Image _image;
-        private GenericUIComponent _gereciUIComponent;
         private InventorySlotComponent _dragInventorySlot;
         private ItemDTO _dragItem;
         #endregion
@@ -51,7 +52,7 @@ namespace Assets.Scripts.Components.Draggable
         #region PUBLIC METHODS
         public void StartDragging(InventorySlotComponent slot)
         {
-            if (_isDragging) return;
+            if (IsDragging) return;
 
             _dragInventorySlot = slot;
             _dragItem = _dragInventorySlot.CurrentItem;
@@ -67,13 +68,21 @@ namespace Assets.Scripts.Components.Draggable
 
             _image.sprite = slot.CurrentImage.sprite;
             _image.enabled = true;
-            _isDragging = true;
-            _gereciUIComponent.SetMouseInUi(true);
+            IsDragging = true;
         }
 
         public void StopDragging()
         {
             List<RaycastResult> raycastsUnderMouseList = this.RaycastMouse();
+
+            InteractableComponent interactableComponent = raycastsUnderMouseList.Where(e => e.gameObject.GetComponent<InteractableComponent>() != null)
+                .Select(e => e.gameObject.GetComponent<InteractableComponent>())
+                .FirstOrDefault(); ;
+
+            if (interactableComponent != null)
+            {
+                Debug.Log("soltou no player");
+            }
 
             InventorySlotComponent targetInventorySlot = raycastsUnderMouseList.Where(e => e.gameObject.GetComponent<InventorySlotComponent>() != null)
                 .Select(e => e.gameObject.GetComponent<InventorySlotComponent>())
@@ -102,8 +111,8 @@ namespace Assets.Scripts.Components.Draggable
 
             _image.enabled = false;
             transform.position = _initialPosition;
-            _isDragging = false;
-            _gereciUIComponent.SetMouseInUi(false);
+            _dragInventorySlot = null;
+            IsDragging = false;
         }
         #endregion
 
@@ -117,7 +126,7 @@ namespace Assets.Scripts.Components.Draggable
 
         private void Update()
         {
-            if (!_isDragging) return;
+            if (!IsDragging) return;
             transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - _offset.Value;
         }
         #endregion
@@ -125,6 +134,7 @@ namespace Assets.Scripts.Components.Draggable
         #region PRIVATE ATRIBUTES
         private List<RaycastResult> RaycastMouse()
         {
+
             PointerEventData pointerData = new PointerEventData(EventSystem.current)
             {
                 pointerId = -1,
@@ -147,8 +157,6 @@ namespace Assets.Scripts.Components.Draggable
 
         protected override void SetInitialValues()
         {
-            _gereciUIComponent = this.GetComponent<GenericUIComponent>();
-
             if (_offsetClickValue == 0f) _offsetClickValue = 0.35f;
             if (_offsetDragValue == 0f) _offsetDragValue = 0.30f;
         }

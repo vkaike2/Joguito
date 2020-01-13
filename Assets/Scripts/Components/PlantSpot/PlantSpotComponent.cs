@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
+using Assets.Scripts.Components.GenericUI;
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.Plant;
 using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
+using Assets.Scripts.Managers.UI;
 using Assets.Scripts.ScriptableComponents.Item;
 using Assets.Scripts.Structure.Player;
 using Assets.Scripts.Utils;
@@ -37,6 +40,8 @@ namespace Assets.Scripts.Components.PlantSpot
         private InputManager _inputManager;
         private EnumPlantSpotState _plantSpotState;
         private bool _mousePressed = false;
+        private UIManager _uiManager;
+        private int _instanceIDForGenereciUI;
         #endregion
 
         #region PUBLIC METHODS
@@ -126,6 +131,7 @@ namespace Assets.Scripts.Components.PlantSpot
             PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
             InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
             if (interactableComponent is null) return;
+            if (_uiManager.GenericUIList.Any(e => e.MouseInUI && e.GetInstanceID() != _instanceIDForGenereciUI)  && interactionState == EnumInteractableState.Plant) return;
 
             interactableComponent.SetInteractableState(interactionState, this.GetInstanceID());
 
@@ -147,7 +153,7 @@ namespace Assets.Scripts.Components.PlantSpot
         private void ManageThePlayersClick()
         {
 
-            if (_inputManager.MouseLeftButton == 1 && !_mousePressed)
+            if (_inputManager.MouseLeftButton == 1 && !_mousePressed && !_playerState.PlayerIsDoingSomeAction)
             {
                 _mousePressed = true;
 
@@ -155,16 +161,14 @@ namespace Assets.Scripts.Components.PlantSpot
                 StartPlantingProccess();
             }
             else if (_inputManager.MouseLeftButton == 0 && _mousePressed)
-            {
                 _mousePressed = false;
-            }
         }
 
         private void StartPlantingProccess()
         {
             if (_plantSpotState != EnumPlantSpotState.Empty) return;
 
-            PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
+            //PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
 
 
             this.IniciateSomeInteraction(EnumInteractableState.Plant);
@@ -179,6 +183,8 @@ namespace Assets.Scripts.Components.PlantSpot
             _animator = this.GetComponent<Animator>();
             _animatorVariables = new PlantSpotAnimatorVariables();
             _plantSpotState = EnumPlantSpotState.Empty;
+            _uiManager = GameObject.FindObjectOfType<UIManager>();
+            _instanceIDForGenereciUI = this.GetComponent<GenericUIComponent>().GetInstanceID();
 
             _internalCanvas.enabled = false;
             if (_radioToInteract == 0) _radioToInteract = 0.1f;

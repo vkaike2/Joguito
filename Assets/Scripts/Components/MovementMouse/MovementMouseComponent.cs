@@ -47,6 +47,7 @@ namespace Assets.Scripts.Components.MovementMouse
 
         public void Animator_CantMove()
         {
+            _rigidBody2D.velocity = Vector2.zero;
             _internCanMove = false;
         }
         public void Animator_CanMove()
@@ -87,11 +88,11 @@ namespace Assets.Scripts.Components.MovementMouse
         private void MovementObject()
         {
             _animator.SetBool(_animatorVariables.Running, _rigidBody2D.velocity != Vector2.zero);
-
             if (!_isActive) return;
 
             if (_inputManager.MouseLeftButton == 1 && !_playerState.PlayerCantMove)
             {
+                
                 _mouseOnClickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 _mouseDirection = (_mouseOnClickPosition - (Vector2)transform.position).normalized;
 
