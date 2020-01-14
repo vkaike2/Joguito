@@ -81,6 +81,11 @@ namespace Assets.Scripts.Managers.PlayerState
             return playerStructure;
         }
 
+        public List<InteractableComponent> GetAllInteractableComponents()
+        {
+            return _playerStrucutreList.Select(e => e.GetInteractableComponent()).ToList();
+        }
+
         public void ActiveNewPlayerStructure(int playerStructureInstanceId)
         {
             foreach (PlayerStructure playerStructure in _playerStrucutreList)

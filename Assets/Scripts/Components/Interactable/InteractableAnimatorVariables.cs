@@ -17,6 +17,8 @@ namespace Assets.Scripts.Components.Interactable
 
         public PlantSpotComponent PlantSpotComponent { get; set; }
         public ActionSlotComponent SelectedActionSlot { get; set; }
+        public ItemDTO Flower { get; set; }
+
 
         public void ResetAuxiliarObjects()
         {

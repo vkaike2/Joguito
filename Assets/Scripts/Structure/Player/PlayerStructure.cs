@@ -2,6 +2,7 @@
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.Stomach;
+using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Managers.UI;
 using Assets.Scripts.ScriptableComponents.Poop;
@@ -45,6 +46,8 @@ namespace Assets.Scripts.Structure.Player
         private StomachComponent _stomachComponent;
         private PlayerAnimatorVariables _animatorVariables;
         private Animator _animator;
+        private InputManager _inputManager;
+        private bool _mouseIsClicked = false;
         #endregion
 
         #region PUBLIC METHODS
@@ -110,15 +113,48 @@ namespace Assets.Scripts.Structure.Player
             _activePlyarUI.DesactivePlayerSlot(slotInstanceId.Value);
             _playerStateManage.RemoveOnePlayerStructure(this);
         }
+
+        private void OnMouseOver()
+        {
+            if (IsActive) return;
+
+            if(_inputManager.MouseLeftButton == 1 && !_mouseIsClicked)
+            {
+                _mouseIsClicked = true;
+
+                _playerStateManage.ActiveNewPlayerStructure(this.GetInstanceID());
+                this.StartCoroutine(FreezeForSomeCooldown(0.2f));
+            }
+            else if(_inputManager.MouseLeftButton == 0 && _mouseIsClicked)
+            {
+                _mouseIsClicked = false;
+            }
+
+        }
         #endregion
 
 
         #region COROUTINES
-        IEnumerator StartDeathCooldown(float _deathCooldown)
+
+        IEnumerator FreezeForSomeCooldown(float cooldown)
         {
             float internalCdw = 0f;
 
-            while (internalCdw <= _deathCooldown)
+            _movementMouseComponent.Animator_CantMove();
+            
+            while (internalCdw <= cooldown)
+            {
+                internalCdw += Time.deltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+            _movementMouseComponent.Animator_CanMove();
+        }
+
+        IEnumerator StartDeathCooldown(float deathCooldown)
+        {
+            float internalCdw = 0f;
+
+            while (internalCdw <= deathCooldown)
             {
                 internalCdw += Time.deltaTime;
                 yield return new WaitForFixedUpdate();
@@ -136,6 +172,7 @@ namespace Assets.Scripts.Structure.Player
             _uIManager = GameObject.FindObjectOfType<UIManager>();
             _playerStateManage = GameObject.FindObjectOfType<PlayerStateManager>();
             _activePlyarUI = GameObject.FindObjectOfType<ActivePlayersUIComponent>();
+            _inputManager = GameObject.FindObjectOfType<InputManager>();
             _animator = this.GetComponent<Animator>();
 
             if (_canMoveByClick) _movementMouseComponent = this.GetComponent<MovementMouseComponent>();

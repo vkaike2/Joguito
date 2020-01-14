@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using Assets.Scripts.DTOs;
 using Assets.Scripts.Components.Interactable;
 using System.Collections;
+using Assets.Scripts.Managers.PlayerState;
 
 namespace Assets.Scripts.Components.Draggable
 {
@@ -47,6 +48,7 @@ namespace Assets.Scripts.Components.Draggable
         private Image _image;
         private InventorySlotComponent _dragInventorySlot;
         private ItemDTO _dragItem;
+        private PlayerStateManager _playerStateManager;
         #endregion
 
         #region PUBLIC METHODS
@@ -75,15 +77,6 @@ namespace Assets.Scripts.Components.Draggable
         {
             List<RaycastResult> raycastsUnderMouseList = this.RaycastMouse();
 
-            InteractableComponent interactableComponent = raycastsUnderMouseList.Where(e => e.gameObject.GetComponent<InteractableComponent>() != null)
-                .Select(e => e.gameObject.GetComponent<InteractableComponent>())
-                .FirstOrDefault(); ;
-
-            if (interactableComponent != null)
-            {
-                Debug.Log("soltou no player");
-            }
-
             InventorySlotComponent targetInventorySlot = raycastsUnderMouseList.Where(e => e.gameObject.GetComponent<InventorySlotComponent>() != null)
                 .Select(e => e.gameObject.GetComponent<InventorySlotComponent>())
                 .FirstOrDefault();
@@ -99,10 +92,30 @@ namespace Assets.Scripts.Components.Draggable
                     _dragInventorySlot.SetItem(_dragItem);
                 }
             }
+            else if (_playerStateManager.GetAllInteractableComponents().Any(e => e != null && e.MouseIsOver))
+            {
+                InteractableComponent interactableComponent = _playerStateManager.GetAllInteractableComponents().FirstOrDefault(e => e != null && e.MouseIsOver);
+                
+                if (_dragItem.Item.ItemType == ScriptableComponents.Item.EnumItemScriptableType.Flower && interactableComponent.PlayerCanEatFlower())
+                {
+                    if(_dragItem.Amount == 1)
+                    {
+                        interactableComponent.EatFlowerByDrag(_dragItem);
+                    }
+                    else
+                    {
+                        _dragItem.Amount--;
+                        _dragInventorySlot.SetItem(_dragItem);
+                    }
+                }
+                else
+                {
+                    this.DropItem();
+                }
+            }
             else if (targetInventorySlot == null) // => Drop Item
             {
-                GameObject itemDropGameObject = Instantiate(_itemDropPrefab, this.gameObject.transform.position, Quaternion.identity);
-                itemDropGameObject.GetComponentInChildren<ItemDropComponent>().SetCurrentItem(_dragItem);
+                this.DropItem();
             }
             else // => Same slot
             {
@@ -113,6 +126,12 @@ namespace Assets.Scripts.Components.Draggable
             transform.position = _initialPosition;
             _dragInventorySlot = null;
             IsDragging = false;
+        }
+
+        private void DropItem()
+        {
+            GameObject itemDropGameObject = Instantiate(_itemDropPrefab, this.gameObject.transform.position, Quaternion.identity);
+            itemDropGameObject.GetComponentInChildren<ItemDropComponent>().SetCurrentItem(_dragItem);
         }
         #endregion
 
@@ -157,6 +176,8 @@ namespace Assets.Scripts.Components.Draggable
 
         protected override void SetInitialValues()
         {
+            _playerStateManager = GameObject.FindObjectOfType<PlayerStateManager>();
+
             if (_offsetClickValue == 0f) _offsetClickValue = 0.35f;
             if (_offsetDragValue == 0f) _offsetDragValue = 0.30f;
         }

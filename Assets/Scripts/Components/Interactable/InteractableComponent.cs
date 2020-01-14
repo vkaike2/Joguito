@@ -28,6 +28,7 @@ namespace Assets.Scripts.Components.Interactable
         public bool CanTakeSeed => _canTakeSeed;
         public bool CanTakeFlower => _canTakeFlower;
         public bool CanEatFlower => _canEatFlower;
+        public bool MouseIsOver => _mouseIsOver;
         #endregion
 
         #region SERIALIZABLE ATRIBUTES
@@ -61,6 +62,7 @@ namespace Assets.Scripts.Components.Interactable
         private InteractableAnimatorVariables _animatorVariables;
         private bool _isPlanting = false;
         private bool _isEating = false;
+        private bool _mouseIsOver = false;
         #endregion
 
         #region PUBLIC METHODS
@@ -97,46 +99,76 @@ namespace Assets.Scripts.Components.Interactable
 
         public void Animator_ToEat()
         {
-
-            if (_animatorVariables.PlantSpotComponent == null) Debug.LogError("The auxiliar PlantSpotComponent Cannot be null while Planting");
-
-            ItemDTO flower = _animatorVariables.PlantSpotComponent.TakeFlower();
-            _stomachComponent.AddFood(new ItemDTO()
+            if (_animatorVariables.PlantSpotComponent == null) // => Is used by drag
             {
-                Item = flower.Item,
-                Amount = 1
-            });
-            flower.Amount--;
-
-            _animatorVariables.PlantSpotComponent.ResetPlantSpot();
-
-            if (flower.Amount <= 0)
-            {
-                this.RemoveInteractableState();
-                _isEating = false;
-                return;
-            }
-
-            if (_inventoryComponent.InventoryIsFull())
-            {
-                GameObject itemDropGameObject = Instantiate(_itemDropPrefab, this.gameObject.transform.position, Quaternion.identity);
-                itemDropGameObject.GetComponentInChildren<ItemDropComponent>().SetCurrentItem(flower);
+                _stomachComponent.AddFood(new ItemDTO()
+                {
+                    Item = _animatorVariables.Flower.Item,
+                    Amount = 1
+                });
             }
             else
             {
-                _inventoryComponent.AddItem(flower);
-            }
+                ItemDTO flower = _animatorVariables.PlantSpotComponent.TakeFlower();
+                _stomachComponent.AddFood(new ItemDTO()
+                {
+                    Item = flower.Item,
+                    Amount = 1
+                });
+                flower.Amount--;
 
+                _animatorVariables.PlantSpotComponent.ResetPlantSpot();
+
+                if (flower.Amount <= 0)
+                {
+                    this.RemoveInteractableState();
+                    _isEating = false;
+                    return;
+                }
+
+                if (_inventoryComponent.InventoryIsFull())
+                {
+                    GameObject itemDropGameObject = Instantiate(_itemDropPrefab, this.gameObject.transform.position, Quaternion.identity);
+                    itemDropGameObject.GetComponentInChildren<ItemDropComponent>().SetCurrentItem(flower);
+                }
+                else
+                {
+                    _inventoryComponent.AddItem(flower);
+                }
+            }
             _animatorVariables.ResetAuxiliarObjects();
             this.RemoveInteractableState();
             _isEating = false;
         }
+
+        public bool PlayerCanEatFlower()
+        {
+            if (_stomachComponent.StomachCantAcceptNewFood())
+            {
+                Debug.LogError("Player stomach Is Full while tryng to eat a flower!");
+                return false;
+            }
+
+            return true;
+        }
+
+        public void EatFlowerByDrag(ItemDTO flower)
+        {
+            _isEating = true;
+            _animatorVariables.Flower = flower;
+            _animator.SetTrigger(_animatorVariables.Eat);
+        }
         #endregion
 
         #region UNITY METHODS
-        private void OnMouseOver()
+        private void OnMouseEnter()
         {
-            Debug.Log("sadsad");
+            _mouseIsOver = true;
+        }
+
+        private void OnMouseExit()
+        {
+            _mouseIsOver = false;
         }
         #endregion
 
@@ -187,7 +219,6 @@ namespace Assets.Scripts.Components.Interactable
 
             return true;
         }
-
 
         private void ManageEveryInteractionType(Collider2D collision)
         {

@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 7047317695904368433}
   - component: {fileID: 7047317695904368432}
   - component: {fileID: 6088050221898410479}
+  - component: {fileID: 8911653342616075090}
+  - component: {fileID: 5249744027691905845}
   m_Layer: 0
   m_Name: Big_Capuchin_Poop
   m_TagString: Untagged
@@ -206,6 +208,31 @@ MonoBehaviour:
   _canPoop: 0
   _spriteForActiveStatus: {fileID: -6353404289686207586, guid: c61bd3b77dde5904fad3f0ae5d81332c,
     type: 3}
+--- !u!114 &8911653342616075090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047317695904368443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &5249744027691905845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047317695904368443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bbb270380229494ca71c2365c88d69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7047317697313148683
 GameObject:
   m_ObjectHideFlags: 0
