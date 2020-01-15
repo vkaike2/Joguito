@@ -170,7 +170,6 @@ namespace Assets.Scripts.Components.PlantSpot
 
             //PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
 
-
             this.IniciateSomeInteraction(EnumInteractableState.Plant);
         }
         #endregion

@@ -159,11 +159,11 @@ MonoBehaviour:
   _inventoryComponent: {fileID: 0}
   _itemDropPrefab: {fileID: 3386399707094856873, guid: 07f3317a4ac1fce43b2905026c297089,
     type: 3}
-  _canPickupItem: 1
-  _canPlant: 1
-  _canTakeSeed: 1
-  _canTakeFlower: 1
-  _canEatFlower: 1
+  _canPickupItem: 0
+  _canPlant: 0
+  _canTakeSeed: 0
+  _canTakeFlower: 0
+  _canEatFlower: 0
 --- !u!61 &7047317695904368432
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isMainPlayer: 0
   _canMoveByClick: 1
-  _canInteract: 0
+  _canInteract: 1
   _canPoop: 0
   _spriteForActiveStatus: {fileID: -2691253915823808716, guid: 8ee93d70b338d6748adaffa42f70a39b,
     type: 3}

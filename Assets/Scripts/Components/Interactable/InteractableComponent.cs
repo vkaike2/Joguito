@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Components.ActionSlot;
+﻿using System;
+using Assets.Scripts.Components.ActionSlot;
 using Assets.Scripts.Components.Inventory;
 using Assets.Scripts.Components.ItemDrop;
 using Assets.Scripts.Components.PlantSpot;
@@ -35,6 +36,7 @@ namespace Assets.Scripts.Components.Interactable
         [Header("Required Fields")]
         [SerializeField]
         private InventoryComponent _inventoryComponent;
+
         [SerializeField]
         private GameObject _itemDropPrefab;
 
@@ -49,6 +51,8 @@ namespace Assets.Scripts.Components.Interactable
         private bool _canTakeFlower;
         [SerializeField]
         private bool _canEatFlower;
+        [SerializeField]
+        private bool _canAttack;
         #endregion
 
         #region PRIVATE ATRIBUTES
@@ -66,6 +70,11 @@ namespace Assets.Scripts.Components.Interactable
         #endregion
 
         #region PUBLIC METHODS
+        public bool CheckIfCanAtack()
+        {
+            return _canAttack;
+        }
+
         public void RemoveInteractableState()
         {
             _currentInteractableState = EnumInteractableState.Nothing;
@@ -78,6 +87,7 @@ namespace Assets.Scripts.Components.Interactable
             if (!ValidateIfPlayerCanDoThings(interactableState)) return;
 
             _currentInteractableState = interactableState;
+            Debug.Log(_currentInteractableState);
             _interactableInstanceId = instanceId;
         }
 
@@ -216,6 +226,12 @@ namespace Assets.Scripts.Components.Interactable
                 Debug.LogError("You cannot eat Flower!");
                 return false;
             };
+
+            if(!_canAttack && interactableState == EnumInteractableState.Atack)
+            {
+                Debug.LogError("You cannot Atack!");
+                return false;
+            }
 
             return true;
         }
@@ -358,10 +374,10 @@ namespace Assets.Scripts.Components.Interactable
 
         protected override void ValidateValues()
         {
-            if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inputManager), this.gameObject.name));
-            if (_playerStateManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_playerStateManager), this.gameObject.name));
-            if (_uiManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_uiManager), this.gameObject.name));
-            if (_itemDropPrefab == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_itemDropPrefab), this.gameObject.name));
+            //if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inputManager), this.gameObject.name));
+            //if (_playerStateManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_playerStateManager), this.gameObject.name));
+            //if (_uiManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_uiManager), this.gameObject.name));
+            //if (_itemDropPrefab == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_itemDropPrefab), this.gameObject.name));
         }
         #endregion
     }

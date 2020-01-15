@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Components.Interactable;
+﻿using Assets.Scripts.Components.Combat;
+using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Utils;
@@ -36,6 +37,7 @@ namespace Assets.Scripts.Components.MovementMouse
         private Vector2 _mouseOnClickPosition;
         private Coroutine _MoveToExcatPosition;
         private bool _internCanMove;
+        private int? _instaceIdToCollider = null;
         #endregion
 
         #region PUBLIC METHODS
@@ -43,6 +45,11 @@ namespace Assets.Scripts.Components.MovementMouse
         {
             if (_MoveToExcatPosition == null)
                 _MoveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
+        }
+        public void ObjectGoTo(Vector2 position, int instanceID)
+        {
+            if (_MoveToExcatPosition == null)
+                _MoveToExcatPosition = StartCoroutine(MoveToCombatComponent(position, instanceID));
         }
 
         public void Animator_CantMove()
@@ -66,6 +73,20 @@ namespace Assets.Scripts.Components.MovementMouse
         }
         #endregion
 
+        #region COLLIDER METHODS
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (_instaceIdToCollider is null) return;
+
+            CombatComponent combatComponent = collision.gameObject.GetComponent<CombatComponent>();
+
+            if (combatComponent is null) return;
+            if (combatComponent.ColliderInstanceId == _instaceIdToCollider.Value)
+                _instaceIdToCollider = null;
+
+        }
+        #endregion
+
         #region COROUTINES
         IEnumerator MoveToExactPosition(Vector2 movePosition, float? stopRange)
         {
@@ -82,6 +103,25 @@ namespace Assets.Scripts.Components.MovementMouse
             _mouseOnClickPosition = transform.position;
             _MoveToExcatPosition = null;
         }
+
+        IEnumerator MoveToCombatComponent(Vector2 movePosition, int instaceID)
+        {
+            Vector2 mouseDirection = (movePosition - (Vector2)transform.position).normalized;
+            _instaceIdToCollider = instaceID;
+
+            while (_instaceIdToCollider != null)
+            {
+                _rigidBody2D.velocity = mouseDirection * (_velocity * Time.deltaTime);
+                this.ChangePlayerSide(_rigidBody2D.velocity.x >= 0);
+
+                yield return new WaitForFixedUpdate();
+            }
+
+            _rigidBody2D.velocity = Vector2.zero;
+            _mouseOnClickPosition = transform.position;
+            _MoveToExcatPosition = null;
+        }
+
         #endregion
 
         #region PRIVATE METHODS
@@ -100,6 +140,7 @@ namespace Assets.Scripts.Components.MovementMouse
                     {
                         StopCoroutine(_MoveToExcatPosition);
                         _MoveToExcatPosition = null;
+                        _instaceIdToCollider = null;
                     }
                     _interactableComponent.RemoveInteractableState();
                 }

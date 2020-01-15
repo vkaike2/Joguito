@@ -7,6 +7,7 @@
         Plant,
         TakeSeed,
         TakeFlower,
-        EatFlower
+        EatFlower,
+        Atack
     }
 }
