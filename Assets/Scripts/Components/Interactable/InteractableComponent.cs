@@ -278,12 +278,13 @@ namespace Assets.Scripts.Components.Interactable
 
             ActionSlotComponent selectedActionSlot = _uiManager.GetSelectedActionSlot();
             if (!plantSpotComponent.CanAcceptNewSeed()) return;
-
             if (!selectedActionSlot.ItemCanBeUsedToPlant()) return;
+
+            _isPlanting = true;
 
             _animatorVariables.PlantSpotComponent = plantSpotComponent;
             _animatorVariables.SelectedActionSlot = selectedActionSlot;
-            _isPlanting = true;
+            _animator.ResetTrigger(_animatorVariables.PlantSeed);
             _animator.SetTrigger(_animatorVariables.PlantSeed);
         }
         private void ToTakeSeed(Collider2D collision)

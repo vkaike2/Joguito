@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Components.ButtHole;
+using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
@@ -20,7 +21,6 @@ namespace Assets.Scripts.Components.Stomach
     {
         #region PUBLIC ATRIBUTES
         public List<StomachItemDTO> StomachItemList { get; private set; }
-        public bool IsPooping  { get; private set; }
         public bool Active => true;
         #endregion
 
@@ -33,6 +33,8 @@ namespace Assets.Scripts.Components.Stomach
         private StomachAnimatorVariables _animatorVariables;
         private PlayerStateManager _playerStateManager;
         private PoopScriptable _currentPoop;
+        private MovementMouseComponent _movementMouseComponent;
+        private bool _isPooping = false;
         #endregion
 
         #region PUBLIC METHODS
@@ -60,7 +62,8 @@ namespace Assets.Scripts.Components.Stomach
 
         public void Animator_StopPoop()
         {
-            IsPooping = false;
+            _movementMouseComponent.Animator_CanMove();
+            _isPooping = false;
         }
 
         public void Aniamtor_SetCurrentPoop()
@@ -101,14 +104,15 @@ namespace Assets.Scripts.Components.Stomach
         #region PRIVATE METHODS
         private void ManageTheButHole()
         {
-            if (_inputManager.PoopButton == 1 && !IsPooping && StomachItemList.Any(e => e.State == EnumStomachItemDTOState.ReadyToPoop))
+            if (_inputManager.PoopButton == 1 && !_isPooping && StomachItemList.Any(e => e.State == EnumStomachItemDTOState.ReadyToPoop))
             {
+                _movementMouseComponent.Animator_CantMove();
+                _isPooping = true;
                 List<StomachItemDTO> foodToPoopList = StomachItemList.Where(e => e.State == EnumStomachItemDTOState.ReadyToPoop).ToList();
                 string currentFlowersRecipeInStomach = String.Join("-", foodToPoopList.Select(e => e.Item.GetHashCode()).OrderBy(e => e).ToList());
 
                 _currentPoop = _poopList.FirstOrDefault(e => e.Recipe == currentFlowersRecipeInStomach);
 
-                IsPooping = true;
                 _animator.SetTrigger(_animatorVariables.Poop);
 
                 List<Guid> foodToPoopIdList = foodToPoopList.Select(e => e.Id).ToList();
@@ -131,8 +135,9 @@ namespace Assets.Scripts.Components.Stomach
             _poopList = Resources.LoadAll<PoopScriptable>("ScriptableObjects/Poops");
             _stomachUIComponent = GameObject.FindObjectOfType<StomachUIComponent>();
             StomachItemList = new List<StomachItemDTO>();
-            IsPooping = false;
+            _isPooping = false;
             _animator = this.GetComponent<Animator>();
+            _movementMouseComponent = this.GetComponent<MovementMouseComponent>();
             _animatorVariables = new StomachAnimatorVariables();
             _playerStateManager = GameObject.FindObjectOfType<PlayerStateManager>();
         }

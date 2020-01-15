@@ -24,11 +24,10 @@ namespace Assets.Scripts.Managers.PlayerState
                 List<Components.GenericUI.GenericUIComponent> test = _uiManager.GenericUIList.Where(e => e.MouseInUI).ToList();
                 bool mouseIsOverSomeUi = _uiManager.GenericUIList != null && _uiManager.GenericUIList.Any(e => e.MouseInUI);
 
-                bool playerIspooping = false;
-                StomachComponent stomachComponent = this.GetActivePlayerStructure().GetStomachComponent();
-                if (stomachComponent != null)
-                    playerIspooping = stomachComponent.IsPooping;
-
+                //bool playerIspooping = false;
+                //StomachComponent stomachComponent = this.GetActivePlayerStructure().GetStomachComponent();
+                //if (stomachComponent != null)
+                //    playerIspooping = stomachComponent.IsPooping;
 
                 bool playerIsPlantingOrEating = false;
                 InteractableComponent interactableCompoment = this.GetActivePlayerStructure().GetInteractableComponent();
@@ -38,7 +37,8 @@ namespace Assets.Scripts.Managers.PlayerState
                 if (PlayerIsDoingSomeAction)
                     return true;
 
-                return mouseIsOverSomeUi || playerIspooping || playerIsPlantingOrEating;
+                return mouseIsOverSomeUi || playerIsPlantingOrEating;
+                //return mouseIsOverSomeUi || playerIspooping || playerIsPlantingOrEating;
             }
         }
 
