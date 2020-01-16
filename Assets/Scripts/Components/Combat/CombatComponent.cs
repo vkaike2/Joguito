@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Components.Interactable;
+﻿using Assets.Scripts.Components.CombatAttributes;
+using Assets.Scripts.Components.Interactable;
+using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Structure.Player;
@@ -11,29 +13,23 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components.Combat
 {
+    [RequireComponent(typeof(CombatAttributesComponent))]
     public class CombatComponent : BaseComponent
     {
-        #region PUBLIC ATRIBUTES
-        public int ColliderInstanceId => _collider.GetInstanceID();
-        #endregion
-
         #region SERIALIZABLE ATRIBUTES
         [Header("Confiuration Fields")]
-        [SerializeField]
-        private float _health;
-        [SerializeField]
-        private float _damage;
         [SerializeField]
         private float _radioToInteract;
 
         [Header("Collider Stop Movement")]
         [SerializeField]
-        private Collider2D _collider;
+        private MovementMouseCollider _collider;
         #endregion
 
         #region PRIVATE ATRIBUTES
         private PlayerStateManager _playerState;
         private InputManager _inputManager;
+        private CombatAttributesComponent _combatAtributtes;
         private bool _mousePressed = false;
         #endregion
 
@@ -61,10 +57,10 @@ namespace Assets.Scripts.Components.Combat
 
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
-        {
-            if (_damage == 0) _damage = 1;
+        { 
             if (_radioToInteract == 0) _radioToInteract = 0.2f;
 
+            _combatAtributtes = this.GetComponent<CombatAttributesComponent>();
             _playerState = GameObject.FindObjectOfType<PlayerStateManager>();
             _inputManager = GameObject.FindObjectOfType<InputManager>();
         }

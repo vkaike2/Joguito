@@ -74,16 +74,14 @@ namespace Assets.Scripts.Components.MovementMouse
         #endregion
 
         #region COLLIDER METHODS
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (_instaceIdToCollider is null) return;
+            ManageTheStopCollision(collision);
+        }
 
-            CombatComponent combatComponent = collision.gameObject.GetComponent<CombatComponent>();
-
-            if (combatComponent is null) return;
-            if (combatComponent.ColliderInstanceId == _instaceIdToCollider.Value)
-                _instaceIdToCollider = null;
-
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            ManageTheStopCollision(collision);
         }
         #endregion
 
@@ -178,6 +176,17 @@ namespace Assets.Scripts.Components.MovementMouse
         {
             this.transform.localScale = new Vector2(right ? 1 : -1, 1);
             //this.transform.localEulerAngles = new Vector3(0, right ? 0 : 180, 0);
+        }
+
+        private void ManageTheStopCollision(Collider2D collision)
+        {
+            if (_instaceIdToCollider is null) return;
+
+            MovementMouseCollider movementMouseCollider = collision.gameObject.GetComponent<MovementMouseCollider>();
+
+            if (movementMouseCollider is null) return;
+            if (movementMouseCollider.GetInstanceID() == _instaceIdToCollider.Value)
+                _instaceIdToCollider = null;
         }
         #endregion
 

@@ -87,7 +87,6 @@ namespace Assets.Scripts.Components.Interactable
             if (!ValidateIfPlayerCanDoThings(interactableState)) return;
 
             _currentInteractableState = interactableState;
-            Debug.Log(_currentInteractableState);
             _interactableInstanceId = instanceId;
         }
 
