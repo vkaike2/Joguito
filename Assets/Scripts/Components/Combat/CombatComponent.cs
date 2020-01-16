@@ -42,7 +42,7 @@ namespace Assets.Scripts.Components.Combat
 
                 PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
                 InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
-
+                if (interactableComponent is null) return;
                 if (!interactableComponent.CheckIfCanAtack())
                     return;
 
