@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027b9882079913f4c9a625a5b468bfdc, type: 3}
+  m_Name: Strange_Seed
+  m_EditorClassIdentifier: 
+  _name: STRANGE SEED
+  _description: A seed to plant a bealtiful flower
+  _stackable: 1
+  _itemType: 0
+  _inventorySprite: {fileID: 4280556112787438231, guid: 15872809d44ca314ab3039e1db9892ea,
+    type: 3}
+  _maxStackableAmout: 3
+  _dropAnimatorController: {fileID: 9100000, guid: 936b4af239c2aac45ba08e9022a68206,
+    type: 2}
+  _plantingAnimatorController: {fileID: 9100000, guid: 3032d4b2d9b925249aa87c655d6bad81,
+    type: 2}
+  _secondsToBeReady: 1
+  _flower: {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
+  _amoutFlowerItGivesWhenHarvest: 0
+  _minMaxAmountSeedsItGives:
+    _min: 0
+    _max: 0
+  _digestionTime: 0

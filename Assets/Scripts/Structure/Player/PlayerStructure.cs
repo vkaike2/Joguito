@@ -70,7 +70,7 @@ namespace Assets.Scripts.Structure.Player
             if (_canPoop) _stomachComponent.SetActivationComponent(value);
         }
 
-        public void TurnItIntoAPoop(PoopScriptable poopScriptable )
+        public void TurnItIntoAPoop(PoopScriptable poopScriptable)
         {
             this.StartCoroutine(StartDeathCooldown(poopScriptable.DeathCooldown));
         }
@@ -118,14 +118,14 @@ namespace Assets.Scripts.Structure.Player
         {
             if (IsActive) return;
 
-            if(_inputManager.MouseLeftButton == 1 && !_mouseIsClicked)
+            if (_inputManager.MouseLeftButton == 1 && !_mouseIsClicked)
             {
                 _mouseIsClicked = true;
 
                 _playerStateManage.ActiveNewPlayerStructure(this.GetInstanceID());
                 this.StartCoroutine(FreezeForSomeCooldown(0.2f));
             }
-            else if(_inputManager.MouseLeftButton == 0 && _mouseIsClicked)
+            else if (_inputManager.MouseLeftButton == 0 && _mouseIsClicked)
             {
                 _mouseIsClicked = false;
             }
@@ -141,7 +141,7 @@ namespace Assets.Scripts.Structure.Player
             float internalCdw = 0f;
 
             _movementMouseComponent.Animator_CantMove();
-            
+
             while (internalCdw <= cooldown)
             {
                 internalCdw += Time.deltaTime;

@@ -12,13 +12,16 @@ namespace Assets.Scripts.ScriptableComponents.Poop
     [CreateAssetMenu(fileName = "Poop", menuName = "ScriptableObjects/Poop", order = 1)]
     public class PoopScriptable : ScriptableBase
     {
-        [Header("Configuration Fields")]
+        [Header("Required Fields")]
         [SerializeField]
         private string _name;
         [SerializeField]
         private ItemScriptable[] _recipe;
+        [Space]
         [SerializeField]
         private GameObject _poopPrefab;
+
+        [Header("Configuration Fields")]
         [SerializeField]
         private float _deathCooldown;
 
@@ -34,6 +37,7 @@ namespace Assets.Scripts.ScriptableComponents.Poop
         }
         public GameObject PoopPrefab => _poopPrefab;
         public float DeathCooldown => _deathCooldown;
+
 
         protected override void ValidateValues()
         {

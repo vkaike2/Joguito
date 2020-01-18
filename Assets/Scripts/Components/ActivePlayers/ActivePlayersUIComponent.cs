@@ -47,7 +47,8 @@ namespace Assets.Scripts.Components.ActivePlayers
 
             Destroy(currentSlot.gameObject);
 
-            _playerStateManager.ActiveNewPlayerStructure(_playerSlotComponentList.Select(e => e.CurrentPLayerStructureInstanceId).FirstOrDefault());
+            if (currentSlot.IsActive)
+                _playerStateManager.ActiveNewPlayerStructure(_playerSlotComponentList.Select(e => e.CurrentPLayerStructureInstanceId).FirstOrDefault());
         }
         #endregion
 
