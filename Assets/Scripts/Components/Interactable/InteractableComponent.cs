@@ -1,5 +1,7 @@
 ﻿using System;
 using Assets.Scripts.Components.ActionSlot;
+using Assets.Scripts.Components.Combat;
+using Assets.Scripts.Components.CombatAttributes;
 using Assets.Scripts.Components.Inventory;
 using Assets.Scripts.Components.ItemDrop;
 using Assets.Scripts.Components.PlantSpot;
@@ -67,6 +69,7 @@ namespace Assets.Scripts.Components.Interactable
         private bool _isPlanting = false;
         private bool _isEating = false;
         private bool _mouseIsOver = false;
+        private CombatAttributesComponent _combatAttributesComponent;
         #endregion
 
         #region PUBLIC METHODS
@@ -93,6 +96,11 @@ namespace Assets.Scripts.Components.Interactable
         public bool IsInteracting()
         {
             return _currentInteractableState != EnumInteractableState.Nothing;
+        }
+
+        public bool IsAttackingThisMonster(int monsterInstanceId)
+        {
+            return _currentInteractableState == EnumInteractableState.Atack && _interactableInstanceId == monsterInstanceId;
         }
 
         public void Animator_ToPlant()
@@ -260,6 +268,9 @@ namespace Assets.Scripts.Components.Interactable
                 case EnumInteractableState.EatFlower:
                     this.EatFlower(collision);
                     break;
+                case EnumInteractableState.Atack:
+                    this.Atack(collision);
+                    break;
                 default:
                     break;
             }
@@ -346,6 +357,15 @@ namespace Assets.Scripts.Components.Interactable
             _animatorVariables.PlantSpotComponent = plantSpotComponent;
             _animator.SetTrigger(_animatorVariables.Eat);
         }
+        private void Atack(Collider2D collision)
+        {
+            CombatComponent combatComponent = collision.gameObject.GetComponentInParent<CombatComponent>();
+
+            if (combatComponent == null) return;
+            if (combatComponent.GetInstanceID() != _interactableInstanceId) return;
+
+            combatComponent.StartDefenseOperation(_combatAttributesComponent);
+        }
 
         private PlantSpotComponent HarvestPlnantValidatios(Collider2D collision)
         {
@@ -367,6 +387,7 @@ namespace Assets.Scripts.Components.Interactable
             _animator = this.GetComponent<Animator>();
             _currentInteractableState = EnumInteractableState.Nothing;
             _stomachComponent = this.GetComponent<StomachComponent>();
+            _combatAttributesComponent = this.GetComponent<CombatAttributesComponent>();
 
             _animatorVariables = new InteractableAnimatorVariables();
         }
