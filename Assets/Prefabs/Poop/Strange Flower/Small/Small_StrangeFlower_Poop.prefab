@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1603918484867257995}
   - component: {fileID: 8425918072022119447}
   - component: {fileID: 1471798263217894614}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ColliderStopMovement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 6404199156235043366}
   - component: {fileID: 4147761004406409227}
   - component: {fileID: 5787659342828659228}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Small_StrangeFlower_Poop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.016795397, y: 0.11471772}
+  m_Offset: {x: -0.00086808205, y: 0.10058689}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.06265347}
@@ -252,7 +252,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.94087195, y: 0.38786888}
+  m_Size: {x: 0.72184396, y: 0.35960722}
   m_EdgeRadius: 0
 --- !u!114 &6088050221898410479
 MonoBehaviour:
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 5
   _damage: 1
-  _cdwDamage: 3
+  _cdwDamage: 1
 --- !u!114 &5787659342828659228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,7 +336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7047317697313148682}
   - component: {fileID: 7047317697313148677}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

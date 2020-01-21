@@ -21,6 +21,8 @@ namespace Assets.Scripts.Components.Combat
         [Header("Confiuration Fields")]
         [SerializeField]
         private float _radioToInteract;
+        [SerializeField]
+        private Animator _damageAnimator;
 
         [Header("Collider Stop Movement")]
         [SerializeField]
@@ -37,6 +39,7 @@ namespace Assets.Scripts.Components.Combat
         private CombatAnimatorVariables _animatorVariables;
         private bool _canReceiveNewDamage = true;
         private int? _playerStructureInstaceId => this.GetComponent<PlayerStructure>()?.GetInstanceID();
+        private CombatComponent _enemyCombatComponent;
         #endregion
 
         #region UNITY METHODS
@@ -66,12 +69,30 @@ namespace Assets.Scripts.Components.Combat
         #endregion
 
         #region PUBLIC METHODS
-
         public void Animator_Destroy_Object()
         {
             Destroy(this.transform.parent.gameObject);
         }
 
+        public void StopCombatActions()
+        {
+            _enemyCombatComponent = null;
+        }
+
+        #region USED TO ATTACK
+        public void StartAtackAnimation(CombatComponent enemyCombatComponent)
+        {
+            _enemyCombatComponent = enemyCombatComponent;
+            _animator.SetTrigger(_animatorVariables.Atack);
+        }
+
+        public void Animator_EnemyTakeDamage()
+        {
+            _enemyCombatComponent.TakeDamage(_combatAtributtes.Damage);
+        }
+        #endregion
+
+        #region USED TO DEFEND
         public void StartDefenseOperation(CombatAttributesComponent combatAttributes)
         {
             if (_instanceIdenemyList.Any(e => e == combatAttributes.GetInstanceID())) return;
@@ -79,46 +100,50 @@ namespace Assets.Scripts.Components.Combat
             _instanceIdenemyList.Add(combatAttributes.GetInstanceID());
             this.StartCoroutine(DefenseOperation(combatAttributes));
         }
-        #endregion
 
-        #region COROUTINES
-        IEnumerator DefenseOperation(CombatAttributesComponent combatAttributes)
-        {
-            float _internalCdw = 0f;
-            InteractableComponent interactableComponent = combatAttributes.GetComponent<InteractableComponent>();
-            while (_internalCdw <= combatAttributes.CdwDamage)
-            {
-                _internalCdw += Time.deltaTime;
-                yield return new WaitForFixedUpdate();
-            }
-
-            if (interactableComponent.IsAttackingThisMonster(this.GetInstanceID()))
-            {
-                this.TakeDamage(combatAttributes.Damage);
-                StartCoroutine(DefenseOperation(combatAttributes));
-            }
-            else
-            {
-                _instanceIdenemyList.Remove(combatAttributes.GetInstanceID());
-            }
-        }
-        #endregion
-
-        #region PRIVATE METHODS
-        private void TakeDamage(float damage)
+        public void TakeDamage(float damage)
         {
             if (!_canReceiveNewDamage) return;
 
             _combatAtributtes.Heath -= damage;
 
-            if (_combatAtributtes.Heath <= 0)
+            if (_combatAtributtes.Heath <= 0) // => DIe
             {
                 _canReceiveNewDamage = false;
                 _animator.SetTrigger(_animatorVariables.Die);
             }
             else
             {
+                _damageAnimator.SetTrigger(_animatorVariables.BasicDamage);
                 _animator.SetTrigger(_animatorVariables.TakeDamage);
+            }
+        }
+        #endregion
+        #endregion
+
+        #region COROUTINES
+        IEnumerator DefenseOperation(CombatAttributesComponent combatAttributes)
+        {
+            float _internalCdw = 0f;
+            InteractableComponent enemyInteractableComponent = combatAttributes.GetComponent<InteractableComponent>();
+            CombatComponent enemyCombatComponent = combatAttributes.GetComponent<CombatComponent>();
+
+            while (_internalCdw <= combatAttributes.CdwDamage)
+            {
+                _internalCdw += Time.deltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+
+            if (enemyInteractableComponent.IsAttackingThisMonster(this.GetInstanceID()))
+            {
+                enemyCombatComponent.StartAtackAnimation(this);
+                StartCoroutine(DefenseOperation(combatAttributes));
+            }
+            else
+            {
+                this.StopCombatActions();
+                enemyCombatComponent.StopCombatActions();
+                _instanceIdenemyList.Remove(combatAttributes.GetInstanceID());
             }
         }
         #endregion

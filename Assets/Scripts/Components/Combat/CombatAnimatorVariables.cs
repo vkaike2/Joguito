@@ -11,5 +11,8 @@ namespace Assets.Scripts.Components.Combat
     {
         public int TakeDamage => Animator.StringToHash("take-damage");
         public int Die => Animator.StringToHash("die");
+        public int Atack => Animator.StringToHash("atack");
+
+        public int BasicDamage => Animator.StringToHash("basic-damage");
     }
 }
