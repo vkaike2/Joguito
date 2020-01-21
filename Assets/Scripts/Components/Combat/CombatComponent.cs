@@ -36,6 +36,7 @@ namespace Assets.Scripts.Components.Combat
         private Animator _animator;
         private CombatAnimatorVariables _animatorVariables;
         private bool _canReceiveNewDamage = true;
+        private int? _playerStructureInstaceId => this.GetComponent<PlayerStructure>()?.GetInstanceID();
         #endregion
 
         #region UNITY METHODS
@@ -43,10 +44,15 @@ namespace Assets.Scripts.Components.Combat
         {
             if (_inputManager.MouseLeftButton == 1 && !_mousePressed)
             {
+                Debug.Log(this.gameObject.name);
                 _mousePressed = true;
 
                 PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
+                if (_playerStructureInstaceId != null && playerStructure.GetInstanceID() == _playerStructureInstaceId.GetValueOrDefault())
+                    return;
+
                 InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
+
                 if (interactableComponent is null) return;
                 if (!interactableComponent.CheckIfCanAtack()) return;
 
@@ -120,6 +126,10 @@ namespace Assets.Scripts.Components.Combat
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
+            //PlayerStructure playerStructure = this.GetComponent<PlayerStructure>();
+            //if(PlayerStructure != null)
+            //_playerStructureInstaceId
+
             if (_radioToInteract == 0) _radioToInteract = 0.2f;
 
             _animatorVariables = new CombatAnimatorVariables();
