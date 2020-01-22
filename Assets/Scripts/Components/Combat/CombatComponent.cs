@@ -4,7 +4,6 @@ using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Structure.Player;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +21,9 @@ namespace Assets.Scripts.Components.Combat
         [SerializeField]
         private float _radioToInteract;
         [SerializeField]
-        private Animator _damageAnimator;
+        private List<Animator> _damageAnimatorList;
+        [SerializeField]
+        private GameObject _alertObject;
 
         [Header("Collider Stop Movement")]
         [SerializeField]
@@ -45,26 +46,7 @@ namespace Assets.Scripts.Components.Combat
         #region UNITY METHODS
         private void OnMouseOver()
         {
-            if (_inputManager.MouseLeftButton == 1 && !_mousePressed)
-            {
-                Debug.Log(this.gameObject.name);
-                _mousePressed = true;
-
-                PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
-                if (_playerStructureInstaceId != null && playerStructure.GetInstanceID() == _playerStructureInstaceId.GetValueOrDefault())
-                    return;
-
-                InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
-
-                if (interactableComponent is null) return;
-                if (!interactableComponent.CheckIfCanAtack()) return;
-
-                interactableComponent.SetInteractableState(EnumInteractableState.Atack, this.GetInstanceID());
-                playerStructure.GetMovementMouseComponent().ObjectGoTo(this.transform.position, _collider.GetInstanceID());
-
-            }
-            else if (_inputManager.MouseLeftButton == 0 && _mousePressed)
-                _mousePressed = false;
+            ManageTheClick();
         }
         #endregion
 
@@ -90,6 +72,11 @@ namespace Assets.Scripts.Components.Combat
         {
             _enemyCombatComponent.TakeDamage(_combatAtributtes.Damage);
         }
+
+        public void StartAtackAlertCoroutine()
+        {
+            StartCoroutine(StartAtackAlert());
+        }
         #endregion
 
         #region USED TO DEFEND
@@ -114,7 +101,7 @@ namespace Assets.Scripts.Components.Combat
             }
             else
             {
-                _damageAnimator.SetTrigger(_animatorVariables.BasicDamage);
+                this.StartAnimationDamage();
                 _animator.SetTrigger(_animatorVariables.TakeDamage);
             }
         }
@@ -146,6 +133,51 @@ namespace Assets.Scripts.Components.Combat
                 _instanceIdenemyList.Remove(combatAttributes.GetInstanceID());
             }
         }
+        IEnumerator StartAtackAlert()
+        {
+            float _internalCdw = 0f;
+
+            _alertObject.SetActive(true);
+
+            while (_internalCdw <= 0.3f)
+            {
+                _internalCdw += Time.deltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+            _alertObject.SetActive(false);
+        }
+        #endregion
+
+        #region PRIVATE METHORDS
+        private void StartAnimationDamage()
+        {
+            int count = _damageAnimatorList.Count();
+            _damageAnimatorList[Random.Range(0, count - 1)].SetTrigger(_animatorVariables.BasicDamage);
+        }
+
+        private void ManageTheClick()
+        {
+            if (_inputManager.MouseLeftButton == 1 && !_mousePressed)
+            {
+                _mousePressed = true;
+
+                PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
+                if (_playerStructureInstaceId != null && playerStructure.GetInstanceID() == _playerStructureInstaceId.GetValueOrDefault())
+                    return;
+
+                InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
+
+                if (interactableComponent is null) return;
+                if (!interactableComponent.CheckIfCanAtack()) return;
+
+                playerStructure.GetComponent<CombatComponent>().StartAtackAlertCoroutine();
+                interactableComponent.SetInteractableState(EnumInteractableState.Atack, this.GetInstanceID());
+                playerStructure.GetMovementMouseComponent().ObjectGoTo(this.transform.position, _collider.GetInstanceID());
+
+            }
+            else if (_inputManager.MouseLeftButton == 0 && _mousePressed)
+                _mousePressed = false;
+        }
         #endregion
 
         #region ABSTRACT METHODS
@@ -154,6 +186,9 @@ namespace Assets.Scripts.Components.Combat
             //PlayerStructure playerStructure = this.GetComponent<PlayerStructure>();
             //if(PlayerStructure != null)
             //_playerStructureInstaceId
+
+            //if (_alertObject != null)
+            //    _alertObject.SetActive(false);
 
             if (_radioToInteract == 0) _radioToInteract = 0.2f;
 
