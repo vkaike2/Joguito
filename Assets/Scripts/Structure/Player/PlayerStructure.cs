@@ -22,6 +22,10 @@ namespace Assets.Scripts.Structure.Player
         #endregion
 
         #region SERIALIZABLE ATRIBUTES
+        [Header("RequiredFields")]
+        [SerializeField]
+        private GameObject _hightlight;
+
         [Header("Configuration Fields")]
         [SerializeField]
         private bool _isMainPlayer;
@@ -57,6 +61,8 @@ namespace Assets.Scripts.Structure.Player
             {
                 _cinemachine.Follow = this.transform;
             }
+            if(_hightlight != null)
+            _hightlight.SetActive(value);
 
             _activePlyarUI.ActivatePlayerSlot(slotInstanceId.Value);
 
@@ -132,7 +138,6 @@ namespace Assets.Scripts.Structure.Player
 
         }
         #endregion
-
 
         #region COROUTINES
 
