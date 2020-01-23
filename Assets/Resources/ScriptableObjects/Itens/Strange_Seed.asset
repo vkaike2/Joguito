@@ -23,7 +23,7 @@ MonoBehaviour:
     type: 2}
   _plantingAnimatorController: {fileID: 9100000, guid: 3032d4b2d9b925249aa87c655d6bad81,
     type: 2}
-  _secondsToBeReady: 5
+  _secondsToBeReady: 1
   _flower: {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
   _amoutFlowerItGivesWhenHarvest: 0
   _minMaxAmountSeedsItGives:

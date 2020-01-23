@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Components.CombatAttributes
 {
@@ -12,7 +7,8 @@ namespace Assets.Scripts.Components.CombatAttributes
         #region PUBLIC ATRIBUTES
         public float CdwDamage => _cdwDamage;
         public float Damage => _damage;
-        public float Heath { get => _health; set { _health = value; } }
+        public float FullHealth { get; private set; }
+        public float CurrentHealth { get => _health; set { _health = value; } }
         #endregion
 
         #region SERIALIZABLE ATTRIBUTES
@@ -23,6 +19,13 @@ namespace Assets.Scripts.Components.CombatAttributes
         private float _damage;
         [SerializeField]
         private float _cdwDamage;
+        #endregion
+
+        #region UNTIY METHODS
+        private void Start()
+        {
+            FullHealth = _health;
+        }
         #endregion
 
         #region ABSTRACT METHODS

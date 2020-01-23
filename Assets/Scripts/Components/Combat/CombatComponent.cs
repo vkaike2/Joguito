@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Components.CombatAttributes;
 using Assets.Scripts.Components.Interactable;
+using Assets.Scripts.Components.LifeBar;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
@@ -24,6 +25,8 @@ namespace Assets.Scripts.Components.Combat
         private List<Animator> _damageAnimatorList;
         [SerializeField]
         private GameObject _alertObject;
+        [SerializeField]
+        private LifeBarComponent _lifeBarComponent;
 
         [Header("Collider Stop Movement")]
         [SerializeField]
@@ -92,9 +95,9 @@ namespace Assets.Scripts.Components.Combat
         {
             if (!_canReceiveNewDamage) return;
 
-            _combatAtributtes.Heath -= damage;
-
-            if (_combatAtributtes.Heath <= 0) // => DIe
+            _combatAtributtes.CurrentHealth -= damage;
+            _lifeBarComponent.PercentageHp(_combatAtributtes.CurrentHealth / _combatAtributtes.FullHealth);
+            if (_combatAtributtes.CurrentHealth <= 0) // => DIe
             {
                 _canReceiveNewDamage = false;
                 _animator.SetTrigger(_animatorVariables.Die);
@@ -183,12 +186,6 @@ namespace Assets.Scripts.Components.Combat
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
-            //PlayerStructure playerStructure = this.GetComponent<PlayerStructure>();
-            //if(PlayerStructure != null)
-            //_playerStructureInstaceId
-
-            //if (_alertObject != null)
-            //    _alertObject.SetActive(false);
 
             if (_radioToInteract == 0) _radioToInteract = 0.2f;
 
