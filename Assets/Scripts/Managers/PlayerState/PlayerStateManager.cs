@@ -7,6 +7,7 @@ using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.Structure.Player;
 using Assets.Scripts.Components.Draggable;
+using Assets.Scripts.Managers.Inputs;
 
 namespace Assets.Scripts.Managers.PlayerState
 {
@@ -20,14 +21,8 @@ namespace Assets.Scripts.Managers.PlayerState
         {
             get
             {
-
                 List<Components.GenericUI.GenericUIComponent> test = _uiManager.GenericUIList.Where(e => e.MouseInUI).ToList();
                 bool mouseIsOverSomeUi = _uiManager.GenericUIList != null && _uiManager.GenericUIList.Any(e => e.MouseInUI);
-
-                //bool playerIspooping = false;
-                //StomachComponent stomachComponent = this.GetActivePlayerStructure().GetStomachComponent();
-                //if (stomachComponent != null)
-                //    playerIspooping = stomachComponent.IsPooping;
 
                 bool playerIsPlantingOrEating = false;
                 InteractableComponent interactableCompoment = this.GetActivePlayerStructure().GetInteractableComponent();
@@ -38,7 +33,6 @@ namespace Assets.Scripts.Managers.PlayerState
                     return true;
 
                 return mouseIsOverSomeUi || playerIsPlantingOrEating;
-                //return mouseIsOverSomeUi || playerIspooping || playerIsPlantingOrEating;
             }
         }
 
@@ -54,6 +48,8 @@ namespace Assets.Scripts.Managers.PlayerState
         #region PRIVATE ATRIBUTES
         private List<PlayerStructure> _playerStrucutreList;
         private InventoryDraggableItemComponent _inventoryDraggableItemComponnent;
+        private InputManager _inputManager;
+        private bool _playerSlotPressed = false;
         #endregion
 
         #region PUBLIC METHODS
@@ -103,32 +99,50 @@ namespace Assets.Scripts.Managers.PlayerState
         #region UNITY METHODS
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            SwapBetweenPlayerSlots();
+        }
+        #endregion
+
+        #region PRIVATE METHODS
+        private void SwapBetweenPlayerSlots()
+        {
+            if (_inputManager.ChangePlayerSlot != 0 && !_playerSlotPressed)
             {
-                if (!_playerStrucutreList.Any() && _playerStrucutreList.Count > 1) return;
+                _playerSlotPressed = true;
+                if (_playerStrucutreList.Count == 1) return;
 
-                int? intexOfSelectedOne = null;
-                for (int i = 0; i < _playerStrucutreList.Count; i++)
+                int intexOfSelectedOne = 0;
+                for (int i = 0; i < _playerStrucutreList.Count; i++) // => Desactivate every PlayerSlot
                 {
-                    if (_playerStrucutreList[i].IsActive)
-                    {
-                        _playerStrucutreList[i].ActivatePlayerStructure(false);
-                        intexOfSelectedOne = i;
-                    }
-                    else
-                    {
-                        continue;
-                    }
+                    if (!_playerStrucutreList[i].IsActive) continue;
+
+                    _playerStrucutreList[i].ActivatePlayerStructure(false);
+                    intexOfSelectedOne = i;
                 }
 
-                if (intexOfSelectedOne < _playerStrucutreList.Count - 1)
+                if (_inputManager.ChangePlayerSlot == 1) // => Select the next Right
                 {
-                    _playerStrucutreList[intexOfSelectedOne.GetValueOrDefault() + 1].ActivatePlayerStructure(true);
+                    intexOfSelectedOne++;
+                    if (intexOfSelectedOne > _playerStrucutreList.Count -1)
+                    {
+                        _playerStrucutreList[0].ActivatePlayerStructure(true);
+                        return;
+                    }
                 }
-                else
+                else if (_inputManager.ChangePlayerSlot == -1) // => Select the next Left
                 {
-                    _playerStrucutreList[0].ActivatePlayerStructure(true);
+                    intexOfSelectedOne--;
+                    if (intexOfSelectedOne < 0)
+                    {
+                        _playerStrucutreList[_playerStrucutreList.Count - 1].ActivatePlayerStructure(true);
+                        return;
+                    }
                 }
+                _playerStrucutreList[intexOfSelectedOne].ActivatePlayerStructure(true);
+            }
+            else if (_inputManager.ChangePlayerSlot == 0 && _playerSlotPressed)
+            {
+                _playerSlotPressed = false;
             }
         }
         #endregion
@@ -142,6 +156,7 @@ namespace Assets.Scripts.Managers.PlayerState
         protected override void SetInitialValues()
         {
             _playerStrucutreList = new List<PlayerStructure>();
+            _inputManager = GameObject.FindObjectOfType<InputManager>();
         }
         #endregion
     }

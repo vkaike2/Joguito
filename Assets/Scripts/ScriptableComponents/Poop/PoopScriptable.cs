@@ -16,6 +16,8 @@ namespace Assets.Scripts.ScriptableComponents.Poop
         [SerializeField]
         private string _name;
         [SerializeField]
+        private RuntimeAnimatorController _poopAnimator;
+        [SerializeField]
         private ItemScriptable[] _recipe;
         [Space]
         [SerializeField]
@@ -25,8 +27,42 @@ namespace Assets.Scripts.ScriptableComponents.Poop
         [SerializeField]
         private float _deathCooldown;
 
+        [Header("Player Structure")]
+        [SerializeField]
+        private bool _canMoveByClick;
+        [SerializeField]
+        private bool _canInteract;
+        [SerializeField]
+        private bool _canPoop;
+        [SerializeField]
+        private Sprite _spriteForActiveStatus;
 
+        [Header("Interactable options")]
+        [SerializeField]
+        private bool _canPickupItem;
+        [SerializeField]
+        private bool _canPlant;
+        [SerializeField]
+        private bool _canTakeSeed;
+        [SerializeField]
+        private bool _canTakePlant;
+        [SerializeField]
+        private bool _canEat;
+        [SerializeField]
+        private bool _canAttack;
+
+        [Header("Combat Attributes")]
+        [SerializeField]
+        private float _health;
+        [SerializeField]
+        private float _damage;
+        [SerializeField]
+        private float _cdwDamage;
+
+
+        #region Common Options
         public string Name => _name;
+        public RuntimeAnimatorController PoopAnimator => _poopAnimator;
         public string Recipe
         {
             get
@@ -37,7 +73,29 @@ namespace Assets.Scripts.ScriptableComponents.Poop
         }
         public GameObject PoopPrefab => _poopPrefab;
         public float DeathCooldown => _deathCooldown;
+        #endregion
 
+        #region Player Structure
+        public bool CanMoveByClick => _canMoveByClick;
+        public bool CanInteract => _canInteract;
+        public bool CanPoop => _canPoop;
+        public Sprite SpriteForActiveStatus => _spriteForActiveStatus;
+        #endregion
+
+        #region Interactable Component
+        public bool CanPickupItem => _canPickupItem;
+        public bool CanPlant => _canPlant;
+        public bool CanTakeSeed => _canTakeSeed;
+        public bool CanTakePlant => _canTakePlant;
+        public bool CanEat => _canEat;
+        public bool CanAttack => _canAttack;
+        #endregion
+
+        #region Combat Attributes
+        public float Health => _health;
+        public float Damage => _damage;
+        public float CdwDamage => _cdwDamage;
+        #endregion
 
         protected override void ValidateValues()
         {

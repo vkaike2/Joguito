@@ -11,6 +11,7 @@ using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Managers.UI;
 using Assets.Scripts.ScriptableComponents.Item;
+using Assets.Scripts.ScriptableComponents.Poop;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
@@ -29,8 +30,8 @@ namespace Assets.Scripts.Components.Interactable
         public bool CanPickupItem => _canPickupItem;
         public bool CanPlant => _canPlant;
         public bool CanTakeSeed => _canTakeSeed;
-        public bool CanTakeFlower => _canTakeFlower;
-        public bool CanEatFlower => _canEatFlower;
+        public bool CanTakePlant => _canTakePlant;
+        public bool CanEat => _canEat;
         public bool MouseIsOver => _mouseIsOver;
         #endregion
 
@@ -50,9 +51,9 @@ namespace Assets.Scripts.Components.Interactable
         [SerializeField]
         private bool _canTakeSeed;
         [SerializeField]
-        private bool _canTakeFlower;
+        private bool _canTakePlant;
         [SerializeField]
-        private bool _canEatFlower;
+        private bool _canEat;
         [SerializeField]
         private bool _canAttack;
         #endregion
@@ -175,6 +176,16 @@ namespace Assets.Scripts.Components.Interactable
             _animatorVariables.Flower = flower;
             _animator.SetTrigger(_animatorVariables.Eat);
         }
+
+        public void TurnItIntoAPooop(PoopScriptable poopScriptable)
+        {
+            _canPickupItem = poopScriptable.CanPickupItem;
+            _canPlant = poopScriptable.CanPlant;
+            _canTakeSeed = poopScriptable.CanTakeSeed;
+            _canTakePlant = poopScriptable.CanTakePlant;
+            _canEat = poopScriptable.CanEat;
+            _canAttack = poopScriptable.CanAttack;
+        }
         #endregion
 
         #region UNITY METHODS
@@ -222,13 +233,13 @@ namespace Assets.Scripts.Components.Interactable
                 return false;
             }
 
-            if (!_canTakeFlower && interactableState == EnumInteractableState.TakeFlower)
+            if (!_canTakePlant && interactableState == EnumInteractableState.TakeFlower)
             {
                 Debug.LogError("You cannot take this flower!");
                 return false;
             }
 
-            if (!_canEatFlower && interactableState == EnumInteractableState.EatFlower)
+            if (!_canEat && interactableState == EnumInteractableState.EatFlower)
             {
                 Debug.LogError("You cannot eat Flower!");
                 return false;

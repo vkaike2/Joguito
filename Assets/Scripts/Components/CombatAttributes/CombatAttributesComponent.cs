@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.ScriptableComponents.Poop;
+using UnityEngine;
 
 namespace Assets.Scripts.Components.CombatAttributes
 {
@@ -19,6 +20,16 @@ namespace Assets.Scripts.Components.CombatAttributes
         private float _damage;
         [SerializeField]
         private float _cdwDamage;
+        #endregion
+
+        #region PUBLIC METHODS
+        public void TurnItIntoAPooop(PoopScriptable poopScriptable)
+        {
+            _health = poopScriptable.Health;
+            FullHealth = poopScriptable.Health;
+            _damage = poopScriptable.Damage;
+            _cdwDamage = poopScriptable.CdwDamage;
+        }
         #endregion
 
         #region UNTIY METHODS

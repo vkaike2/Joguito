@@ -131,6 +131,7 @@ namespace Assets.Scripts.Components.PlantSpot
             PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
             InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
             if (interactableComponent is null) return;
+
             if (_uiManager.GenericUIList.Any(e => e.MouseInUI && e.GetInstanceID() != _instanceIDForGenereciUI)  && interactionState == EnumInteractableState.Plant) return;
 
             interactableComponent.SetInteractableState(interactionState, this.GetInstanceID());
@@ -156,6 +157,12 @@ namespace Assets.Scripts.Components.PlantSpot
             if (_inputManager.MouseLeftButton == 1 && !_mousePressed && !_playerState.PlayerIsDoingSomeAction)
             {
                 _mousePressed = true;
+
+                PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
+                InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
+                if (interactableComponent is null) return;
+
+                if (!interactableComponent.CanPlant && !interactableComponent.CanTakePlant && !interactableComponent.CanTakeSeed) return;
 
                 ToggleInternalUIMenu();
                 StartPlantingProccess();

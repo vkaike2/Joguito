@@ -78,6 +78,19 @@ namespace Assets.Scripts.Structure.Player
 
         public void TurnItIntoAPoop(PoopScriptable poopScriptable)
         {
+            // => Player Structure
+            _animator.runtimeAnimatorController = poopScriptable.PoopAnimator;
+            _canMoveByClick = poopScriptable.CanMoveByClick;
+            _canInteract = poopScriptable.CanInteract;
+            _canPoop = poopScriptable.CanPoop;
+            _spriteForActiveStatus = poopScriptable.SpriteForActiveStatus;
+
+            // => Interact Component
+            this._interactableComponent.TurnItIntoAPooop(poopScriptable);
+
+            // => CombatAttributes
+
+
             this.StartCoroutine(StartDeathCooldown(poopScriptable.DeathCooldown));
         }
 

@@ -13,8 +13,23 @@ MonoBehaviour:
   m_Name: Strange_Flower_Small
   m_EditorClassIdentifier: 
   _name: Capuchin_small
+  _poopAnimator: {fileID: 9100000, guid: 705843e5b5cf5f5468f7cbbb62bf76ab, type: 2}
   _recipe:
   - {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
-  _poopPrefab: {fileID: 7047317695904368443, guid: 15e240257f870e84ab9201090c6f9b77,
+  _poopPrefab: {fileID: 5702095866367698404, guid: 20cfbeeef8f51ae41ab43c47aaf89305,
     type: 3}
   _deathCooldown: 50
+  _canMoveByClick: 1
+  _canInteract: 1
+  _canPoop: 0
+  _spriteForActiveStatus: {fileID: -3646235013913330984, guid: 8ee93d70b338d6748adaffa42f70a39b,
+    type: 3}
+  _canPickupItem: 0
+  _canPlant: 0
+  _canTakeSeed: 0
+  _canTakePlant: 0
+  _canEat: 0
+  _canAttack: 1
+  _health: 10
+  _damage: 1
+  _cdwDamage: 2

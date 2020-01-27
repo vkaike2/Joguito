@@ -16,6 +16,7 @@ namespace Assets.Scripts.Managers.Inputs
         W,
         E,
         R,
-        F
+        F,
+        PlayerSlot
     }
 }

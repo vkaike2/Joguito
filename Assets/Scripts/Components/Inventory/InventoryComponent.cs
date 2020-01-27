@@ -29,7 +29,7 @@ namespace Assets.Scripts.Components.Inventory
         public ItemScriptable mockItem;
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 AddItem(new ItemDTO() { Item = mockItem, Amount = 1});
             }
