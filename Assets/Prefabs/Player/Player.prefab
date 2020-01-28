@@ -203,12 +203,12 @@ GameObject:
   - component: {fileID: 4069819738788011770}
   - component: {fileID: 4069819738788011771}
   - component: {fileID: 1015833656}
+  - component: {fileID: 4069819738788011772}
+  - component: {fileID: 1015833654}
   - component: {fileID: 4069819738788011768}
   - component: {fileID: 4069819738788011773}
-  - component: {fileID: 4069819738788011772}
   - component: {fileID: 4069819738788011775}
   - component: {fileID: 993857415480832035}
-  - component: {fileID: 1015833654}
   - component: {fileID: 1015833655}
   - component: {fileID: 1319389795}
   - component: {fileID: 1945107665825277881}
@@ -275,7 +275,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6248627087571517343, guid: 23ebede7d09f4d24eb30dd7d863862dd,
+  m_Sprite: {fileID: -7531739503239175815, guid: 23ebede7d09f4d24eb30dd7d863862dd,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -340,6 +340,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
+--- !u!61 &4069819738788011772
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069819738788011767}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.016795397, y: 0.11471772}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5177312, y: 0.07681538}
+    oldSize: {x: 1.625, y: 1.625}
+    newSize: {x: 1.625, y: 1.625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.94087195, y: 0.38786888}
+  m_EdgeRadius: 0
+--- !u!61 &1015833654
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069819738788011767}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.087002754, y: 0.37521005}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5177312, y: 0.07681538}
+    oldSize: {x: 1.625, y: 1.625}
+    newSize: {x: 1.625, y: 1.625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9746249, y: 0.86006856}
+  m_EdgeRadius: 0
 --- !u!114 &4069819738788011768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,32 +427,6 @@ MonoBehaviour:
   _canTakePlant: 1
   _canEat: 1
   _canAttack: 0
---- !u!61 &4069819738788011772
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4069819738788011767}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.016795397, y: 0.11471772}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5177312, y: 0.07681538}
-    oldSize: {x: 1.625, y: 1.625}
-    newSize: {x: 1.625, y: 1.625}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.94087195, y: 0.38786888}
-  m_EdgeRadius: 0
 --- !u!114 &4069819738788011775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,32 +458,6 @@ MonoBehaviour:
   _canPoop: 1
   _spriteForActiveStatus: {fileID: -339892771922585380, guid: 23ebede7d09f4d24eb30dd7d863862dd,
     type: 3}
---- !u!61 &1015833654
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4069819738788011767}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.087002754, y: 0.37521005}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5177312, y: 0.07681538}
-    oldSize: {x: 1.625, y: 1.625}
-    newSize: {x: 1.625, y: 1.625}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.9746249, y: 0.86006856}
-  m_EdgeRadius: 0
 --- !u!114 &1015833655
 MonoBehaviour:
   m_ObjectHideFlags: 0
