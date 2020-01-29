@@ -44,6 +44,7 @@ namespace Assets.Scripts.Components.Combat
         private bool _canReceiveNewDamage = true;
         private int? _playerStructureInstaceId => this.GetComponent<PlayerStructure>()?.GetInstanceID();
         private CombatComponent _enemyCombatComponent;
+        private bool _readyToCombat = true;
         #endregion
 
         #region UNITY METHODS
@@ -54,6 +55,16 @@ namespace Assets.Scripts.Components.Combat
         #endregion
 
         #region PUBLIC METHODS
+        public void Animator_IsReadyToCombat()
+        {
+            _readyToCombat = true;
+        }
+
+        public void Animator_IsntReadyToCombat()
+        {
+            _readyToCombat = false;
+        }
+
         public void Animator_Destroy_Object()
         {
             Destroy(this.transform.parent.gameObject);
@@ -136,6 +147,7 @@ namespace Assets.Scripts.Components.Combat
                 _instanceIdenemyList.Remove(combatAttributes.GetInstanceID());
             }
         }
+
         IEnumerator StartAtackAlert()
         {
             float _internalCdw = 0f;

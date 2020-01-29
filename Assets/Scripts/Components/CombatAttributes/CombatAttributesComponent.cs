@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.ScriptableComponents.Poop;
+﻿using Assets.Scripts.ScriptableComponents.Boss;
+using Assets.Scripts.ScriptableComponents.Poop;
 using UnityEngine;
 
 namespace Assets.Scripts.Components.CombatAttributes
@@ -29,6 +30,13 @@ namespace Assets.Scripts.Components.CombatAttributes
             FullHealth = poopScriptable.Health;
             _damage = poopScriptable.Damage;
             _cdwDamage = poopScriptable.CdwDamage;
+        }
+        public void TurnItIntoABoss(BossScriptable bossScriptable)
+        {
+            _health = bossScriptable.Health;
+            FullHealth = bossScriptable.Health;
+            _damage = bossScriptable.Damage;
+            _cdwDamage = bossScriptable.CdwDamage;
         }
         #endregion
 

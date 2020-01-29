@@ -10,14 +10,8 @@ PrefabInstance:
     - target: {fileID: 4069819738788011767, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
       propertyPath: m_Name
-      value: SmallPoop
+      value: Small Poop
       objectReference: {fileID: 0}
-    - target: {fileID: 4069819738788011766, guid: fc215a468413e5a4abc9d58cd01e9c14,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 9109796972816661321, guid: 8ee93d70b338d6748adaffa42f70a39b,
-        type: 3}
     - target: {fileID: 4069819738788011769, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -73,6 +67,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4069819738788011766, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 9109796972816661321, guid: 8ee93d70b338d6748adaffa42f70a39b,
+        type: 3}
     - target: {fileID: 4069819738788011772, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
       propertyPath: m_Offset.x
@@ -130,6 +130,14 @@ PrefabInstance:
     - target: {fileID: 1015833654, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 336310125, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 336310127, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.017
       objectReference: {fileID: 0}
     - target: {fileID: 336310126, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
       propertyPath: m_SpriteSortPoint
