@@ -11,25 +11,25 @@ namespace Assets.Scripts.Components.Tile
     public class TileMapRandomGeneratorComponent : BaseComponent
     {
         #region SERIALIZABLE ATTRIBUTES
-        [Header("Configuration Fields")]
+        [Header("Random Sprites")]
         [SerializeField] 
-        private List<Sprite> LeftUpSpriteList;
+        private List<TileMapAttributes> LeftUpSpriteList;
         [SerializeField] 
-        private List<Sprite> UpSpriteList;
+        private List<TileMapAttributes> UpSpriteList;
         [SerializeField] 
-        private List<Sprite> RightUpSpriteList;
+        private List<TileMapAttributes> RightUpSpriteList;
         [SerializeField] 
-        private List<Sprite> RightSpriteList;
+        private List<TileMapAttributes> RightSpriteList;
         [SerializeField] 
-        private List<Sprite> LeftSpriteList;
+        private List<TileMapAttributes> LeftSpriteList;
         [SerializeField] 
-        private List<Sprite> BottomLeftSpriteList;
+        private List<TileMapAttributes> BottomLeftSpriteList;
         [SerializeField] 
-        private List<Sprite> BottomSpriteList;
+        private List<TileMapAttributes> BottomSpriteList;
         [SerializeField] 
-        private List<Sprite> BottomRightSpriteList;
+        private List<TileMapAttributes> BottomRightSpriteList;
         [SerializeField] 
-        private List<Sprite> CenterSpriteList;
+        private List<TileMapAttributes> CenterSpriteList;
         #endregion
 
         #region PRIVATE ATTRIBUTES
@@ -51,31 +51,31 @@ namespace Assets.Scripts.Components.Tile
                 switch (tileMap.Side)
                 {
                     case EnumSide.LEFT_UP:
-                        tileMap.SetInitialSprite(LeftUpSpriteList.GetRandomElement());
+                        tileMap.SetInitialSprite(LeftUpSpriteList.GetRandomSprite());
                         break;
                     case EnumSide.UP:
-                        tileMap.SetInitialSprite(UpSpriteList.GetRandomElement());
+                        tileMap.SetInitialSprite(UpSpriteList.GetRandomSprite());
                         break;
                     case EnumSide.RIGHT_UP:
-                        tileMap.SetInitialSprite(RightUpSpriteList.GetRandomElement());
+                        tileMap.SetInitialSprite(RightUpSpriteList.GetRandomSprite());
                         break;
                     case EnumSide.RIGHT:
-                        tileMap.SetInitialSprite(RightSpriteList.GetRandomElement());
+                        tileMap.SetInitialSprite(RightSpriteList.GetRandomSprite());
                         break;
                     case EnumSide.LEFT:
-                        tileMap.SetInitialSprite(LeftSpriteList.GetRandomElement());
+                        tileMap.SetInitialSprite(LeftSpriteList.GetRandomSprite());
                         break;
                     case EnumSide.LEFT_BOTTOM:
-                        tileMap.SetInitialSprite(BottomLeftSpriteList.GetRandomElement());
+                        tileMap.SetInitialSprite(BottomLeftSpriteList.GetRandomSprite());
                         break;
                     case EnumSide.BOTTOM:
-                        tileMap.SetInitialSprite(BottomSpriteList.GetRandomElement());
+                        tileMap.SetInitialSprite(BottomSpriteList.GetRandomSprite());
                         break;
                     case EnumSide.BOTTOM_RIGHT:
-                        tileMap.SetInitialSprite(BottomRightSpriteList.GetRandomElement());
+                        tileMap.SetInitialSprite(BottomRightSpriteList.GetRandomSprite());
                         break;
                     case EnumSide.CENTER:
-                        tileMap.SetInitialSprite(CenterSpriteList.GetRandomElement());
+                        tileMap.SetInitialSprite(CenterSpriteList.GetRandomSprite());
                         break;
                     default:
                         break;
