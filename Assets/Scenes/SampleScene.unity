@@ -5039,6 +5039,7 @@ GameObject:
   - component: {fileID: 1946097419}
   - component: {fileID: 1946097420}
   - component: {fileID: 1946097421}
+  - component: {fileID: 1946097422}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -5119,6 +5120,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputManager: {fileID: 1946097419}
   _togleableList: []
+--- !u!114 &1946097422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946097416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 585a8f8cc2901eb498f977db9627135b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mapPrefab: {fileID: 3562569821005150988, guid: 1761cc423233c884db54e6ab3da19c10,
+    type: 3}
 --- !u!4 &1959306350 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7584724946937029381, guid: ec51bfd491dda574c9e2c4519f18fe7d,
@@ -5649,10 +5664,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 296483827, guid: 1761cc423233c884db54e6ab3da19c10, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9.86
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1761cc423233c884db54e6ab3da19c10, type: 3}
