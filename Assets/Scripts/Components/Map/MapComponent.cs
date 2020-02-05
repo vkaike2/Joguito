@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.DTOs;
+﻿using Assets.Scripts.Components.Tile;
+using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Map;
 using System;
 using System.Collections.Generic;

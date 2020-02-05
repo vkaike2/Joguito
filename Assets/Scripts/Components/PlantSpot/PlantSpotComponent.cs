@@ -174,9 +174,6 @@ namespace Assets.Scripts.Components.PlantSpot
         private void StartPlantingProccess()
         {
             if (_plantSpotState != EnumPlantSpotState.Empty) return;
-
-            //PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
-
             this.IniciateSomeInteraction(EnumInteractableState.Plant);
         }
         #endregion

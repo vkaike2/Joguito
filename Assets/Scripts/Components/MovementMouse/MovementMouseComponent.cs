@@ -3,6 +3,7 @@ using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Utils;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -35,21 +36,35 @@ namespace Assets.Scripts.Components.MovementMouse
         private MovementCursorAnimatorVariables _animatorVariables;
         private Vector2 _mouseDirection;
         private Vector2 _mouseOnClickPosition;
-        private Coroutine _MoveToExcatPosition;
+        private Coroutine _moveToExcatPosition;
         private bool _internCanMove;
         private int? _instaceIdToCollider = null;
         #endregion
 
         #region PUBLIC METHODS
-        public void ObjectGoTo(Vector2 position, float? stopRange)
+        public void ObjectGoToContinuous(Vector2 position, float? stopRange = null)
         {
-            if (_MoveToExcatPosition == null)
-                _MoveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
+            if (stopRange is null)
+                stopRange = _stopRange;
+
+            if (_moveToExcatPosition != null)
+                StopCoroutine(_moveToExcatPosition);
+
+            _moveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
+        }
+
+        public void ObjectGoTo(Vector2 position, float? stopRange = null)
+        {
+            if (stopRange is null)
+                stopRange = _stopRange;
+
+            if (_moveToExcatPosition == null)
+                _moveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
         }
         public void ObjectGoTo(Vector2 position, int instanceID)
         {
-            if (_MoveToExcatPosition == null)
-                _MoveToExcatPosition = StartCoroutine(MoveToCombatComponent(position, instanceID));
+            if (_moveToExcatPosition == null)
+                _moveToExcatPosition = StartCoroutine(MoveToCombatComponent(position, instanceID));
         }
 
         public void Animator_CantMove()
@@ -66,10 +81,12 @@ namespace Assets.Scripts.Components.MovementMouse
         #region UNITY METHODS
         private void FixedUpdate()
         {
-            if (!_internCanMove) return;
+            this.UpdateAnimator();
 
-            this.StopPlayer();
-            this.MovementObject();
+            //if (!_internCanMove) return;
+
+            //this.StopPlayer();
+            //this.MovementObject();
         }
         #endregion
 
@@ -99,9 +116,8 @@ namespace Assets.Scripts.Components.MovementMouse
 
             _rigidBody2D.velocity = Vector2.zero;
             _mouseOnClickPosition = transform.position;
-            _MoveToExcatPosition = null;
+            _moveToExcatPosition = null;
         }
-
         IEnumerator MoveToCombatComponent(Vector2 movePosition, int instaceID)
         {
             Vector2 mouseDirection = (movePosition - (Vector2)transform.position).normalized;
@@ -117,15 +133,19 @@ namespace Assets.Scripts.Components.MovementMouse
 
             _rigidBody2D.velocity = Vector2.zero;
             _mouseOnClickPosition = transform.position;
-            _MoveToExcatPosition = null;
+            _moveToExcatPosition = null;
         }
-
         #endregion
 
         #region PRIVATE METHODS
+        private void UpdateAnimator()
+        {
+            _animator.SetBool(_animatorVariables.Running, _rigidBody2D.velocity != Vector2.zero);
+        }
         private void MovementObject()
         {
             _animator.SetBool(_animatorVariables.Running, _rigidBody2D.velocity != Vector2.zero);
+
             if (!_isActive) return;
             if (_inputManager.MouseLeftButton == 1 && !_playerState.PlayerCantMove)
             {
@@ -134,10 +154,10 @@ namespace Assets.Scripts.Components.MovementMouse
 
                 if (_interactableComponent.IsInteracting())
                 {
-                    if (_MoveToExcatPosition != null)
+                    if (_moveToExcatPosition != null)
                     {
-                        StopCoroutine(_MoveToExcatPosition);
-                        _MoveToExcatPosition = null;
+                        StopCoroutine(_moveToExcatPosition);
+                        _moveToExcatPosition = null;
                         _instaceIdToCollider = null;
                     }
                     _interactableComponent.RemoveInteractableState();
@@ -145,7 +165,7 @@ namespace Assets.Scripts.Components.MovementMouse
 
             }
 
-            if (_MoveToExcatPosition != null)
+            if (_moveToExcatPosition != null)
             {
                 _mouseOnClickPosition = transform.position;
                 return;
@@ -161,10 +181,9 @@ namespace Assets.Scripts.Components.MovementMouse
                 _rigidBody2D.velocity = Vector2.zero;
             }
         }
-
         private void StopPlayer()
         {
-            if (_MoveToExcatPosition != null) return;
+            if (_moveToExcatPosition != null) return;
 
             if (Vector2.Distance(_mouseOnClickPosition, transform.position) < _stopRange)
             {
@@ -175,7 +194,6 @@ namespace Assets.Scripts.Components.MovementMouse
         private void ChangePlayerSide(bool right)
         {
             this.transform.localScale = new Vector2(right ? 1 : -1, 1);
-            //this.transform.localEulerAngles = new Vector3(0, right ? 0 : 180, 0);
         }
 
         private void ManageTheStopCollision(Collider2D collision)

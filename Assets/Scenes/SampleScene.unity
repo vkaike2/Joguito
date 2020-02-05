@@ -3237,20 +3237,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4069819738788011767, guid: fc215a468413e5a4abc9d58cd01e9c14,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4069819738788011769, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.49
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4069819738788011769, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.84
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 4069819738788011769, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
@@ -3443,6 +3438,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccce422d3131970448e17862e343feea, type: 3}
+--- !u!1 &1478922263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1478922265}
+  - component: {fileID: 1478922264}
+  m_Layer: 0
+  m_Name: MouseCursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1478922264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478922263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dce1ab96e8b10545a576ec94921c14d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1478922265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478922263}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5125093, y: -2.7509332, z: -68.4556}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1480850602
 GameObject:
   m_ObjectHideFlags: 0
@@ -5134,6 +5172,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapPrefab: {fileID: 3562569821005150988, guid: 1761cc423233c884db54e6ab3da19c10,
     type: 3}
+  _plantSpotList:
+  - _weight: 2
+    _prefab: {fileID: 7584724946937029380, guid: ec51bfd491dda574c9e2c4519f18fe7d,
+      type: 3}
+    _amount: 1
+  - _weight: 2
+    _prefab: {fileID: 7584724946937029380, guid: ec51bfd491dda574c9e2c4519f18fe7d,
+      type: 3}
+    _amount: 2
+  - _weight: 3
+    _prefab: {fileID: 7584724946937029380, guid: ec51bfd491dda574c9e2c4519f18fe7d,
+      type: 3}
+    _amount: 3
 --- !u!4 &1959306350 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7584724946937029381, guid: ec51bfd491dda574c9e2c4519f18fe7d,
@@ -5610,20 +5661,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map
       objectReference: {fileID: 0}
+    - target: {fileID: 3562569821005150988, guid: 1761cc423233c884db54e6ab3da19c10,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3562569821005150989, guid: 1761cc423233c884db54e6ab3da19c10,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.588
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3562569821005150989, guid: 1761cc423233c884db54e6ab3da19c10,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.98
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3562569821005150989, guid: 1761cc423233c884db54e6ab3da19c10,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.980482
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3562569821005150989, guid: 1761cc423233c884db54e6ab3da19c10,
         type: 3}

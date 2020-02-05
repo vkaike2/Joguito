@@ -1,12 +1,127 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Components;
+using Assets.Scripts.Components.Interactable;
+using Assets.Scripts.Components.MovementMouse;
+using Assets.Scripts.Components.PlantSpot;
+using Assets.Scripts.Managers.Inputs;
+using Assets.Scripts.Managers.PlayerState;
+using Assets.Scripts.Structure.Player;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Component.MouseCursor
 {
-    [RequireComponent(typeof(SpriteRenderer))]
-    [RequireComponent(typeof(Animator))]
-    public class MouseCursorComponent : MonoBehaviour
+    public class MouseCursorComponent : BaseComponent
     {
-        // => Controlls the mouse cursour
+        #region PRIVATE ATTRIBURES
+        private PlayerStateManager _playerStateManager;
+        private InputManager _inputManager;
+        private bool _leftButtomPressed = false;
+
+        private bool _canMove = true;
+        #endregion
+
+        #region UNITY METHODS
+        private void FixedUpdate()
+        {
+            ManageMouseOver();
+
+            ManageMouseConinuousClick();
+
+            ManageMouseUniqueClick();
+        }
+        #endregion
+
+        #region PRIVATE METHODS
+        private Vector2 ManageMouseClick(Action<RaycastResult> callbackHitUI, Action<RaycastHit2D> callbackHit)
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D[] hitList = Physics2D.RaycastAll(mousePosition, Vector2.zero);
+
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            {
+                pointerId = -1,
+                position = Input.mousePosition
+            };
+
+            List<RaycastResult> htiUIList = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, htiUIList);
+
+            // => Normal Objects Under the Mouse
+            foreach (RaycastHit2D hit in hitList)
+            {
+                callbackHit(hit);
+            }
+
+            // => UI Objects Under The Mouse
+            foreach (RaycastResult hitUI in htiUIList)
+            {
+                callbackHitUI(hitUI);
+            }
+
+            return mousePosition;
+        }
+
+        private void ManageMouseOver()
+        {
+            InteractableComponent interactableComponent = _playerStateManager.GetActivePlayerStructure().GetInteractableComponent();
+            if (interactableComponent is null) return;
+
+            this.ManageMouseClick((hitUI) =>
+            {
+
+            },
+            (hit) =>
+            {
+
+            });
+        }
+
+        private void ManageMouseConinuousClick()
+        {
+            if (_inputManager.MouseLeftButton == 1)
+            {
+                MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
+
+                Vector2 mousePosition = this.ManageMouseClick((hitUI) =>
+                {
+                    _canMove = false;
+                },
+                (hit) =>
+                {
+                    _canMove = hit.collider.gameObject.GetComponent<PlantSpotComponent>() == null;
+                });
+
+                if (_canMove) movementMouseComponent.ObjectGoToContinuous(mousePosition);
+            }
+        }
+
+        private void ManageMouseUniqueClick()
+        {
+            if (_inputManager.MouseLeftButton == 1 && !_leftButtomPressed)
+            {
+                _leftButtomPressed = true;
+
+
+            }
+            else if (_inputManager.MouseLeftButton == 0 && _leftButtomPressed)
+            {
+                _leftButtomPressed = false;
+            }
+        }
+        #endregion
+
+        #region ABSTRACT METHODS
+        protected override void SetInitialValues()
+        {
+            _playerStateManager = GameObject.FindObjectOfType<PlayerStateManager>();
+            _inputManager = GameObject.FindObjectOfType<InputManager>();
+        }
+
+        protected override void ValidateValues() { }
+        #endregion
     }
 
 }

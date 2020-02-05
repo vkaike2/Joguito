@@ -12,28 +12,28 @@ namespace Assets.Scripts.Components.Tile
     {
         #region SERIALIZABLE ATTRIBUTES
         [Header("Random Sprites")]
-        [SerializeField] 
-        private List<TileMapAttributes> LeftUpSpriteList;
-        [SerializeField] 
-        private List<TileMapAttributes> UpSpriteList;
-        [SerializeField] 
-        private List<TileMapAttributes> RightUpSpriteList;
-        [SerializeField] 
-        private List<TileMapAttributes> RightSpriteList;
-        [SerializeField] 
-        private List<TileMapAttributes> LeftSpriteList;
-        [SerializeField] 
-        private List<TileMapAttributes> BottomLeftSpriteList;
-        [SerializeField] 
-        private List<TileMapAttributes> BottomSpriteList;
-        [SerializeField] 
-        private List<TileMapAttributes> BottomRightSpriteList;
-        [SerializeField] 
-        private List<TileMapAttributes> CenterSpriteList;
+        [SerializeField]
+        private List<TileMapSpriteAttributes> LeftUpSpriteList;
+        [SerializeField]
+        private List<TileMapSpriteAttributes> UpSpriteList;
+        [SerializeField]
+        private List<TileMapSpriteAttributes> RightUpSpriteList;
+        [SerializeField]
+        private List<TileMapSpriteAttributes> RightSpriteList;
+        [SerializeField]
+        private List<TileMapSpriteAttributes> LeftSpriteList;
+        [SerializeField]
+        private List<TileMapSpriteAttributes> BottomLeftSpriteList;
+        [SerializeField]
+        private List<TileMapSpriteAttributes> BottomSpriteList;
+        [SerializeField]
+        private List<TileMapSpriteAttributes> BottomRightSpriteList;
+        [SerializeField]
+        private List<TileMapSpriteAttributes> CenterSpriteList;
         #endregion
 
         #region PRIVATE ATTRIBUTES
-        private TileMapComponnent[] _tileMapChildrensList;
+        private List<TileMapComponnent> _tileMapChildrensList;
         #endregion
 
         #region UNITY METHODS
@@ -82,12 +82,24 @@ namespace Assets.Scripts.Components.Tile
                 }
             }
         }
+
+        public void SpawnNewObjects(GameObject prefab, int amount)
+        {
+            if (_tileMapChildrensList is null) _tileMapChildrensList = this.GetComponentsInChildren<TileMapComponnent>().ToList();
+            for (int i = 0; i < amount; i++)
+            {
+                TileMapComponnent tileMap = _tileMapChildrensList.GetRandomTileMapWihtoutObstacle(new List<EnumSide>() { EnumSide.CENTER });
+
+                tileMap.SpawnObject(prefab);
+                if (tileMap is null) return;
+            }
+        }
         #endregion
 
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
-            _tileMapChildrensList = this.GetComponentsInChildren<TileMapComponnent>();
+            if (_tileMapChildrensList is null) _tileMapChildrensList = this.GetComponentsInChildren<TileMapComponnent>().ToList();
         }
 
         protected override void ValidateValues()

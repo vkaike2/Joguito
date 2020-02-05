@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Components.Tile
 {
@@ -11,6 +6,7 @@ namespace Assets.Scripts.Components.Tile
     {
         #region PUBLIC ATTRIBUTES
         public EnumSide Side => _side;
+        public bool HasObstacle { get; private set; }
         #endregion
 
         #region SERIALIZE ATTRIBUTES
@@ -24,6 +20,13 @@ namespace Assets.Scripts.Components.Tile
         #endregion
 
         #region PUBLIC METHODS
+
+        public void SpawnObject(GameObject pefab)
+        {
+            GameObject.Instantiate(pefab, this.transform.position, Quaternion.identity);
+            HasObstacle = true;
+        }
+
         public void SetInitialSprite(Sprite sprite)
         {
             _spriteRenderer.sprite = sprite;
@@ -33,6 +36,7 @@ namespace Assets.Scripts.Components.Tile
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
+            HasObstacle = false;
             _spriteRenderer = this.GetComponent<SpriteRenderer>();
         }
 

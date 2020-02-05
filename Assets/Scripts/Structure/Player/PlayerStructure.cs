@@ -19,6 +19,7 @@ namespace Assets.Scripts.Structure.Player
         public bool IsMainPlayer => _isMainPlayer;
         public bool IsActive { get; private set; }
         public Sprite SpriteForActiveStatus => _spriteForActiveStatus;
+        public bool CanInteract => _canInteract;
         #endregion
 
         #region SERIALIZABLE ATRIBUTES

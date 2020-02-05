@@ -41,7 +41,6 @@ namespace Assets.Scripts.Components.Draggable
 #pragma warning restore 0649
         #endregion
 
-
         #region PRIVATE ATRIBUTES
         private Vector2? _offset;
         private Vector3 _initialPosition;
@@ -150,7 +149,7 @@ namespace Assets.Scripts.Components.Draggable
         }
         #endregion
 
-        #region PRIVATE ATRIBUTES
+        #region PRIVATE METHODS
         private List<RaycastResult> RaycastMouse()
         {
 
