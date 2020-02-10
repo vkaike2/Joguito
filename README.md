@@ -2,18 +2,21 @@
 - 2019.2.8f1
 
 
-# Docummentation to edit
-- EnumInteractableState
-- InteractableState
-- ActionSlotComponent
-- ItemDropComponent
-- MovementMouseComponent
-- UIManager
+# INTERFACES
+- IInteractable
+    - int Order();
+
+- IPickable : IInteractable
+    - void PickUp();
+- IPickableUI : IPickable
+
+- IPlantable : IInteractable
+    - void Interact();
+- IPlantableUI : IPlantable 
+
+- IDamageTaker : IInteractable
+    - void TakeDamage(flaot damage);
 
 
-# Docummentation to add
-- EnumPlantSpotState
-- PlantSpotComponent
-- PlantComponent
 
 

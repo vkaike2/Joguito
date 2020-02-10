@@ -81,12 +81,12 @@ namespace Assets.Scripts.Components.MovementMouse
         #region UNITY METHODS
         private void FixedUpdate()
         {
-            this.UpdateAnimator();
+            //this.UpdateAnimator();
 
-            //if (!_internCanMove) return;
+            if (!_internCanMove) return;
 
-            //this.StopPlayer();
-            //this.MovementObject();
+            this.StopPlayer();
+            this.MovementObject();
         }
         #endregion
 
