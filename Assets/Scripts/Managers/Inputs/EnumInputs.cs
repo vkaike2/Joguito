@@ -9,6 +9,7 @@ namespace Assets.Scripts.Managers.Inputs
     public enum EnumInputs
     {
         Mouse_Left_Button,
+        Mouse_Right_Button,
         Inventory,
         Z,
         Alt,

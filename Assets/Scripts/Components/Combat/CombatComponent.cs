@@ -2,6 +2,7 @@
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.LifeBar;
 using Assets.Scripts.Components.MovementMouse;
+using Assets.Scripts.Interface;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Structure.Player;
@@ -15,7 +16,7 @@ using UnityEngine;
 namespace Assets.Scripts.Components.Combat
 {
     [RequireComponent(typeof(CombatAttributesComponent))]
-    public class CombatComponent : BaseComponent
+    public class CombatComponent : BaseComponent, IDamageTaker
     {
         #region SERIALIZABLE ATRIBUTES
         [Header("Confiuration Fields")]
@@ -47,10 +48,30 @@ namespace Assets.Scripts.Components.Combat
         private bool _readyToCombat = true;
         #endregion
 
-        #region UNITY METHODS
-        private void OnMouseOver()
+
+        #region INTERFACE METHODS
+
+        public bool StartCombat()
         {
-            ManageTheClick();
+            PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
+            if (_playerStructureInstaceId != null && playerStructure.GetInstanceID() == _playerStructureInstaceId.GetValueOrDefault())
+                return false;
+
+            InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
+
+            if (interactableComponent is null) return false;
+            if (!interactableComponent.CheckIfCanAtack()) return false;
+
+            playerStructure.GetComponent<CombatComponent>().StartAtackAlertCoroutine();
+            interactableComponent.SetInteractableState(EnumInteractableState.Atack, this.GetInstanceID());
+            playerStructure.GetMovementMouseComponent().ObjectGoTo(this.transform.position, _collider.GetInstanceID());
+
+            return true;
+        }
+
+        public int Order()
+        {
+            return 3;
         }
         #endregion
 
@@ -168,30 +189,6 @@ namespace Assets.Scripts.Components.Combat
         {
             int count = _damageAnimatorList.Count();
             _damageAnimatorList[Random.Range(0, count - 1)].SetTrigger(_animatorVariables.BasicDamage);
-        }
-
-        private void ManageTheClick()
-        {
-            if (_inputManager.MouseLeftButton == 1 && !_mousePressed)
-            {
-                _mousePressed = true;
-
-                PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
-                if (_playerStructureInstaceId != null && playerStructure.GetInstanceID() == _playerStructureInstaceId.GetValueOrDefault())
-                    return;
-
-                InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
-
-                if (interactableComponent is null) return;
-                if (!interactableComponent.CheckIfCanAtack()) return;
-
-                playerStructure.GetComponent<CombatComponent>().StartAtackAlertCoroutine();
-                interactableComponent.SetInteractableState(EnumInteractableState.Atack, this.GetInstanceID());
-                playerStructure.GetMovementMouseComponent().ObjectGoTo(this.transform.position, _collider.GetInstanceID());
-
-            }
-            else if (_inputManager.MouseLeftButton == 0 && _mousePressed)
-                _mousePressed = false;
         }
         #endregion
 

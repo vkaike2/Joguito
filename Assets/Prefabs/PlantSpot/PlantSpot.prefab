@@ -596,7 +596,6 @@ GameObject:
   - component: {fileID: 7584724946879784842}
   - component: {fileID: 7584724946879784841}
   - component: {fileID: 7584724946879784840}
-  - component: {fileID: 7584724946879784843}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -690,18 +689,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &7584724946879784843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7584724946879784838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bbb270380229494ca71c2365c88d69b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7584724946900978348
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,7 +1270,6 @@ GameObject:
   - component: {fileID: 7584724947552366923}
   - component: {fileID: 7584724947552366924}
   - component: {fileID: 7584724947552366926}
-  - component: {fileID: 7584724947552366925}
   m_Layer: 0
   m_Name: Spot
   m_TagString: Untagged
@@ -1388,6 +1374,7 @@ MonoBehaviour:
   _plantComponent: {fileID: 7584724947232180351}
   _internalCanvas: {fileID: 7584724945598160240}
   _radioToInteract: 0.3
+  _interactOrder: 1
 --- !u!61 &7584724947552366924
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1427,15 +1414,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
---- !u!114 &7584724947552366925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7584724947552366919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bbb270380229494ca71c2365c88d69b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

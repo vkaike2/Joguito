@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Components.GenericUI;
 using Assets.Scripts.DTOs;
+using Assets.Scripts.Interface;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Managers.UI;
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Components.ItemDrop
     ///     Represents an iten drop on the floor
     /// </summary>
     [RequireComponent(typeof(Animator))]
-    public class ItemDropComponent : BaseComponent
+    public class ItemDropComponent : BaseComponent, IPickable
     {
         #region PUBLIC ATRIBUTES
         public GameObject ParentGameObject => transform.parent.gameObject;
@@ -30,6 +31,8 @@ namespace Assets.Scripts.Components.ItemDrop
         [SerializeField]
         [Range(0, 3)]
         private float _radioToPickup;
+        [SerializeField]
+        private int _interactOrder;
         #endregion
 
         #region PRIVATE FIELDS
@@ -37,15 +40,25 @@ namespace Assets.Scripts.Components.ItemDrop
         private PlayerStateManager _playerState;
         private Animator _animator;
         private ItemDTO currentItem;
-        private bool _mousePressed = false;
         private UIManager _uiManager;
         private int _instanceIDForGenereciUI;
         #endregion
 
-        #region UNITY METHODS
-        private void OnMouseOver()
+        #region INTERFACE METHODS
+        public bool PickUp()
         {
-            ManageThePlayersClick();
+            if (_playerState.PlayerIsDoingSomeAction) return false;
+            if (_uiManager.GenericUIList.Any(e => e.MouseInUI && e.GetInstanceID() != _instanceIDForGenereciUI)) return false;
+
+            _playerState.GetActivePlayerStructure().GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToPickup);
+            _playerState.GetActivePlayerStructure().GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.PickupItem, this.GetInstanceID());
+
+            return true;
+        }
+
+        public int Order()
+        {
+            return _interactOrder;
         }
         #endregion
 
@@ -77,21 +90,6 @@ namespace Assets.Scripts.Components.ItemDrop
         }
         #endregion
 
-        #region PRIVATE METHODS
-        private void ManageThePlayersClick()
-        {
-            if (_inputManager.MouseLeftButton == 1 && !_mousePressed)
-            {
-                _mousePressed = true;
-                OnClickObject();
-            }
-            else if (_inputManager.MouseLeftButton == 0 && _mousePressed)
-            {
-                _mousePressed = false;
-            }
-        }
-        #endregion
-
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
@@ -100,7 +98,6 @@ namespace Assets.Scripts.Components.ItemDrop
             _animator = this.GetComponent<Animator>();
 
             _uiManager = GameObject.FindObjectOfType<UIManager>();
-            _instanceIDForGenereciUI = this.GetComponent<GenericUIComponent>().GetInstanceID();
 
             if (_radioToPickup == 0) _radioToPickup = 1.5f;
         }

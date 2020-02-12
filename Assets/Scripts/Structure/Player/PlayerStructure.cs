@@ -2,6 +2,7 @@
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.Stomach;
+using Assets.Scripts.Interface;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Managers.UI;
@@ -13,7 +14,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Structure.Player
 {
-    public class PlayerStructure : StructureBase
+    public class PlayerStructure : StructureBase, IPlayer
     {
         #region PUBLIC ATRIBUTES
         public bool IsMainPlayer => _isMainPlayer;
@@ -44,15 +45,13 @@ namespace Assets.Scripts.Structure.Player
         private PlayerStateManager _playerStateManage;
         private CinemachineVirtualCamera _cinemachine;
         private UIManager _uIManager;
-        private ActivePlayersUIComponent _activePlyarUI;
+        private ActivePlayersUIComponent _activePlayerUI;
         private int? slotInstanceId = null;
         private MovementMouseComponent _movementMouseComponent;
         private InteractableComponent _interactableComponent;
         private StomachComponent _stomachComponent;
         private PlayerAnimatorVariables _animatorVariables;
         private Animator _animator;
-        private InputManager _inputManager;
-        private bool _mouseIsClicked = false;
         #endregion
 
         #region PUBLIC METHODS
@@ -62,10 +61,10 @@ namespace Assets.Scripts.Structure.Player
             {
                 _cinemachine.Follow = this.transform;
             }
-            if(_hightlight != null)
-            _hightlight.SetActive(value);
+            if (_hightlight != null)
+                _hightlight.SetActive(value);
 
-            _activePlyarUI.ActivatePlayerSlot(slotInstanceId.Value);
+            _activePlayerUI.ActivatePlayerSlot(slotInstanceId.Value);
 
             _uIManager.ActivateInventory(_isMainPlayer);
             _uIManager.ActivateActionSlots(_isMainPlayer);
@@ -81,6 +80,7 @@ namespace Assets.Scripts.Structure.Player
         {
             // => Player Structure
             _animator.runtimeAnimatorController = poopScriptable.PoopAnimator;
+            _isMainPlayer = false;
             _canMoveByClick = poopScriptable.CanMoveByClick;
             _canInteract = poopScriptable.CanInteract;
             _canPoop = poopScriptable.CanPoop;
@@ -121,35 +121,26 @@ namespace Assets.Scripts.Structure.Player
         }
         #endregion
 
+        #region INTERFACE METHODS
+        public bool SwitchPlayer()
+        {
+            _playerStateManage.ActiveNewPlayerStructure(this.GetInstanceID());
+            this.StartCoroutine(FreezeForSomeCooldown(0.2f));
+            return true;
+        }
+        #endregion
+
         #region UNITY METHODS
         private void Start()
         {
-            slotInstanceId = _activePlyarUI.CreateNewPlayerSlotCompoennt(this);
+            slotInstanceId = _activePlayerUI.CreateNewPlayerSlotCompoennt(this);
             _playerStateManage.SetNewPlayerStrucutre(this);
         }
 
         private void OnDestroy()
         {
-            _activePlyarUI.DesactivePlayerSlot(slotInstanceId.Value);
+            _activePlayerUI.DesactivePlayerSlot(slotInstanceId.Value);
             _playerStateManage.RemoveOnePlayerStructure(this);
-        }
-
-        private void OnMouseOver()
-        {
-            if (IsActive) return;
-
-            if (_inputManager.MouseLeftButton == 1 && !_mouseIsClicked)
-            {
-                _mouseIsClicked = true;
-
-                _playerStateManage.ActiveNewPlayerStructure(this.GetInstanceID());
-                this.StartCoroutine(FreezeForSomeCooldown(0.2f));
-            }
-            else if (_inputManager.MouseLeftButton == 0 && _mouseIsClicked)
-            {
-                _mouseIsClicked = false;
-            }
-
         }
         #endregion
 
@@ -190,8 +181,7 @@ namespace Assets.Scripts.Structure.Player
             _cinemachine = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
             _uIManager = GameObject.FindObjectOfType<UIManager>();
             _playerStateManage = GameObject.FindObjectOfType<PlayerStateManager>();
-            _activePlyarUI = GameObject.FindObjectOfType<ActivePlayersUIComponent>();
-            _inputManager = GameObject.FindObjectOfType<InputManager>();
+            _activePlayerUI = GameObject.FindObjectOfType<ActivePlayersUIComponent>();
             _animator = this.GetComponent<Animator>();
 
             if (_canMoveByClick) _movementMouseComponent = this.GetComponent<MovementMouseComponent>();
@@ -205,6 +195,7 @@ namespace Assets.Scripts.Structure.Player
             if (_canInteract && _interactableComponent is null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_interactableComponent), this.gameObject.name));
             if (_canPoop && _stomachComponent is null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_stomachComponent), this.gameObject.name));
         }
+
         #endregion
     }
 }

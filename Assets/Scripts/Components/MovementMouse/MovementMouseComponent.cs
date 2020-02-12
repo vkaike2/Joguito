@@ -42,8 +42,9 @@ namespace Assets.Scripts.Components.MovementMouse
         #endregion
 
         #region PUBLIC METHODS
-        public void ObjectGoToContinuous(Vector2 position, float? stopRange = null)
+        public void ObjectGoToWalkContinuous(Vector2 position, float? stopRange = null)
         {
+            if (!_internCanMove) return;
             if (stopRange is null)
                 stopRange = _stopRange;
 
@@ -51,6 +52,8 @@ namespace Assets.Scripts.Components.MovementMouse
                 StopCoroutine(_moveToExcatPosition);
 
             _moveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
+
+            _interactableComponent.RemoveInteractableState();
         }
 
         public void ObjectGoTo(Vector2 position, float? stopRange = null)
@@ -81,12 +84,7 @@ namespace Assets.Scripts.Components.MovementMouse
         #region UNITY METHODS
         private void FixedUpdate()
         {
-            //this.UpdateAnimator();
-
-            if (!_internCanMove) return;
-
-            this.StopPlayer();
-            this.MovementObject();
+            this.UpdateAnimator();
         }
         #endregion
 
@@ -141,54 +139,6 @@ namespace Assets.Scripts.Components.MovementMouse
         private void UpdateAnimator()
         {
             _animator.SetBool(_animatorVariables.Running, _rigidBody2D.velocity != Vector2.zero);
-        }
-        private void MovementObject()
-        {
-            _animator.SetBool(_animatorVariables.Running, _rigidBody2D.velocity != Vector2.zero);
-
-            if (!_isActive) return;
-            if (_inputManager.MouseLeftButton == 1 && !_playerState.PlayerCantMove)
-            {
-                _mouseOnClickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                _mouseDirection = (_mouseOnClickPosition - (Vector2)transform.position).normalized;
-
-                if (_interactableComponent.IsInteracting())
-                {
-                    if (_moveToExcatPosition != null)
-                    {
-                        StopCoroutine(_moveToExcatPosition);
-                        _moveToExcatPosition = null;
-                        _instaceIdToCollider = null;
-                    }
-                    _interactableComponent.RemoveInteractableState();
-                }
-
-            }
-
-            if (_moveToExcatPosition != null)
-            {
-                _mouseOnClickPosition = transform.position;
-                return;
-            };
-
-            if (Vector2.Distance(_mouseOnClickPosition, transform.position) >= _stopRange)
-            {
-                _rigidBody2D.velocity = _mouseDirection * (_velocity * Time.deltaTime);
-                this.ChangePlayerSide(_rigidBody2D.velocity.x >= 0);
-            }
-            else
-            {
-                _rigidBody2D.velocity = Vector2.zero;
-            }
-        }
-        private void StopPlayer()
-        {
-            if (_moveToExcatPosition != null) return;
-
-            if (Vector2.Distance(_mouseOnClickPosition, transform.position) < _stopRange)
-            {
-                _rigidBody2D.velocity = Vector2.zero;
-            }
         }
 
         private void ChangePlayerSide(bool right)

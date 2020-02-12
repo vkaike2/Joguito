@@ -13,6 +13,7 @@ namespace Assets.Scripts.Managers.Inputs
     {
         #region PUBLIC ATRIBUTES
         public float MouseLeftButton { get; private set; }
+        public float MouseRightButton { get; private set; }
         public float Inventory { get; private set; }
         public float ToggleItem { get; private set; }
         public float TroggleItemWhenPressed { get; private set; }
@@ -26,7 +27,6 @@ namespace Assets.Scripts.Managers.Inputs
         public float SlotFor { get; private set; }
         #endregion
 
-
         #region UNITY METHODS
         void FixedUpdate() => CaptureInputs();
         #endregion
@@ -35,8 +35,9 @@ namespace Assets.Scripts.Managers.Inputs
         private void CaptureInputs()
         {
             this.MouseLeftButton = Input.GetAxisRaw(EnumInputs.Mouse_Left_Button.ToString());
+            this.MouseRightButton = Input.GetAxisRaw(EnumInputs.Mouse_Right_Button.ToString());
             this.ChangePlayerSlot = Input.GetAxisRaw(EnumInputs.PlayerSlot.ToString());
-
+            
             this.Inventory = Input.GetAxisRaw(EnumInputs.Inventory.ToString());
             this.ToggleItem = Input.GetAxisRaw(EnumInputs.Z.ToString());
             this.TroggleItemWhenPressed = Input.GetAxisRaw(EnumInputs.Alt.ToString());

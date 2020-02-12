@@ -209,7 +209,6 @@ GameObject:
   - component: {fileID: 4069819738788011773}
   - component: {fileID: 4069819738788011775}
   - component: {fileID: 993857415480832035}
-  - component: {fileID: 1015833655}
   - component: {fileID: 1319389795}
   - component: {fileID: 1945107665825277881}
   m_Layer: 8
@@ -458,18 +457,6 @@ MonoBehaviour:
   _canPoop: 1
   _spriteForActiveStatus: {fileID: -339892771922585380, guid: 23ebede7d09f4d24eb30dd7d863862dd,
     type: 3}
---- !u!114 &1015833655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4069819738788011767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bbb270380229494ca71c2365c88d69b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1319389795
 MonoBehaviour:
   m_ObjectHideFlags: 0

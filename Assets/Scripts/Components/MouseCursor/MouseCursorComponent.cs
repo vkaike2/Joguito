@@ -2,6 +2,7 @@
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.PlantSpot;
+using Assets.Scripts.Interface;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Structure.Player;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Component.MouseCursor
 {
@@ -19,19 +21,20 @@ namespace Assets.Scripts.Component.MouseCursor
         private PlayerStateManager _playerStateManager;
         private InputManager _inputManager;
         private bool _leftButtomPressed = false;
-
-        private bool _canMove = true;
+        private bool _rightButtomPressed = false;
         #endregion
 
         #region UNITY METHODS
         private void FixedUpdate()
         {
             ManageMouseOver();
+            ManageMouseUniqueLeftClick();
+            ManageMouseUniqueRightClick();
 
-            ManageMouseConinuousClick();
-
-            ManageMouseUniqueClick();
+            //ManageMouseConinuousClick();
         }
+
+
         #endregion
 
         #region PRIVATE METHODS
@@ -75,40 +78,105 @@ namespace Assets.Scripts.Component.MouseCursor
             },
             (hit) =>
             {
-
+                IPlantable plantable = hit.collider.gameObject.GetComponent<IPlantable>();
+                plantable?.MouseOver(true);
             });
         }
 
-        private void ManageMouseConinuousClick()
-        {
-            if (_inputManager.MouseLeftButton == 1)
-            {
-                MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
+        //private void ManageMouseConinuousClick()
+        //{
+        //    if (_inputManager.MouseLeftButton == 1)
+        //    {
+        //        MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
 
-                Vector2 mousePosition = this.ManageMouseClick((hitUI) =>
-                {
-                    _canMove = false;
-                },
-                (hit) =>
-                {
-                    _canMove = hit.collider.gameObject.GetComponent<PlantSpotComponent>() == null;
-                });
+        //        Vector2 mousePosition = this.ManageMouseClick((hitUI) =>
+        //        {
+        //            _canMove = false;
+        //        },
+        //        (hit) =>
+        //        {
+        //            Debug.Log(hit.collider.gameObject.name);
 
-                if (_canMove) movementMouseComponent.ObjectGoToContinuous(mousePosition);
-            }
-        }
+        //            List<IInteractable> interactableObjects = hit.collider.gameObject.GetComponents<IInteractable>().ToList();
+        //            interactableObjects.AddRange(hit.collider.gameObject.GetComponentsInChildren<IInteractable>().ToList());
+        //            interactableObjects.AddRange(hit.collider.gameObject.GetComponentsInParent<IInteractable>().ToList());
 
-        private void ManageMouseUniqueClick()
+        //            _canMove = interactableObjects == null || interactableObjects.Any();
+        //        });
+
+        //        if (_canMove) movementMouseComponent.ObjectGoToContinuous(mousePosition);
+        //    }
+        //}
+
+        private void ManageMouseUniqueLeftClick()
         {
             if (_inputManager.MouseLeftButton == 1 && !_leftButtomPressed)
             {
                 _leftButtomPressed = true;
+                MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
+                List<IInteractable> interactableList = new List<IInteractable>();
+                List<Button> buttonList = new List<Button>();
 
+                bool canMove = true;
+                Vector2 mousePosition = this.ManageMouseClick((hitUI) =>
+                {
+                    canMove = false;
+                },
+                (hit) =>
+                {
+                    buttonList.AddRange(hit.collider.gameObject.GetComponents<Button>());
+                    interactableList.AddRange(hit.collider.gameObject.GetComponents<IInteractable>().ToList());
+                });
 
+                canMove = !interactableList.Any() && canMove;
+                canMove = !buttonList.Any() && canMove;
+
+                if (canMove)
+                    movementMouseComponent.ObjectGoToWalkContinuous(mousePosition);
+
+                IInteractable interactableChoice = interactableList.OrderBy(e => e.Order()).FirstOrDefault();
+
+                if (interactableChoice is IPickable pickable)
+                {
+                    pickable.PickUp();
+                }
+
+                if (interactableChoice is IPlantable plantable)
+                {
+                    plantable.Interact();
+                }
+
+                if (interactableChoice is IDamageTaker damagable)
+                {
+                    damagable.StartCombat();
+                }
             }
             else if (_inputManager.MouseLeftButton == 0 && _leftButtomPressed)
             {
                 _leftButtomPressed = false;
+            }
+        }
+
+        private void ManageMouseUniqueRightClick()
+        {
+            List<IPlayer> playersList = new List<IPlayer>();
+            if (_inputManager.MouseRightButton == 1 && !_rightButtomPressed)
+            {
+                _rightButtomPressed = true;
+
+                Vector2 mousePosition = this.ManageMouseClick((hitUI) =>
+                {
+                },
+                (hit) =>
+                {
+                    playersList.AddRange(hit.collider.gameObject.GetComponents<IPlayer>().ToList());
+                });
+
+                playersList.FirstOrDefault()?.SwitchPlayer();
+            }
+            else if (_inputManager.MouseRightButton == 0 && _rightButtomPressed)
+            {
+                _rightButtomPressed = false;
             }
         }
         #endregion

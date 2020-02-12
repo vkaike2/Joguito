@@ -131,6 +131,21 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 993857415480832035, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _isMainPlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 993857415480832035, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _canInteract
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 993857415480832035, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _canPoop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 336310125, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
       propertyPath: m_IsActive
       value: 0

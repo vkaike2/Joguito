@@ -155,53 +155,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &3386399705472139610
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3386399705472139605}
-  - component: {fileID: 3386399705472139604}
-  m_Layer: 0
-  m_Name: RadioToPickup
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3386399705472139605
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3386399705472139610}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: -0.283, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3386399706340450953}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &3386399705472139604
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3386399705472139610}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.010273576, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.34111595
 --- !u!1 &3386399705536220455
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +352,6 @@ GameObject:
   - component: {fileID: 3386399706340450959}
   - component: {fileID: 3386399706340450952}
   - component: {fileID: 3386399706340450954}
-  - component: {fileID: 3386399706340450948}
   - component: {fileID: 3386399706340450949}
   - component: {fileID: 3386399706340450955}
   - component: {fileID: 3386399706340450951}
@@ -422,7 +374,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3386399706890442309}
-  - {fileID: 3386399705472139605}
   m_Father: {fileID: 3386399707094856872}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -520,18 +471,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
---- !u!114 &3386399706340450948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3386399706340450956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bbb270380229494ca71c2365c88d69b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &3386399706340450949
 Rigidbody2D:
   serializedVersion: 4
@@ -566,7 +505,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0037995577, y: 0.25944433}
+  m_Offset: {x: 0.006952226, y: 0.17747527}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5000001, y: 0.22915626}
@@ -577,7 +516,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6276195, y: 0.6428184}
+  m_Size: {x: 1.2518443, y: 1.1976852}
   m_EdgeRadius: 0
 --- !u!114 &3386399706340450951
 MonoBehaviour:
@@ -592,7 +531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _txtItemName: {fileID: 3386399705335021073}
-  _radioToPickup: 0.1
+  _radioToPickup: 1
+  _interactOrder: 0
 --- !u!1 &3386399706890442314
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,12 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Medium Poop
       objectReference: {fileID: 0}
-    - target: {fileID: 4069819738788011766, guid: fc215a468413e5a4abc9d58cd01e9c14,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -6432834163609727235, guid: c1a4436f5e9e73a4bb9d6abe6d28e982,
-        type: 3}
     - target: {fileID: 4069819738788011769, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -78,6 +72,12 @@ PrefabInstance:
       propertyPath: _inventoryComponent
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4069819738788011766, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -6432834163609727235, guid: c1a4436f5e9e73a4bb9d6abe6d28e982,
+        type: 3}
     - target: {fileID: 4069819738788011772, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
       propertyPath: m_Offset.y
@@ -131,6 +131,21 @@ PrefabInstance:
     - target: {fileID: 1015833654, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
       propertyPath: m_Size.y
       value: 0.58139575
+      objectReference: {fileID: 0}
+    - target: {fileID: 993857415480832035, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _isMainPlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 993857415480832035, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _canInteract
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 993857415480832035, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _canPoop
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
