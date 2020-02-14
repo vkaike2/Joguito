@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Components.ActionSlot;
-using Assets.Scripts.Components.GenericUI;
-using Assets.Scripts.Components.Inventory;
-using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -16,10 +12,6 @@ namespace Assets.Scripts.Managers.UI
     /// </summary>
     public class UIManager : BaseManager
     {
-        #region PUBLIC ATRIBUTES
-        public List<GenericUIComponent> GenericUIList { get; private set; }
-        #endregion
-
         #region SERIALIZABLE ATRIBUTES
         [Header("Required Fields")]
         [SerializeField]
@@ -40,16 +32,6 @@ namespace Assets.Scripts.Managers.UI
         public ActionSlotComponent GetSelectedActionSlot()
         {
             return _actionSlotComponentlist.FirstOrDefault(e => e.IsSelected);
-        }
-
-        public void SetGenericUIComponent(GenericUIComponent genericUIComponent)
-        {
-            GenericUIList.Add(genericUIComponent);
-        }
-
-        public void RemoveGenericUIComponent(GenericUIComponent genericUIComponent)
-        {
-            GenericUIList.Remove(genericUIComponent);
         }
         #endregion
 
@@ -128,7 +110,6 @@ namespace Assets.Scripts.Managers.UI
         protected override void SetInitialValues()
         {
             _inputManager = GameObject.FindObjectOfType<InputManager>();
-            GenericUIList = new List<GenericUIComponent>();
         }
         #endregion
     }

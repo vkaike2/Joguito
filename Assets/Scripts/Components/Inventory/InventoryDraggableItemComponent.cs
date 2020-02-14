@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Components.GenericUI;
-using Assets.Scripts.Components.InventorySlot;
+﻿using Assets.Scripts.Components.InventorySlot;
 using Assets.Scripts.Components.ItemDrop;
 using Assets.Scripts.Utils;
 using System.Collections.Generic;
@@ -9,7 +8,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Assets.Scripts.DTOs;
 using Assets.Scripts.Components.Interactable;
-using System.Collections;
 using Assets.Scripts.Managers.PlayerState;
 
 namespace Assets.Scripts.Components.Draggable

@@ -17,25 +17,6 @@ namespace Assets.Scripts.Managers.PlayerState
     public class PlayerStateManager : BaseManager
     {
         #region PUBLIC ATRIBUTES
-        public bool PlayerCantMove
-        {
-            get
-            {
-                List<Components.GenericUI.GenericUIComponent> test = _uiManager.GenericUIList.Where(e => e.MouseInUI).ToList();
-                bool mouseIsOverSomeUi = _uiManager.GenericUIList != null && _uiManager.GenericUIList.Any(e => e.MouseInUI);
-
-                bool playerIsPlantingOrEating = false;
-                InteractableComponent interactableCompoment = this.GetActivePlayerStructure().GetInteractableComponent();
-                if (interactableCompoment != null)
-                    playerIsPlantingOrEating = interactableCompoment.IsPlantingOrEating;
-
-                if (PlayerIsDoingSomeAction)
-                    return true;
-
-                return mouseIsOverSomeUi || playerIsPlantingOrEating;
-            }
-        }
-
         public bool PlayerIsDoingSomeAction => _inventoryDraggableItemComponnent != null && _inventoryDraggableItemComponnent.IsDragging;
         #endregion
 

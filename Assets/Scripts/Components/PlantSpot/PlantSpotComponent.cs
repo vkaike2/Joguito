@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using Assets.Scripts.Components.GenericUI;
+﻿using System.Collections;
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.Plant;
 using Assets.Scripts.DTOs;
@@ -51,15 +48,21 @@ namespace Assets.Scripts.Components.PlantSpot
         #region PUBLIC METHODS
         public void Btn_TakeSeed()
         {
-            this.IniciateSomeInteraction(EnumInteractableState.TakeSeed);
+            PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
+            InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
+            this.IniciateSomeInteraction(EnumInteractableState.TakeSeed, playerStructure, interactableComponent);
         }
         public void Btn_TakeFlower()
         {
-            this.IniciateSomeInteraction(EnumInteractableState.TakeFlower);
+            PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
+            InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
+            this.IniciateSomeInteraction(EnumInteractableState.TakeFlower, playerStructure, interactableComponent);
         }
         public void Btn_EatFlower()
         {
-            this.IniciateSomeInteraction(EnumInteractableState.EatFlower);
+            PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
+            InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
+            this.IniciateSomeInteraction(EnumInteractableState.EatFlower, playerStructure, interactableComponent);
         }
 
         public ItemDTO TakeSeeds()
@@ -125,7 +128,7 @@ namespace Assets.Scripts.Components.PlantSpot
             if (!interactableComponent.CanPlant && !interactableComponent.CanTakePlant && !interactableComponent.CanTakeSeed) return false;
 
             ToggleInternalUIMenu();
-            StartPlantingProccess();
+            StartPlantingProccess(playerStructure, interactableComponent);
 
             return true;
         }
@@ -160,16 +163,11 @@ namespace Assets.Scripts.Components.PlantSpot
         #endregion
 
         #region PRIVATE METHODS
-        private void IniciateSomeInteraction(EnumInteractableState interactionState)
+        private void IniciateSomeInteraction(EnumInteractableState interactionState, PlayerStructure playerStructure, InteractableComponent interactableComponent)
         {
-            PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
-            InteractableComponent interactableComponent = playerStructure.GetInteractableComponent();
             if (interactableComponent is null) return;
 
-            if (_uiManager.GenericUIList.Any(e => e.MouseInUI && e.GetInstanceID() != _instanceIDForGenereciUI) && interactionState == EnumInteractableState.Plant) return;
-
             interactableComponent.SetInteractableState(interactionState, this.GetInstanceID());
-
             playerStructure.GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToInteract);
         }
 
@@ -185,10 +183,10 @@ namespace Assets.Scripts.Components.PlantSpot
             _internalCanvas.enabled = true;
         }
 
-        private void StartPlantingProccess()
+        private void StartPlantingProccess(PlayerStructure playerStrucute, InteractableComponent interactableComponent)
         {
             if (_plantSpotState != EnumPlantSpotState.Empty) return;
-            this.IniciateSomeInteraction(EnumInteractableState.Plant);
+            this.IniciateSomeInteraction(EnumInteractableState.Plant, playerStrucute, interactableComponent);
         }
         #endregion
 

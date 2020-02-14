@@ -1,12 +1,9 @@
-﻿using Assets.Scripts.Components.GenericUI;
-using Assets.Scripts.DTOs;
+﻿using Assets.Scripts.DTOs;
 using Assets.Scripts.Interface;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Managers.UI;
-using Assets.Scripts.ScriptableComponents.Item;
 using Assets.Scripts.Utils;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -48,7 +45,6 @@ namespace Assets.Scripts.Components.ItemDrop
         public bool PickUp()
         {
             if (_playerState.PlayerIsDoingSomeAction) return false;
-            if (_uiManager.GenericUIList.Any(e => e.MouseInUI && e.GetInstanceID() != _instanceIDForGenereciUI)) return false;
 
             _playerState.GetActivePlayerStructure().GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToPickup);
             _playerState.GetActivePlayerStructure().GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.PickupItem, this.GetInstanceID());
@@ -83,7 +79,6 @@ namespace Assets.Scripts.Components.ItemDrop
         public void OnClickObject()
         {
             if (_playerState.PlayerIsDoingSomeAction) return;
-            if (_uiManager.GenericUIList.Any(e => e.MouseInUI && e.GetInstanceID() != _instanceIDForGenereciUI)) return;
 
             _playerState.GetActivePlayerStructure().GetMovementMouseComponent().ObjectGoTo(this.transform.position, _radioToPickup);
             _playerState.GetActivePlayerStructure().GetInteractableComponent().SetInteractableState(Interactable.EnumInteractableState.PickupItem, this.GetInstanceID());

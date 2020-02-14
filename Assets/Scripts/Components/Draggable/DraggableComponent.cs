@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Components.GenericUI;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Components.Draggable
