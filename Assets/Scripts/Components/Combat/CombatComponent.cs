@@ -53,6 +53,8 @@ namespace Assets.Scripts.Components.Combat
 
         public bool StartCombat()
         {
+
+
             PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
             if (_playerStructureInstaceId != null && playerStructure.GetInstanceID() == _playerStructureInstaceId.GetValueOrDefault())
                 return false;

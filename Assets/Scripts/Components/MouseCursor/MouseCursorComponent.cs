@@ -34,7 +34,6 @@ namespace Assets.Scripts.Component.MouseCursor
             //ManageMouseConinuousClick();
         }
 
-
         #endregion
 
         #region PRIVATE METHODS
@@ -116,25 +115,40 @@ namespace Assets.Scripts.Component.MouseCursor
                 MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
                 List<IInteractable> interactableList = new List<IInteractable>();
                 List<Button> buttonList = new List<Button>();
+                List<IPlayer> playersList = new List<IPlayer>();
 
                 bool canMove = true;
                 Vector2 mousePosition = this.ManageMouseClick((hitUI) =>
                 {
                     canMove = false;
+
+                    Debug.Log(hitUI.gameObject.name);
                 },
                 (hit) =>
                 {
                     buttonList.AddRange(hit.collider.gameObject.GetComponents<Button>());
                     interactableList.AddRange(hit.collider.gameObject.GetComponents<IInteractable>().ToList());
+                    playersList.AddRange(hit.collider.gameObject.GetComponents<IPlayer>().ToList());
                 });
 
-                canMove = !interactableList.Any() && canMove;
+
+                IInteractable interactableChoice = interactableList.OrderBy(e => e.Order()).FirstOrDefault();
+
+                if (playersList.Any() && interactableChoice is IDamageTaker)
+                {
+                    interactableChoice = interactableList.Where(e => !(e is IDamageTaker)).OrderBy(e => e.Order()).FirstOrDefault();
+                }
+
+                canMove = interactableChoice is null && canMove;
                 canMove = !buttonList.Any() && canMove;
 
                 if (canMove)
                     movementMouseComponent.ObjectGoToWalkContinuous(mousePosition);
 
-                IInteractable interactableChoice = interactableList.OrderBy(e => e.Order()).FirstOrDefault();
+                if (interactableChoice is IDamageTaker damagable)
+                {
+                    damagable.StartCombat();
+                }
 
                 if (interactableChoice is IPickable pickable)
                 {
@@ -146,10 +160,6 @@ namespace Assets.Scripts.Component.MouseCursor
                     plantable.Interact();
                 }
 
-                if (interactableChoice is IDamageTaker damagable)
-                {
-                    damagable.StartCombat();
-                }
             }
             else if (_inputManager.MouseLeftButton == 0 && _leftButtomPressed)
             {
