@@ -14,21 +14,19 @@ namespace Assets.Scripts.ScriptableComponents.Boss
         [SerializeField]
         private GameObject _bossPrefab;
 
-        [Header("Combat Attributes")]
+        [Header("Damage Taker options")]
         [SerializeField]
         private float _health;
+
+        [Header("Damage Dealer options")]
         [SerializeField]
         private float _damage;
         [SerializeField]
         private float _cdwDamage;
 
-        #region Attributes
         public string Name => _name;
         public RuntimeAnimatorController BossAnimator => _bossAniamtor;
-        public GameObject BossPrefab => _bossPrefab;
-        #endregion
-
-        #region Combat Attributes
+        public GameObject BossPrefab => _bossPrefab;    
         public float Health => _health;
         public float Damage => _damage;
         public float CdwDamage => _cdwDamage;
@@ -39,6 +37,6 @@ namespace Assets.Scripts.ScriptableComponents.Boss
             if (_bossAniamtor == null) Debug.LogError("The value of BossAnimator cannot be null!");
             if (_bossPrefab == null) Debug.LogError("The value of BossPrefab cannot be null!");
         }
-        #endregion
+
     }
 }

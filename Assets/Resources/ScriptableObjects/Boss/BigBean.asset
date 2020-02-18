@@ -16,6 +16,6 @@ MonoBehaviour:
   _bossAniamtor: {fileID: 9100000, guid: 0d889ececb79646468b28afd428bcd0e, type: 2}
   _bossPrefab: {fileID: 5872043870243768418, guid: 3cdb66aa07af44243a7192ebeb1d5930,
     type: 3}
-  _health: 50
+  _health: 10
   _damage: 5
   _cdwDamage: 10

@@ -1,13 +1,22 @@
 ﻿using Assets.Scripts.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Components.LifeBar
 {
     public class LifeBarComponent : BaseComponent
     {
+        #region PUBLIC ATRIBUTES
+        public UnityEvent<float> event_UpdateLifeBar;
+        public UnityEvent event_AlertAttack;
+
+        public bool IsBoss => _isBoss;
+        #endregion
+
         #region SERIALIZABLE ATRIBUTES
         [Header("RequiredFields")]
         [SerializeField]
@@ -16,25 +25,17 @@ namespace Assets.Scripts.Components.LifeBar
         [Header("Configuration Fields")]
         [SerializeField]
         private float _fadeOutCooldown;
+        [SerializeField]
+        private bool _isBoss;
         #endregion
 
         #region PRIVATE ATRIBUTES
-        private bool _receiveNewUpdate = false;
         private List<GameObject> _childrensGameObjects;
         private Coroutine _corotineShowForSomeTime;
         #endregion
 
         #region PUBLIC METHODS
-        public void PercentageHp(float percentage)
-        {
-            _receiveNewUpdate = true;
-            _fillContent.fillAmount = percentage;
-            if(_corotineShowForSomeTime != null)
-            {
-                StopCoroutine(_corotineShowForSomeTime);
-            }
-            _corotineShowForSomeTime = StartCoroutine(ShowForSomeTime());
-        }
+       
         #endregion
 
         #region UNITY METHODS
@@ -61,6 +62,16 @@ namespace Assets.Scripts.Components.LifeBar
         #endregion
 
         #region PRIVATE METHODS
+        private void Event_UpdateLifeBar(float percentage)
+        {
+            _fillContent.fillAmount = percentage;
+            if (_corotineShowForSomeTime != null)
+            {
+                StopCoroutine(_corotineShowForSomeTime);
+            }
+            _corotineShowForSomeTime = StartCoroutine(ShowForSomeTime());
+        }
+
         private void GetChildrenGameObjects()
         {
             for (int i = 0; i < this.transform.childCount; i++)
@@ -90,6 +101,9 @@ namespace Assets.Scripts.Components.LifeBar
         {
             if(_fadeOutCooldown == 0) _fadeOutCooldown = 2f;
             _childrensGameObjects = new List<GameObject>();
+
+            //TODO CONTINUE FROM HERE
+            event_UpdateLifeBar.AddListener(Event_UpdateLifeBar);
         }
 
         protected override void ValidateValues()

@@ -246,7 +246,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 5.45
+  - time: 4.983333
     functionName: Animator_IsReadyToCombat
     data: 
     objectReferenceParameter: {fileID: 0}

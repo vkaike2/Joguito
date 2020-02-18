@@ -2,6 +2,8 @@
 using Assets.Scripts.Components.ActionSlot;
 using Assets.Scripts.Components.Combat;
 using Assets.Scripts.Components.CombatAttributes;
+using Assets.Scripts.Components.DamageDealer;
+using Assets.Scripts.Components.DamageTaker;
 using Assets.Scripts.Components.Inventory;
 using Assets.Scripts.Components.ItemDrop;
 using Assets.Scripts.Components.PlantSpot;
@@ -177,7 +179,7 @@ namespace Assets.Scripts.Components.Interactable
             _animator.SetTrigger(_animatorVariables.Eat);
         }
 
-        public void TurnItIntoAPooop(PoopScriptable poopScriptable)
+        public void TurnItIntoAPoop(PoopScriptable poopScriptable)
         {
             _canPickupItem = poopScriptable.CanPickupItem;
             _canPlant = poopScriptable.CanPlant;
@@ -370,12 +372,14 @@ namespace Assets.Scripts.Components.Interactable
         }
         private void Atack(Collider2D collision)
         {
-            CombatComponent combatComponent = collision.gameObject.GetComponentInParent<CombatComponent>();
+            DamageTakerComponent damageTakerComponent = collision.gameObject.GetComponentInParent<DamageTakerComponent>();
 
-            if (combatComponent == null) return;
-            if (combatComponent.GetInstanceID() != _interactableInstanceId) return;
+            if (damageTakerComponent == null) return;
+            if (damageTakerComponent.GetInstanceID() != _interactableInstanceId) return;
 
-            combatComponent.StartDefenseOperation(_combatAttributesComponent);
+            DamageDealerComponent damageDealer = _playerStateManager.GetActivePlayerStructure().GetDamageDealerComponent();
+
+            damageTakerComponent.StartDefenseOperation(damageDealer);
         }
 
         private PlantSpotComponent HarvestPlnantValidatios(Collider2D collision)

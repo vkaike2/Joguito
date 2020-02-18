@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Components.ActivePlayers;
+using Assets.Scripts.Components.DamageDealer;
+using Assets.Scripts.Components.DamageTaker;
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.Stomach;
@@ -51,6 +53,8 @@ namespace Assets.Scripts.Structure.Player
         private InteractableComponent _interactableComponent;
         private StomachComponent _stomachComponent;
         private PlayerAnimatorVariables _animatorVariables;
+        private DamageDealerComponent _damageDealerComponent;
+        private DamageTakerComponent _damageTakerComponent;
         private Animator _animator;
         #endregion
 
@@ -87,10 +91,13 @@ namespace Assets.Scripts.Structure.Player
             _spriteForActiveStatus = poopScriptable.SpriteForActiveStatus;
 
             // => Interact Component
-            this._interactableComponent.TurnItIntoAPooop(poopScriptable);
+            this._interactableComponent.TurnItIntoAPoop(poopScriptable);
 
-            // => CombatAttributes
+            // => DamageTakerOptions
+            _damageTakerComponent.TurnItIntoAPoop(poopScriptable);
 
+            // => DamageDealerOptions
+            _damageDealerComponent.TurnItIntoAPoop(poopScriptable);
 
             this.StartCoroutine(StartDeathCooldown(poopScriptable.DeathCooldown));
         }
@@ -110,9 +117,19 @@ namespace Assets.Scripts.Structure.Player
 
         public InteractableComponent GetInteractableComponent()
         {
-            if (!_interactableComponent) return null;
+            if (!_canInteract) return null;
 
             return _interactableComponent;
+        }
+        public DamageDealerComponent GetDamageDealerComponent()
+        {
+            InteractableComponent interactableComponent = this.GetInteractableComponent();
+
+            if (interactableComponent is null) return null;
+
+            if (!interactableComponent.CheckIfCanAtack()) return null;
+
+            return _damageDealerComponent;
         }
 
         public void Animator_PoopKamikaze()
@@ -183,6 +200,9 @@ namespace Assets.Scripts.Structure.Player
             _playerStateManage = GameObject.FindObjectOfType<PlayerStateManager>();
             _activePlayerUI = GameObject.FindObjectOfType<ActivePlayersUIComponent>();
             _animator = this.GetComponent<Animator>();
+
+            _damageDealerComponent = this.GetComponent<DamageDealerComponent>();
+            _damageTakerComponent = this.GetComponent<DamageTakerComponent>();
 
             if (_canMoveByClick) _movementMouseComponent = this.GetComponent<MovementMouseComponent>();
             if (_canInteract) _interactableComponent = this.GetComponent<InteractableComponent>();

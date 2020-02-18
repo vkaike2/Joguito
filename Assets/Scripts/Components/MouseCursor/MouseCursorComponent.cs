@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Components;
+using Assets.Scripts.Components.DamageDealer;
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.PlantSpot;
@@ -117,12 +118,12 @@ namespace Assets.Scripts.Component.MouseCursor
                 List<Button> buttonList = new List<Button>();
                 List<IPlayer> playersList = new List<IPlayer>();
 
+
+                bool hitSomeUIComponent = false;
                 bool canMove = true;
                 Vector2 mousePosition = this.ManageMouseClick((hitUI) =>
                 {
-                    canMove = false;
-
-                    Debug.Log(hitUI.gameObject.name);
+                    hitSomeUIComponent = true;
                 },
                 (hit) =>
                 {
@@ -131,6 +132,7 @@ namespace Assets.Scripts.Component.MouseCursor
                     playersList.AddRange(hit.collider.gameObject.GetComponents<IPlayer>().ToList());
                 });
 
+                if (hitSomeUIComponent) return;
 
                 IInteractable interactableChoice = interactableList.OrderBy(e => e.Order()).FirstOrDefault();
 
@@ -147,7 +149,11 @@ namespace Assets.Scripts.Component.MouseCursor
 
                 if (interactableChoice is IDamageTaker damagable)
                 {
-                    damagable.StartCombat();
+                    DamageDealerComponent damageDealerComponent = _playerStateManager.GetActivePlayerStructure().GetDamageDealerComponent();
+                    
+                    if (damageDealerComponent is null) return;
+
+                    damagable.StartCombat(damageDealerComponent);
                 }
 
                 if (interactableChoice is IPickable pickable)

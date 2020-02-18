@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Components.CombatAttributes;
+using Assets.Scripts.Components.DamageDealer;
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.LifeBar;
 using Assets.Scripts.Components.MovementMouse;
@@ -48,13 +49,10 @@ namespace Assets.Scripts.Components.Combat
         private bool _readyToCombat = true;
         #endregion
 
-
         #region INTERFACE METHODS
 
-        public bool StartCombat()
+        public bool StartCombat(DamageDealerComponent damageDealerComponent)
         {
-
-
             PlayerStructure playerStructure = _playerState.GetActivePlayerStructure();
             if (_playerStructureInstaceId != null && playerStructure.GetInstanceID() == _playerStructureInstaceId.GetValueOrDefault())
                 return false;
@@ -130,7 +128,7 @@ namespace Assets.Scripts.Components.Combat
             if (!_canReceiveNewDamage) return;
 
             _combatAtributtes.CurrentHealth -= damage;
-            _lifeBarComponent.PercentageHp(_combatAtributtes.CurrentHealth / _combatAtributtes.FullHealth);
+            //_lifeBarComponent.PercentageHp(_combatAtributtes.CurrentHealth / _combatAtributtes.FullHealth);
             if (_combatAtributtes.CurrentHealth <= 0) // => DIe
             {
                 _canReceiveNewDamage = false;

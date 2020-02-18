@@ -48,9 +48,11 @@ namespace Assets.Scripts.ScriptableComponents.Poop
         [SerializeField]
         private bool _canAttack;
 
-        [Header("Combat Attributes")]
+        [Header("Damage Taker options")]
         [SerializeField]
         private float _health;
+
+        [Header("Damage Dealer options")]
         [SerializeField]
         private float _damage;
         [SerializeField]

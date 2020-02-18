@@ -209,8 +209,8 @@ GameObject:
   - component: {fileID: 4069819738788011773}
   - component: {fileID: 4069819738788011775}
   - component: {fileID: 993857415480832035}
-  - component: {fileID: 1319389795}
-  - component: {fileID: 1945107665825277881}
+  - component: {fileID: 7446523794946364551}
+  - component: {fileID: 2510213761213762098}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -457,7 +457,7 @@ MonoBehaviour:
   _canPoop: 1
   _spriteForActiveStatus: {fileID: -339892771922585380, guid: 23ebede7d09f4d24eb30dd7d863862dd,
     type: 3}
---- !u!114 &1319389795
+--- !u!114 &7446523794946364551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -466,13 +466,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4069819738788011767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e894b653968c2ec48b1683aecff26105, type: 3}
+  m_Script: {fileID: 11500000, guid: 25b0268085c32884b86e96bb4d6de01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 10
-  _damage: 1
-  _cdwDamage: 1
---- !u!114 &1945107665825277881
+  event_AlertAttack:
+    m_PersistentCalls:
+      m_Calls: []
+  _alertObject: {fileID: 0}
+  _cdwToAlertOptions: 0
+  _damage: 0
+  _cdwDamage: 0
+--- !u!114 &2510213761213762098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -481,14 +485,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4069819738788011767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31680909051fb934a9796ebfd55a9ee6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7be514765b7fe4c479ea9f77bceaa9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radioToInteract: 0
-  _damageAnimatorList: []
-  _alertObject: {fileID: 4978039425051839833}
-  _lifeBarComponent: {fileID: 0}
-  _collider: {fileID: 0}
+  _health: 0
 --- !u!1 &4069819738969034097
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,4 +32,4 @@ MonoBehaviour:
   _canAttack: 1
   _health: 10
   _damage: 1
-  _cdwDamage: 2
+  _cdwDamage: 1

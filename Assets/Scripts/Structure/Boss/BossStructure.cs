@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Components.CombatAttributes;
+using Assets.Scripts.Components.DamageTaker;
 using Assets.Scripts.ScriptableComponents.Boss;
 using Assets.Scripts.Structure.Player;
 using Assets.Scripts.Utils;
@@ -15,8 +16,8 @@ namespace Assets.Scripts.Structure.Boss
         #endregion
 
         #region PRIVATE ATTRIBUTES
-        private CombatAttributesComponent _combatAttributesComponnent;
         private Animator _bossAnimator;
+        private DamageTakerComponent _damageTakerComponent;
         #endregion
 
         #region PUBLIC METHODS
@@ -25,7 +26,9 @@ namespace Assets.Scripts.Structure.Boss
             _bossScriptable = bossScriptable;
             _bossAnimator.runtimeAnimatorController = _bossScriptable.BossAnimator;
 
-            _combatAttributesComponnent.TurnItIntoABoss(bossScriptable);
+
+            // => DamageTakerOptions 
+            _damageTakerComponent.TurnItIntoABoss(bossScriptable);
         }
         #endregion
 
@@ -42,7 +45,7 @@ namespace Assets.Scripts.Structure.Boss
         protected override void SetInitialValues()
         {
             _bossAnimator = this.GetComponent<Animator>();
-            _combatAttributesComponnent = this.GetComponent<CombatAttributesComponent>();
+            _damageTakerComponent = this.GetComponent<DamageTakerComponent>();
         }
 
         protected override void ValidateValues()
