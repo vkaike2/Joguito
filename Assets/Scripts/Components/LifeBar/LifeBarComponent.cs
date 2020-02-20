@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Utils;
+﻿using Assets.Scripts.Events;
+using Assets.Scripts.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,8 +12,7 @@ namespace Assets.Scripts.Components.LifeBar
     public class LifeBarComponent : BaseComponent
     {
         #region PUBLIC ATRIBUTES
-        public UnityEvent<float> event_UpdateLifeBar;
-        public UnityEvent event_AlertAttack;
+        public UEventFloat event_UpdateLifeBar;
 
         public bool IsBoss => _isBoss;
         #endregion

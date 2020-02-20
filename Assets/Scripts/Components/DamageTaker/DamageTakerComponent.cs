@@ -74,7 +74,7 @@ namespace Assets.Scripts.Components.DamageTaker
 
             _health -= damage;
 
-            _lifeBarComponent?.event_UpdateLifeBar?.Invoke(_health / _fullHealth);
+            _lifeBarComponent.event_UpdateLifeBar.Invoke(_health / _fullHealth);
 
             if (_health <= 0) // => DIe
             {

@@ -1117,9 +1117,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f824bfb92e373a4e9ac89f303b9e4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  event_UpdateLifeBar:
+    m_PersistentCalls:
+      m_Calls: []
   _fillContent: {fileID: 395446834}
   _fadeOutCooldown: 5
-  _isBoss: 0
+  _isBoss: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4188,11 +4191,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5872043870408765389, guid: 3cdb66aa07af44243a7192ebeb1d5930,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5872043870408765434, guid: 3cdb66aa07af44243a7192ebeb1d5930,
         type: 3}
       propertyPath: _lifeBarComponent
       value: 
       objectReference: {fileID: 505634501}
+    - target: {fileID: 5872043870408765435, guid: 3cdb66aa07af44243a7192ebeb1d5930,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 967022969, guid: 3cdb66aa07af44243a7192ebeb1d5930, type: 3}
       propertyPath: m_Offset.y
       value: 2.098194
@@ -4200,16 +4213,6 @@ PrefabInstance:
     - target: {fileID: 967022969, guid: 3cdb66aa07af44243a7192ebeb1d5930, type: 3}
       propertyPath: m_Size.y
       value: 3.446506
-      objectReference: {fileID: 0}
-    - target: {fileID: 5872043870408765389, guid: 3cdb66aa07af44243a7192ebeb1d5930,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5872043870408765435, guid: 3cdb66aa07af44243a7192ebeb1d5930,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5872043870408765376, guid: 3cdb66aa07af44243a7192ebeb1d5930, type: 3}
