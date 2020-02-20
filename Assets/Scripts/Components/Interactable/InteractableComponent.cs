@@ -349,6 +349,8 @@ namespace Assets.Scripts.Components.Interactable
                 return;
             }
 
+            _playerStateManager.GetActivePlayerStructure().GetComponent<AudioComponent>().Audio_Harvest();
+
             ItemDTO flower = plantSpotComponent.TakeFlower();
             _inventoryComponent.AddItem(flower);
             plantSpotComponent.ResetPlantSpot();

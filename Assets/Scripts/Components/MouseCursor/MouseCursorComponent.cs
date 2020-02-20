@@ -23,6 +23,7 @@ namespace Assets.Scripts.Component.MouseCursor
         private InputManager _inputManager;
         private bool _leftButtomPressed = false;
         private bool _rightButtomPressed = false;
+        private AudioComponent _audioComponent;
         #endregion
 
         #region UNITY METHODS
@@ -113,6 +114,8 @@ namespace Assets.Scripts.Component.MouseCursor
             if (_inputManager.MouseLeftButton == 1 && !_leftButtomPressed)
             {
                 _leftButtomPressed = true;
+                _audioComponent.Audio_Click();
+
                 MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
                 List<IInteractable> interactableList = new List<IInteractable>();
                 List<Button> buttonList = new List<Button>();
@@ -202,6 +205,7 @@ namespace Assets.Scripts.Component.MouseCursor
         {
             _playerStateManager = GameObject.FindObjectOfType<PlayerStateManager>();
             _inputManager = GameObject.FindObjectOfType<InputManager>();
+            _audioComponent = this.GetComponent<AudioComponent>();
         }
 
         protected override void ValidateValues() { }

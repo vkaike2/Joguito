@@ -31,6 +31,7 @@ namespace Assets.Scripts.Managers.PlayerState
         private InventoryDraggableItemComponent _inventoryDraggableItemComponnent;
         private InputManager _inputManager;
         private bool _playerSlotPressed = false;
+        private Audio
         #endregion
 
         #region PUBLIC METHODS
@@ -72,7 +73,10 @@ namespace Assets.Scripts.Managers.PlayerState
 
             PlayerStructure activePlayerStructure = _playerStrucutreList.FirstOrDefault(e => e.GetInstanceID() == playerStructureInstanceId);
             if (activePlayerStructure != null)
+            {
+
                 activePlayerStructure.ActivatePlayerStructure(true);
+            }
 
         }
         #endregion

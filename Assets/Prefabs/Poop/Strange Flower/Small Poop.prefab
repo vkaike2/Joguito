@@ -73,6 +73,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9109796972816661321, guid: 8ee93d70b338d6748adaffa42f70a39b,
         type: 3}
+    - target: {fileID: 4069819738788011770, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 705843e5b5cf5f5468f7cbbb62bf76ab, type: 2}
     - target: {fileID: 4069819738788011772, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
       propertyPath: m_Offset.x
@@ -146,6 +151,16 @@ PrefabInstance:
       propertyPath: _canPoop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7446523794946364551, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _alertObject
+      value: 
+      objectReference: {fileID: 3624978771345290826}
+    - target: {fileID: 7446523794946364551, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _cdwToAlertOptions
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 336310125, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -158,16 +173,10 @@ PrefabInstance:
       propertyPath: m_SpriteSortPoint
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7446523794946364551, guid: fc215a468413e5a4abc9d58cd01e9c14,
-        type: 3}
-      propertyPath: _alertObject
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _walkClipList.Array.data[0]
       value: 
-      objectReference: {fileID: 3624978771345290826}
-    - target: {fileID: 7446523794946364551, guid: fc215a468413e5a4abc9d58cd01e9c14,
-        type: 3}
-      propertyPath: _cdwToAlertOptions
-      value: 0.3
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: ed00e065d00656244b5542e2b9b12a99, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
 --- !u!1 &3624978771345290826 stripped
