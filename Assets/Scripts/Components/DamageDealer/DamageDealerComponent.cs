@@ -51,6 +51,8 @@ namespace Assets.Scripts.Components.DamageDealer
 
         public void Animator_EnemyTakeDamage()
         {
+            if (_enemyDamageTaker is null) return;
+
             _enemyDamageTaker.TakeDamage(_damage);
         }
         #endregion

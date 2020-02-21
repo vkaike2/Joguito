@@ -67,17 +67,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4069819738788011773, guid: fc215a468413e5a4abc9d58cd01e9c14,
-        type: 3}
-      propertyPath: _inventoryComponent
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4069819738788011766, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -6432834163609727235, guid: c1a4436f5e9e73a4bb9d6abe6d28e982,
         type: 3}
+    - target: {fileID: 4069819738788011770, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5f7e893e00c5c7d4492357e839bbe367, type: 2}
     - target: {fileID: 4069819738788011772, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
       propertyPath: m_Offset.y
@@ -147,5 +147,48 @@ PrefabInstance:
       propertyPath: _canPoop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7446523794946364551, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _alertObject
+      value: 
+      objectReference: {fileID: 8525425277680177470}
+    - target: {fileID: 7446523794946364551, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _cdwToAlertOptions
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _attackClipList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _walkClipList.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 23e835c2c48e21847ba5e4f0dd65e8a9, type: 3}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _attackSource
+      value: 
+      objectReference: {fileID: 3694615691560383612}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _attackClipList.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 606669ff981255549bc3ac1290c37216, type: 3}
+    - target: {fileID: 4069819738788011773, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _inventoryComponent
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+--- !u!1 &8525425277680177470 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4978039425051839833, guid: fc215a468413e5a4abc9d58cd01e9c14,
+    type: 3}
+  m_PrefabInstance: {fileID: 3694615692203105383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &3694615691560383612 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 777250843, guid: fc215a468413e5a4abc9d58cd01e9c14,
+    type: 3}
+  m_PrefabInstance: {fileID: 3694615692203105383}
+  m_PrefabAsset: {fileID: 0}

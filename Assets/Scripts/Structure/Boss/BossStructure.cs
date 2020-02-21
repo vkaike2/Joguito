@@ -39,8 +39,6 @@ namespace Assets.Scripts.Structure.Boss
         }
         #endregion
 
-        
-
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {

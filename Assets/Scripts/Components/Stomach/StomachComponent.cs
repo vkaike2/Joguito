@@ -124,6 +124,8 @@ namespace Assets.Scripts.Components.Stomach
 
         private void Activate()
         {
+            if (_stomachUIComponent is null) return;
+
             _stomachUIComponent.SetStomach(this);
         }
         #endregion
@@ -145,7 +147,6 @@ namespace Assets.Scripts.Components.Stomach
         protected override void ValidateValues()
         {
             if (_inputManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_inputManager), this.gameObject.name));
-            if (_stomachUIComponent == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_stomachUIComponent), this.gameObject.name));
             if (_animator == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_animator), this.gameObject.name));
             if (_animatorVariables == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_animatorVariables), this.gameObject.name));
             if (_playerStateManager == null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_playerStateManager), this.gameObject.name));

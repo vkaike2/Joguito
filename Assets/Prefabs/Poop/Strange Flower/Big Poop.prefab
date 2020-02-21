@@ -73,6 +73,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5391689400951272308, guid: c61bd3b77dde5904fad3f0ae5d81332c,
         type: 3}
+    - target: {fileID: 4069819738788011770, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fa8fae0eac6ee8f40aa67bac25bc4f34, type: 2}
     - target: {fileID: 4069819738788011772, guid: fc215a468413e5a4abc9d58cd01e9c14,
         type: 3}
       propertyPath: m_Offset.x
@@ -142,5 +147,43 @@ PrefabInstance:
       propertyPath: _canPoop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7446523794946364551, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _alertObject
+      value: 
+      objectReference: {fileID: 8213994993924767873}
+    - target: {fileID: 7446523794946364551, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _cdwToAlertOptions
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _attackClipList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _walkClipList.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: c37f822e99793684780a4b0d3a508fbf, type: 3}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _attackSource
+      value: 
+      objectReference: {fileID: 3812425273000863171}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _attackClipList.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1ab3b440978c8684f9c57ab1e2292076, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+--- !u!1 &8213994993924767873 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4978039425051839833, guid: fc215a468413e5a4abc9d58cd01e9c14,
+    type: 3}
+  m_PrefabInstance: {fileID: 3812425272693870040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &3812425273000863171 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 777250843, guid: fc215a468413e5a4abc9d58cd01e9c14,
+    type: 3}
+  m_PrefabInstance: {fileID: 3812425272693870040}
+  m_PrefabAsset: {fileID: 0}

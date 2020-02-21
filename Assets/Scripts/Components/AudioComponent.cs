@@ -38,8 +38,34 @@ namespace Assets.Scripts.Components
         private List<AudioClip> _clickClipList;
 
         [Header("CHOSE PLAYER")]
+        [SerializeField]
         private AudioSource _chosePlayerSource;
+        [SerializeField]
         private List<AudioClip> _chosePlayerClipList;
+
+        [Header("TAKING DAMAGE")]
+        [SerializeField]
+        private AudioSource _takingDamageSource;
+        [SerializeField]
+        private List<AudioClip> _takingDamageClipList;
+
+        [Header("ATTACKING")]
+        [SerializeField]
+        private AudioSource _attackSource;
+        [SerializeField]
+        private List<AudioClip> _attackClipList;
+
+        [Header("BOOS SPAWNING")]
+        [SerializeField]
+        private AudioSource _bossSpawningSource;
+        [SerializeField]
+        private List<AudioClip> _bossSpawningClipList;
+
+        [Header("SHOUT")]
+        [SerializeField]
+        private AudioSource _shoutSource;
+        [SerializeField]
+        private List<AudioClip> _shoutClipList;
         #endregion
 
         public void Audio_Walk()
@@ -77,6 +103,32 @@ namespace Assets.Scripts.Components
         {
             _chosePlayerSource.clip = _chosePlayerClipList[Random.Range(0, _chosePlayerClipList.Count())];
             _chosePlayerSource.Play();
+        }
+
+        public void Audio_TakingDamage()
+        {
+            _takingDamageSource.pitch = Random.Range(1, 1.5f);
+            _takingDamageSource.clip = _takingDamageClipList[Random.Range(0, _takingDamageClipList.Count())];
+            _takingDamageSource.Play();
+        }
+
+        public void Audio_Attack()
+        {
+            _attackSource.pitch = Random.Range(1, 1.5f);
+            _attackSource.clip = _attackClipList[Random.Range(0, _attackClipList.Count())];
+            _attackSource.Play();
+        }
+
+        public void Audio_BossSpawning()
+        {
+            _bossSpawningSource.clip = _bossSpawningClipList[Random.Range(0, _bossSpawningClipList.Count())];
+            _bossSpawningSource.Play();
+        }
+
+        public void Audio_Shout()
+        {
+            _shoutSource.clip = _shoutClipList[Random.Range(0, _shoutClipList.Count())];
+            _shoutSource.Play();
         }
 
         #region ABSTRACT METHODS

@@ -8,6 +8,7 @@ using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.Structure.Player;
 using Assets.Scripts.Components.Draggable;
 using Assets.Scripts.Managers.Inputs;
+using Assets.Scripts.Components;
 
 namespace Assets.Scripts.Managers.PlayerState
 {
@@ -31,7 +32,6 @@ namespace Assets.Scripts.Managers.PlayerState
         private InventoryDraggableItemComponent _inventoryDraggableItemComponnent;
         private InputManager _inputManager;
         private bool _playerSlotPressed = false;
-        private Audio
         #endregion
 
         #region PUBLIC METHODS

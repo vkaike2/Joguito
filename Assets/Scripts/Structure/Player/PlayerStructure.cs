@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Components.ActivePlayers;
+﻿using Assets.Scripts.Components;
+using Assets.Scripts.Components.ActivePlayers;
 using Assets.Scripts.Components.DamageDealer;
 using Assets.Scripts.Components.DamageTaker;
 using Assets.Scripts.Components.Interactable;
@@ -56,6 +57,7 @@ namespace Assets.Scripts.Structure.Player
         private DamageDealerComponent _damageDealerComponent;
         private DamageTakerComponent _damageTakerComponent;
         private Animator _animator;
+        private AudioComponent _audioComponent;
         #endregion
 
         #region PUBLIC METHODS
@@ -63,8 +65,10 @@ namespace Assets.Scripts.Structure.Player
         {
             if (value)
             {
+                _audioComponent.Audio_ChosePlayer();
                 _cinemachine.Follow = this.transform;
             }
+
             if (_hightlight != null)
                 _hightlight.SetActive(value);
 
@@ -200,6 +204,7 @@ namespace Assets.Scripts.Structure.Player
             _playerStateManage = GameObject.FindObjectOfType<PlayerStateManager>();
             _activePlayerUI = GameObject.FindObjectOfType<ActivePlayersUIComponent>();
             _animator = this.GetComponent<Animator>();
+            _audioComponent = this.GetComponent<AudioComponent>();
 
             _damageDealerComponent = this.GetComponent<DamageDealerComponent>();
             _damageTakerComponent = this.GetComponent<DamageTakerComponent>();
