@@ -18,7 +18,7 @@ namespace Assets.Scripts.Components.Stomach
         public void SetStomach(StomachComponent stomachComponent)
         {
             // => Remove every old foods
-            foreach (var stomahcSlot in _stomachSlotComponentList)
+            foreach (StomachSlotComponent stomahcSlot in _stomachSlotComponentList)
                 stomahcSlot.RemoveFood();
 
             _currentStomachComponent = stomachComponent;
@@ -40,7 +40,8 @@ namespace Assets.Scripts.Components.Stomach
 
         public void RemoveFoods(List<Guid> foodToPoopIdList)
         {
-            foreach (var stomachSlot in _stomachSlotComponentList.Where(e => e.StomachSlotState == EnumStomachSlotState.HasFood && foodToPoopIdList.Contains(e.StomachItemId)).ToList())
+            List<StomachSlotComponent> foodsToRemoveList = _stomachSlotComponentList.Where(e => e.StomachSlotState == EnumStomachSlotState.HasFood && foodToPoopIdList.Contains(e.StomachItemId)).ToList();
+            foreach (StomachSlotComponent stomachSlot in foodsToRemoveList)
             {
                 stomachSlot.RemoveFood();
             }

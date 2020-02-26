@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Components.ButtHole;
+using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
@@ -21,7 +22,7 @@ namespace Assets.Scripts.Components.Stomach
     {
         #region PUBLIC ATRIBUTES
         public List<StomachItemDTO> StomachItemList { get; private set; }
-        public bool Active => true;
+        public bool Active => _isActive;
         #endregion
 
         #region PRIVATE ATRIBUTES
@@ -71,14 +72,15 @@ namespace Assets.Scripts.Components.Stomach
             this.GetComponentInChildren<ButtHoleComponent>().SetCurrentPoop(_currentPoop);
             _currentPoop = null;
         }
+
+        public override void SetActivationComponent(bool value)
+        {
+            base.SetActivationComponent(value);
+            if (value) this.Activate();
+        }
         #endregion
 
         #region UNITY METHODS
-        private void Start()
-        {
-            this.Activate();
-        }
-
         private void Update()
         {
             ManageTheButHole();
@@ -109,7 +111,7 @@ namespace Assets.Scripts.Components.Stomach
                 _movementMouseComponent.Animator_CantMove();
                 _isPooping = true;
                 List<StomachItemDTO> foodToPoopList = StomachItemList.Where(e => e.State == EnumStomachItemDTOState.ReadyToPoop).ToList();
-                string currentFlowersRecipeInStomach = String.Join("-", foodToPoopList.Select(e => e.Item.GetHashCode()).OrderBy(e => e).ToList());
+                string currentFlowersRecipeInStomach = string.Join("-", foodToPoopList.Select(e => e.Item.GetHashCode()).OrderBy(e => e).ToList());
 
                 _currentPoop = _poopList.FirstOrDefault(e => e.Recipe == currentFlowersRecipeInStomach);
 

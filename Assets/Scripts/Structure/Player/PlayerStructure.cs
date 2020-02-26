@@ -82,6 +82,7 @@ namespace Assets.Scripts.Structure.Player
             if (_canMoveByClick) _movementMouseComponent.SetActivationComponent(value);
             if (_canInteract) _interactableComponent.SetActivationComponent(value);
             if (_canPoop) _stomachComponent.SetActivationComponent(value);
+
         }
 
         public void TurnItIntoAPoop(PoopScriptable poopScriptable)

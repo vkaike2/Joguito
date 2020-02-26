@@ -18,12 +18,17 @@ namespace Assets.Scripts.Component.MouseCursor
 {
     public class MouseCursorComponent : BaseComponent
     {
+        #region PUBLIC VOID
+        public bool HasItemUnderTheCursor { get; set; }
+        #endregion
+
         #region PRIVATE ATTRIBURES
         private PlayerStateManager _playerStateManager;
         private InputManager _inputManager;
         private bool _leftButtomPressed = false;
         private bool _rightButtomPressed = false;
         private AudioComponent _audioComponent;
+        private bool _canMove;
         #endregion
 
         #region UNITY METHODS
@@ -33,7 +38,7 @@ namespace Assets.Scripts.Component.MouseCursor
             ManageMouseUniqueLeftClick();
             ManageMouseUniqueRightClick();
 
-            //ManageMouseConinuousClick();
+            ManageMouseConinuousClick();
         }
 
         #endregion
@@ -84,30 +89,43 @@ namespace Assets.Scripts.Component.MouseCursor
             });
         }
 
-        //private void ManageMouseConinuousClick()
-        //{
-        //    if (_inputManager.MouseLeftButton == 1)
-        //    {
-        //        MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
+        private void ManageMouseConinuousClick()
+        {
+            if (_inputManager.MouseLeftButton == 1)
+            {
+                List<IInteractable> interactableList = new List<IInteractable>();
+                List<Button> buttonList = new List<Button>();
 
-        //        Vector2 mousePosition = this.ManageMouseClick((hitUI) =>
-        //        {
-        //            _canMove = false;
-        //        },
-        //        (hit) =>
-        //        {
-        //            Debug.Log(hit.collider.gameObject.name);
+                bool hitSomeUIComponent = false;
 
-        //            List<IInteractable> interactableObjects = hit.collider.gameObject.GetComponents<IInteractable>().ToList();
-        //            interactableObjects.AddRange(hit.collider.gameObject.GetComponentsInChildren<IInteractable>().ToList());
-        //            interactableObjects.AddRange(hit.collider.gameObject.GetComponentsInParent<IInteractable>().ToList());
+                Vector2 mousePosition = this.ManageMouseClick(
+                (hitUI) =>
+                {
+                    hitSomeUIComponent = true;
+                },
+                (hit) =>
+                {
+                    buttonList.AddRange(hit.collider.gameObject.GetComponents<Button>());
+                    interactableList.AddRange(hit.collider.gameObject.GetComponents<IInteractable>().ToList());
+                });
+                if (hitSomeUIComponent || HasItemUnderTheCursor) return;
 
-        //            _canMove = interactableObjects == null || interactableObjects.Any();
-        //        });
+                IInteractable interactableChoice = interactableList.OrderBy(e => e.Order()).FirstOrDefault();
 
-        //        if (_canMove) movementMouseComponent.ObjectGoToContinuous(mousePosition);
-        //    }
-        //}
+                _canMove = interactableChoice is null && _canMove;
+
+                if(interactableChoice is IDamageTaker damagable)
+                {
+                    _canMove = damagable.IsGround && _canMove;
+                }
+                _canMove = !buttonList.Any() && _canMove;
+
+
+
+                MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
+                if(_canMove) movementMouseComponent.ObjectGoToWalkContinuous(mousePosition);
+            }
+        }
 
         private void ManageMouseUniqueLeftClick()
         {
@@ -116,14 +134,13 @@ namespace Assets.Scripts.Component.MouseCursor
                 _leftButtomPressed = true;
                 _audioComponent.Audio_Click();
 
-                MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
                 List<IInteractable> interactableList = new List<IInteractable>();
                 List<Button> buttonList = new List<Button>();
                 List<IPlayer> playersList = new List<IPlayer>();
 
 
                 bool hitSomeUIComponent = false;
-                bool canMove = true;
+                _canMove = true;
                 Vector2 mousePosition = this.ManageMouseClick((hitUI) =>
                 {
                     hitSomeUIComponent = true;
@@ -143,12 +160,6 @@ namespace Assets.Scripts.Component.MouseCursor
                 {
                     interactableChoice = interactableList.Where(e => !(e is IDamageTaker)).OrderBy(e => e.Order()).FirstOrDefault();
                 }
-
-                canMove = interactableChoice is null && canMove;
-                canMove = !buttonList.Any() && canMove;
-
-                if (canMove)
-                    movementMouseComponent.ObjectGoToWalkContinuous(mousePosition);
 
                 if (interactableChoice is IDamageTaker damagable)
                 {
@@ -206,6 +217,7 @@ namespace Assets.Scripts.Component.MouseCursor
             _playerStateManager = GameObject.FindObjectOfType<PlayerStateManager>();
             _inputManager = GameObject.FindObjectOfType<InputManager>();
             _audioComponent = this.GetComponent<AudioComponent>();
+            HasItemUnderTheCursor = false;
         }
 
         protected override void ValidateValues() { }

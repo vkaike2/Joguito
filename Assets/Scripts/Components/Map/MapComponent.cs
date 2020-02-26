@@ -1,7 +1,4 @@
-﻿using Assets.Scripts.Components.Tile;
-using Assets.Scripts.DTOs;
-using Assets.Scripts.Managers.Map;
-using System;
+﻿using Assets.Scripts.Managers.Map;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,6 +15,8 @@ namespace Assets.Scripts.Components.Map
         #region PRIVATE ATTRIBUTES
         private MapManager _mapManager;
         private List<MapSpawnComponent> _spawnPointList;
+        private List<int> _mobList;
+        private bool _canSpawnNewMap = false;
         #endregion
 
         #region PUBLIC METHODS
@@ -52,18 +51,43 @@ namespace Assets.Scripts.Components.Map
 
             return spawnedMap;
         }
+
+        public void AddNewMob(int mobInstanceID)
+        {
+            _mobList.Add(mobInstanceID);
+        }
+
+        public void RemoveNewMob(int mobInstanceID)
+        {
+            if (!_mobList.Any(e => e == mobInstanceID)) return;
+            _mobList.Remove(mobInstanceID);
+
+            if (!_mobList.Any())
+                _canSpawnNewMap = true;
+        }
         #endregion
 
         #region UNITY METHODS
+
+        private void FixedUpdate()
+        {
+            if (_canSpawnNewMap)
+            {
+                _mapManager.SpawnNewRandomMap();
+                _canSpawnNewMap = false;
+            }
+        }
         private void OnEnable()
         {
             _mapManager.AddMapComponent(this);
         }
+
         private void OnDisable()
         {
             _mapManager.RemoveMapComponent(this);
         }
         #endregion
+
 
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
@@ -71,6 +95,7 @@ namespace Assets.Scripts.Components.Map
             Coordinates = new Vector2();
             _mapManager = GameObject.FindObjectOfType<MapManager>();
             _spawnPointList = this.GetComponentsInChildren<MapSpawnComponent>().ToList();
+            _mobList = new List<int>();
         }
 
         protected override void ValidateValues() { }

@@ -102,7 +102,6 @@ namespace Assets.Scripts.Components.LifeBar
             if(_fadeOutCooldown == 0) _fadeOutCooldown = 2f;
             _childrensGameObjects = new List<GameObject>();
 
-            //TODO CONTINUE FROM HERE
             event_UpdateLifeBar.AddListener(Event_UpdateLifeBar);
         }
 

@@ -17,6 +17,10 @@ namespace Assets.Scripts.Components.DamageTaker
 {
     public class DamageTakerComponent : BaseComponent, IDamageTaker
     {
+        #region PUBLIC ATRIBUTES
+        public bool IsGround => IsGround;
+        #endregion
+
         #region SERIALIZABLE ATTRIBUTES
         [Header("Damage Animators")]
         [SerializeField]
@@ -26,7 +30,11 @@ namespace Assets.Scripts.Components.DamageTaker
         [SerializeField]
         private float _health;
         [SerializeField]
+        [Tooltip("Used to identify a boss")]
         private bool _isBoss;
+        [SerializeField]
+        [Tooltip("Used to identify a ground")]
+        private bool _isGround;
         #endregion
 
         #region PRIVATE ATRIBUTES
@@ -76,7 +84,7 @@ namespace Assets.Scripts.Components.DamageTaker
 
             _lifeBarComponent.event_UpdateLifeBar.Invoke(_health / _fullHealth);
 
-            if (_health <= 0) // => DIe
+            if (_health <= 0) // => Die
             {
                 _readyToCombat = false;
                 _animator.SetTrigger(_animatorVariables.Die);
@@ -90,6 +98,7 @@ namespace Assets.Scripts.Components.DamageTaker
 
         public void StartDefenseOperation(DamageDealerComponent damageDealer)
         {
+            if (damageDealer is null) return;
             if (_instanceIdEnemyList.Any(e => e == damageDealer.GetInstanceID())) return;
             _instanceIdEnemyList.Add(damageDealer.GetInstanceID());
 
@@ -129,28 +138,39 @@ namespace Assets.Scripts.Components.DamageTaker
             _health = bossScriptable.Health;
             _fullHealth = _health;
         }
+
+        public void TryToRemoveFromEnemyList(int enemyInstanceId)
+        {
+            if (!_instanceIdEnemyList.Any(e => e == enemyInstanceId)) return;
+
+            _instanceIdEnemyList.Remove(enemyInstanceId);
+        }
         #endregion
 
         #region COROUTINES
         IEnumerator DefenseOperation(DamageDealerComponent damageDealer)
         {
             float _internalCdw = 0f;
-            InteractableComponent enemyInteractableComponent = damageDealer.GetComponent<InteractableComponent>();
 
-            while (_internalCdw <= damageDealer.CdwDamage)
+            if (damageDealer != null)
             {
-                _internalCdw += Time.deltaTime;
-                yield return new WaitForFixedUpdate();
-            }
+                InteractableComponent enemyInteractableComponent = damageDealer.GetComponent<InteractableComponent>();
 
-            if (enemyInteractableComponent.IsAttackingThisMonster(this.GetInstanceID()))
-            {
-                damageDealer.StartAtackAnimation(this);
-                StartCoroutine(DefenseOperation(damageDealer));
-            }
-            else
-            {
-                _instanceIdEnemyList.Remove(damageDealer.GetInstanceID());
+                while (_internalCdw <= damageDealer.CdwDamage)
+                {
+                    _internalCdw += Time.deltaTime;
+                    yield return new WaitForFixedUpdate();
+                }
+
+                if (enemyInteractableComponent.IsAttackingThisMonster(this.GetInstanceID()))
+                {
+                    damageDealer.StartAtackAnimation(this);
+                    StartCoroutine(DefenseOperation(damageDealer));
+                }
+                else
+                {
+                    _instanceIdEnemyList.Remove(damageDealer.GetInstanceID());
+                }
             }
         }
         #endregion

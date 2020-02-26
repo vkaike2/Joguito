@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using Assets.Scripts.DTOs;
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Managers.PlayerState;
+using Assets.Scripts.Component.MouseCursor;
 
 namespace Assets.Scripts.Components.Draggable
 {
@@ -46,19 +47,20 @@ namespace Assets.Scripts.Components.Draggable
         private InventorySlotComponent _dragInventorySlot;
         private ItemDTO _dragItem;
         private PlayerStateManager _playerStateManager;
+        private MouseCursorComponent _mouseCursorComponent;
         #endregion
 
         #region PUBLIC METHODS
         public void StartDragging(InventorySlotComponent slot)
         {
             if (IsDragging) return;
+            _mouseCursorComponent.HasItemUnderTheCursor = true;
 
             _dragInventorySlot = slot;
             _dragItem = _dragInventorySlot.CurrentItem;
             _dragInventorySlot.RemoveItem();
             transform.position = slot.gameObject.transform.position;
             _offset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-
 
             if (_offset.Value.x >= _offsetClickValue) _offset = new Vector2(_offsetDragValue, _offset.Value.y);
             if (_offset.Value.x <= -_offsetClickValue) _offset = new Vector2(-_offsetDragValue, _offset.Value.y);
@@ -92,16 +94,16 @@ namespace Assets.Scripts.Components.Draggable
             else if (_playerStateManager.GetAllInteractableComponents().Any(e => e != null && e.MouseIsOver))
             {
                 InteractableComponent interactableComponent = _playerStateManager.GetAllInteractableComponents().FirstOrDefault(e => e != null && e.MouseIsOver);
-                
+
+                // FEED THE PLAYER
                 if (_dragItem.Item.ItemType == ScriptableComponents.Item.EnumItemScriptableType.Flower && interactableComponent.PlayerCanEatFlower())
                 {
-                    if(_dragItem.Amount == 1)
+                    _dragItem.Amount--;
+
+                    interactableComponent.EatFlowerByDrag(new ItemDTO() { Item = _dragItem.Item, Amount = 1 });
+
+                    if (_dragItem.Amount > 0)
                     {
-                        interactableComponent.EatFlowerByDrag(_dragItem);
-                    }
-                    else
-                    {
-                        _dragItem.Amount--;
                         _dragInventorySlot.SetItem(_dragItem);
                     }
                 }
@@ -123,6 +125,7 @@ namespace Assets.Scripts.Components.Draggable
             transform.position = _initialPosition;
             _dragInventorySlot = null;
             IsDragging = false;
+            _mouseCursorComponent.HasItemUnderTheCursor = false;
         }
 
         private void DropItem()
@@ -174,6 +177,7 @@ namespace Assets.Scripts.Components.Draggable
         protected override void SetInitialValues()
         {
             _playerStateManager = GameObject.FindObjectOfType<PlayerStateManager>();
+            _mouseCursorComponent = GameObject.FindObjectOfType<MouseCursorComponent>();
 
             if (_offsetClickValue == 0f) _offsetClickValue = 0.35f;
             if (_offsetDragValue == 0f) _offsetDragValue = 0.30f;

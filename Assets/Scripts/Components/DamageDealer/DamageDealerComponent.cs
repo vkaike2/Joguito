@@ -34,9 +34,15 @@ namespace Assets.Scripts.Components.DamageDealer
         private Animator _animator;
         private DamageDealerAnimatorVariables _animatorVariables;
         private DamageTakerComponent _enemyDamageTaker;
+        private bool _canDealDamage = true;
         #endregion
 
         #region PUBLIC METHODS
+        public void Animator_CantDealDamage()
+        {
+            _canDealDamage = false;
+        }
+
         public void TurnItIntoAPoop(PoopScriptable poopScriptable)
         {
             _damage = poopScriptable.Damage;
@@ -45,6 +51,7 @@ namespace Assets.Scripts.Components.DamageDealer
 
         public void StartAtackAnimation(DamageTakerComponent damageTakerComponent)
         {
+            if (!_canDealDamage) return;
             _enemyDamageTaker = damageTakerComponent;
             _animator.SetTrigger(_animatorVariables.Attack);
         }
@@ -63,6 +70,14 @@ namespace Assets.Scripts.Components.DamageDealer
             if (_alertObject is null) return;
 
             StartCoroutine(StartAtackAlert());
+        }
+        #endregion
+
+        #region UNITY METHODS
+        private void OnDestroy()
+        {
+            if (_enemyDamageTaker is null) return;
+            _enemyDamageTaker.TryToRemoveFromEnemyList(this.GetInstanceID());
         }
         #endregion
 

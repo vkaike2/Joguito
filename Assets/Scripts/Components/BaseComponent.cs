@@ -6,7 +6,7 @@ namespace Assets.Scripts.Components
     {
         protected bool _isActive = false;
 
-        public void SetActivationComponent(bool value)
+        public virtual void SetActivationComponent(bool value)
         {
             _isActive = value;
         }

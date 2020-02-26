@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Components.Tile;
+using Assets.Scripts.ScriptableComponents.Boss;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,6 +20,12 @@ namespace Assets.Scripts.Extensions
             TileMapObjectsAttributes attribute = GetRandomAttribute(list);
 
             return (attribute.Prefab, attribute.Amount);
+        }
+
+        public static BossScriptable GetRandomBoss(this List<TileMapBossAttributes> list)
+        {
+            TileMapBossAttributes attribute = GetRandomAttribute(list);
+            return attribute.BossScriptable;
         }
 
         private static T GetRandomAttribute<T>(this List<T> list) where T : TileMapAttributes

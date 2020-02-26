@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.ScriptableComponents.Boss;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,15 @@ namespace Assets.Scripts.Components.Tile
         private Sprite _sprite;
 
         public Sprite Sprite => _sprite;
+    }
+
+    [Serializable]
+    public class TileMapBossAttributes : TileMapAttributes
+    {
+        [SerializeField]
+        private BossScriptable _bossScriptable;
+
+        public BossScriptable BossScriptable => _bossScriptable;
     }
 
     [Serializable]

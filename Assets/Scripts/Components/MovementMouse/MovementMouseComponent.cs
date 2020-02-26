@@ -34,7 +34,6 @@ namespace Assets.Scripts.Components.MovementMouse
         private Rigidbody2D _rigidBody2D;
         private InteractableComponent _interactableComponent;
         private MovementCursorAnimatorVariables _animatorVariables;
-        private Vector2 _mouseDirection;
         private Vector2 _mouseOnClickPosition;
         private Coroutine _moveToExcatPosition;
         private bool _internCanMove;
@@ -61,13 +60,17 @@ namespace Assets.Scripts.Components.MovementMouse
             if (stopRange is null)
                 stopRange = _stopRange;
 
-            if (_moveToExcatPosition == null)
-                _moveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
+            if (_moveToExcatPosition != null)
+                StopCoroutine(_moveToExcatPosition);
+
+            _moveToExcatPosition = StartCoroutine(MoveToExactPosition(position, stopRange));
         }
         public void ObjectGoTo(Vector2 position, int instanceID)
         {
-            if (_moveToExcatPosition == null)
-                _moveToExcatPosition = StartCoroutine(MoveToCombatComponent(position, instanceID));
+            if (_moveToExcatPosition != null)
+                StopCoroutine(_moveToExcatPosition);
+
+            _moveToExcatPosition = StartCoroutine(MoveToCombatComponent(position, instanceID));
         }
 
         public void Animator_CantMove()

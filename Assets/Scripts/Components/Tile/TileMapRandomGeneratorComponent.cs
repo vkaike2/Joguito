@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Extensions;
+using Assets.Scripts.ScriptableComponents.Boss;
+using Assets.Scripts.Structure.Boss;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,10 @@ namespace Assets.Scripts.Components.Tile
     public class TileMapRandomGeneratorComponent : BaseComponent
     {
         #region SERIALIZABLE ATTRIBUTES
+        [Header("BOSS SPAWN POINT")]
+        [SerializeField]
+        private Transform _bossSpawnPoint;
+
         [Header("Random Sprites")]
         [SerializeField]
         private List<TileMapSpriteAttributes> LeftUpSpriteList;
@@ -81,6 +87,12 @@ namespace Assets.Scripts.Components.Tile
                         break;
                 }
             }
+        }
+
+        public void SpawnNewBoss(BossScriptable randomBoss)
+        {
+            GameObject bossGameObject = GameObject.Instantiate(randomBoss.BossPrefab, _bossSpawnPoint.position, Quaternion.identity);
+            bossGameObject.GetComponentInChildren<BossStructure>().TunIntoABoss(randomBoss);
         }
 
         public void SpawnNewObjects(GameObject prefab, int amount)

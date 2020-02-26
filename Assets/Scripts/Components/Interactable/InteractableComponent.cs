@@ -349,7 +349,7 @@ namespace Assets.Scripts.Components.Interactable
                 return;
             }
 
-            _playerStateManager.GetActivePlayerStructure().GetComponent<AudioComponent>().Audio_Harvest();
+            this.GetComponent<AudioComponent>().Audio_Harvest();
 
             ItemDTO flower = plantSpotComponent.TakeFlower();
             _inventoryComponent.AddItem(flower);
@@ -379,7 +379,7 @@ namespace Assets.Scripts.Components.Interactable
             if (damageTakerComponent == null) return;
             if (damageTakerComponent.GetInstanceID() != _interactableInstanceId) return;
 
-            DamageDealerComponent damageDealer = _playerStateManager.GetActivePlayerStructure().GetDamageDealerComponent();
+            DamageDealerComponent damageDealer = this.GetComponent<DamageDealerComponent>();
 
             damageTakerComponent.StartDefenseOperation(damageDealer);
         }

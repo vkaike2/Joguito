@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Components.CombatAttributes;
 using Assets.Scripts.Components.DamageTaker;
+using Assets.Scripts.Components.Map;
 using Assets.Scripts.ScriptableComponents.Boss;
 using Assets.Scripts.Structure.Player;
 using Assets.Scripts.Utils;
@@ -18,6 +19,7 @@ namespace Assets.Scripts.Structure.Boss
         #region PRIVATE ATTRIBUTES
         private Animator _bossAnimator;
         private DamageTakerComponent _damageTakerComponent;
+        private MapComponent _mapComponent;
         #endregion
 
         #region PUBLIC METHODS
@@ -25,7 +27,6 @@ namespace Assets.Scripts.Structure.Boss
         {
             _bossScriptable = bossScriptable;
             _bossAnimator.runtimeAnimatorController = _bossScriptable.BossAnimator;
-
 
             // => DamageTakerOptions 
             _damageTakerComponent.TurnItIntoABoss(bossScriptable);
@@ -36,6 +37,25 @@ namespace Assets.Scripts.Structure.Boss
         private void Start()
         {
             this.TunIntoABoss(_bossScriptable);
+        }
+
+        private void OnEnable()
+        {
+            RaycastHit2D[] hitList = Physics2D.RaycastAll(this.transform.position, Vector2.zero);
+
+            foreach (RaycastHit2D hit in hitList)
+            {
+                if (_mapComponent != null) break;
+                _mapComponent = hit.collider.GetComponent<MapComponent>();
+            }
+
+            if (_mapComponent is null) return;
+            _mapComponent.AddNewMob(this.GetInstanceID());
+        }
+
+        public void OnDisable()
+        {
+            _mapComponent.RemoveNewMob(this.GetInstanceID());
         }
         #endregion
 

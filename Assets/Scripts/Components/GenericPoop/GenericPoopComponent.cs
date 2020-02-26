@@ -1,10 +1,5 @@
 ﻿using Assets.Scripts.ScriptableComponents.Poop;
 using Assets.Scripts.Structure.Player;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Components.GenericPoop
@@ -23,6 +18,7 @@ namespace Assets.Scripts.Components.GenericPoop
 
         public void Animator_SpawnPoop()
         {
+            Debug.Log("Spawn");
             GameObject.Instantiate(_currentPoop.PoopPrefab, this.transform.position, Quaternion.identity).GetComponent<PlayerStructure>().TurnItIntoAPoop(_currentPoop);
             Destroy(this.gameObject);
         }
