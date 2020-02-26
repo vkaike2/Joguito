@@ -1,8 +1,6 @@
-﻿using Assets.Scripts.Components.CombatAttributes;
-using Assets.Scripts.Components.DamageTaker;
+﻿using Assets.Scripts.Components.DamageTaker;
 using Assets.Scripts.Components.Map;
 using Assets.Scripts.ScriptableComponents.Boss;
-using Assets.Scripts.Structure.Player;
 using Assets.Scripts.Utils;
 using UnityEngine;
 

@@ -18,7 +18,7 @@ namespace Assets.Scripts.Components.DamageTaker
     public class DamageTakerComponent : BaseComponent, IDamageTaker
     {
         #region PUBLIC ATRIBUTES
-        public bool IsGround => IsGround;
+        public bool PlayerInteractWith => !_isGround;
         #endregion
 
         #region SERIALIZABLE ATTRIBUTES

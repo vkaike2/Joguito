@@ -1,11 +1,6 @@
 ﻿using Assets.Scripts.Components.ActionSlot;
 using Assets.Scripts.Components.PlantSpot;
 using Assets.Scripts.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Components.Interactable

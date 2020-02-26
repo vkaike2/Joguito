@@ -9,5 +9,6 @@ namespace Assets.Scripts.Interface
     public interface IInteractable
     {
         int Order();
+        bool PlayerInteractWith { get; }
     }
 }

@@ -1,9 +1,7 @@
-﻿using Assets.Scripts.Components.Combat;
-using Assets.Scripts.Components.Interactable;
+﻿using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Utils;
-using System;
 using System.Collections;
 using UnityEngine;
 

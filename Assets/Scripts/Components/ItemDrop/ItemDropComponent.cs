@@ -17,6 +17,8 @@ namespace Assets.Scripts.Components.ItemDrop
     {
         #region PUBLIC ATRIBUTES
         public GameObject ParentGameObject => transform.parent.gameObject;
+
+        public bool PlayerInteractWith => true;
         #endregion
 
         #region SERIALIZABLE FIELDS

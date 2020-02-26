@@ -9,7 +9,6 @@ namespace Assets.Scripts.Interface
 {
     public interface IDamageTaker : IInteractable
     {
-        bool IsGround { get; }
         bool StartCombat(DamageDealerComponent damageDealer);
     }
 }

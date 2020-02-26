@@ -19,6 +19,10 @@ namespace Assets.Scripts.Components.PlantSpot
     [RequireComponent(typeof(Animator))]
     public class PlantSpotComponent : BaseComponent, IPlantable
     {
+        #region PUBLIC ATRIBUTES
+        public bool PlayerInteractWith => true;
+        #endregion
+
         #region SERIALIZABLE ATRIBUTES
         [Header("Requird Fields")]
         [SerializeField]

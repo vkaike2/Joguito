@@ -95,9 +95,10 @@ namespace Assets.Scripts.Component.MouseCursor
             {
                 List<IInteractable> interactableList = new List<IInteractable>();
                 List<Button> buttonList = new List<Button>();
+                
+                _canMove = true;
 
                 bool hitSomeUIComponent = false;
-
                 Vector2 mousePosition = this.ManageMouseClick(
                 (hitUI) =>
                 {
@@ -106,7 +107,7 @@ namespace Assets.Scripts.Component.MouseCursor
                 (hit) =>
                 {
                     buttonList.AddRange(hit.collider.gameObject.GetComponents<Button>());
-                    interactableList.AddRange(hit.collider.gameObject.GetComponents<IInteractable>().ToList());
+                    interactableList.AddRange(hit.collider.gameObject.GetComponents<IInteractable>().Where(e => e.PlayerInteractWith).ToList());
                 });
                 if (hitSomeUIComponent || HasItemUnderTheCursor) return;
 
@@ -114,13 +115,7 @@ namespace Assets.Scripts.Component.MouseCursor
 
                 _canMove = interactableChoice is null && _canMove;
 
-                if(interactableChoice is IDamageTaker damagable)
-                {
-                    _canMove = damagable.IsGround && _canMove;
-                }
                 _canMove = !buttonList.Any() && _canMove;
-
-
 
                 MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
                 if(_canMove) movementMouseComponent.ObjectGoToWalkContinuous(mousePosition);
@@ -148,7 +143,7 @@ namespace Assets.Scripts.Component.MouseCursor
                 (hit) =>
                 {
                     buttonList.AddRange(hit.collider.gameObject.GetComponents<Button>());
-                    interactableList.AddRange(hit.collider.gameObject.GetComponents<IInteractable>().ToList());
+                    interactableList.AddRange(hit.collider.gameObject.GetComponents<IInteractable>().Where(e => e.PlayerInteractWith).ToList());
                     playersList.AddRange(hit.collider.gameObject.GetComponents<IPlayer>().ToList());
                 });
 

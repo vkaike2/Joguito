@@ -1,7 +1,4 @@
-﻿using System;
-using Assets.Scripts.Components.ActionSlot;
-using Assets.Scripts.Components.Combat;
-using Assets.Scripts.Components.CombatAttributes;
+﻿using Assets.Scripts.Components.ActionSlot;
 using Assets.Scripts.Components.DamageDealer;
 using Assets.Scripts.Components.DamageTaker;
 using Assets.Scripts.Components.Inventory;
@@ -12,9 +9,7 @@ using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Managers.UI;
-using Assets.Scripts.ScriptableComponents.Item;
 using Assets.Scripts.ScriptableComponents.Poop;
-using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.Components.Interactable
@@ -72,7 +67,6 @@ namespace Assets.Scripts.Components.Interactable
         private bool _isPlanting = false;
         private bool _isEating = false;
         private bool _mouseIsOver = false;
-        private CombatAttributesComponent _combatAttributesComponent;
         #endregion
 
         #region PUBLIC METHODS
@@ -404,7 +398,6 @@ namespace Assets.Scripts.Components.Interactable
             _animator = this.GetComponent<Animator>();
             _currentInteractableState = EnumInteractableState.Nothing;
             _stomachComponent = this.GetComponent<StomachComponent>();
-            _combatAttributesComponent = this.GetComponent<CombatAttributesComponent>();
 
             _animatorVariables = new InteractableAnimatorVariables();
         }
