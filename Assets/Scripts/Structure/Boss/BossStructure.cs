@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Components.DamageTaker;
+﻿using Assets.Scripts.Components.DamageDealer;
+using Assets.Scripts.Components.DamageTaker;
 using Assets.Scripts.Components.Map;
 using Assets.Scripts.ScriptableComponents.Boss;
 using Assets.Scripts.Utils;
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Structure.Boss
         #region PRIVATE ATTRIBUTES
         private Animator _bossAnimator;
         private DamageTakerComponent _damageTakerComponent;
+        private DamageDealerComponent _damageDealerComponent;
         private MapComponent _mapComponent;
         #endregion
 
@@ -28,6 +30,9 @@ namespace Assets.Scripts.Structure.Boss
 
             // => DamageTakerOptions 
             _damageTakerComponent.TurnItIntoABoss(bossScriptable);
+
+            // => DamageDealerOptions
+            _damageDealerComponent.TurnItIntoABoss(bossScriptable);
         }
         #endregion
 
@@ -60,6 +65,7 @@ namespace Assets.Scripts.Structure.Boss
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
+            _damageDealerComponent = this.GetComponentInChildren<DamageDealerComponent>();
             _bossAnimator = this.GetComponent<Animator>();
             _damageTakerComponent = this.GetComponent<DamageTakerComponent>();
         }

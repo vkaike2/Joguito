@@ -82,17 +82,19 @@ namespace Assets.Scripts.Components.DamageTaker
 
             _health -= damage;
 
-            _lifeBarComponent.event_UpdateLifeBar.Invoke(_health / _fullHealth);
+            _lifeBarComponent?.event_UpdateLifeBar.Invoke(_health / _fullHealth);
 
             if (_health <= 0) // => Die
             {
                 _readyToCombat = false;
-                _animator.SetTrigger(_animatorVariables.Die);
+                if (_animator != null)
+                    _animator.SetTrigger(_animatorVariables.Die);
             }
             else
             {
                 this.StartAnimationDamage();
-                _animator.SetTrigger(_animatorVariables.TakeDamage);
+                if (_animator != null)
+                    _animator.SetTrigger(_animatorVariables.TakeDamage);
             }
         }
 

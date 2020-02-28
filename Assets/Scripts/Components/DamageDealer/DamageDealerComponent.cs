@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Assets.Scripts.Components.DamageTaker;
+using Assets.Scripts.ScriptableComponents.Boss;
 using Assets.Scripts.ScriptableComponents.Poop;
 using UnityEngine;
 using UnityEngine.Events;
@@ -49,11 +50,18 @@ namespace Assets.Scripts.Components.DamageDealer
             _cdwDamage = poopScriptable.CdwDamage;
         }
 
+        public void TurnItIntoABoss(BossScriptable bossScriptable)
+        {
+            _damage = bossScriptable.Damage;
+            _cdwDamage = bossScriptable.CdwDamage;
+        }
+
         public void StartAtackAnimation(DamageTakerComponent damageTakerComponent)
         {
             if (!_canDealDamage) return;
             _enemyDamageTaker = damageTakerComponent;
-            _animator.SetTrigger(_animatorVariables.Attack);
+            if (_animator != null)
+                _animator.SetTrigger(_animatorVariables.Attack);
         }
 
         public void Animator_EnemyTakeDamage()

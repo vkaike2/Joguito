@@ -276,7 +276,7 @@ namespace Assets.Scripts.Components.Interactable
                     this.EatFlower(collision);
                     break;
                 case EnumInteractableState.Atack:
-                    this.Atack(collision);
+                    this.Attack(collision);
                     break;
                 default:
                     break;
@@ -366,7 +366,7 @@ namespace Assets.Scripts.Components.Interactable
             _animatorVariables.PlantSpotComponent = plantSpotComponent;
             _animator.SetTrigger(_animatorVariables.Eat);
         }
-        private void Atack(Collider2D collision)
+        private void Attack(Collider2D collision)
         {
             DamageTakerComponent damageTakerComponent = collision.gameObject.GetComponentInParent<DamageTakerComponent>();
 

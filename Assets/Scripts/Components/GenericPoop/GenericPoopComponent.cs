@@ -18,7 +18,6 @@ namespace Assets.Scripts.Components.GenericPoop
 
         public void Animator_SpawnPoop()
         {
-            Debug.Log("Spawn");
             GameObject.Instantiate(_currentPoop.PoopPrefab, this.transform.position, Quaternion.identity).GetComponent<PlayerStructure>().TurnItIntoAPoop(_currentPoop);
             Destroy(this.gameObject);
         }

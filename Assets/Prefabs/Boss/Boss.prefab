@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 7897579938724675848}
   - component: {fileID: 5218199218076362154}
   - component: {fileID: 6059008722105723641}
-  - component: {fileID: 1481383090339557955}
+  - component: {fileID: 1777271224781692451}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -658,7 +658,7 @@ MonoBehaviour:
   _canTakePlant: 0
   _canEat: 0
   _canAttack: 1
---- !u!114 &1481383090339557955
+--- !u!114 &1777271224781692451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -667,9 +667,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1487295610933513972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8340311befa835a4dbbef235aa0cfb86, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0fabefb9e46734595002ef8d822b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inventoryComponent: {fileID: 0}
+  _itemDropPrefab: {fileID: 0}
+  _canPickupItem: 0
+  _canPlant: 0
+  _canTakeSeed: 0
+  _canTakePlant: 0
+  _canEat: 0
+  _canAttack: 1
 --- !u!1 &5872043869159839627
 GameObject:
   m_ObjectHideFlags: 0
