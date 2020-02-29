@@ -17,5 +17,5 @@ MonoBehaviour:
   _bossPrefab: {fileID: 5872043870243768418, guid: 3cdb66aa07af44243a7192ebeb1d5930,
     type: 3}
   _health: 20
-  _damage: 5
+  _damage: 20
   _cdwDamage: 5

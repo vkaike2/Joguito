@@ -3,6 +3,7 @@ using Assets.Scripts.Components.ActivePlayers;
 using Assets.Scripts.Components.DamageDealer;
 using Assets.Scripts.Components.DamageTaker;
 using Assets.Scripts.Components.Interactable;
+using Assets.Scripts.Components.MiniMap;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.Interface;
@@ -58,6 +59,7 @@ namespace Assets.Scripts.Structure.Player
         private DamageTakerComponent _damageTakerComponent;
         private Animator _animator;
         private AudioComponent _audioComponent;
+        private MiniMapComponent _miniMapComponent;
         #endregion
 
         #region PUBLIC METHODS
@@ -159,10 +161,19 @@ namespace Assets.Scripts.Structure.Player
             _playerStateManage.SetNewPlayerStrucutre(this);
         }
 
+        private void OnEnable()
+        {
+            if (_miniMapComponent != null)
+                _miniMapComponent.AddPlayerStrucute(this);
+        }
+
         private void OnDestroy()
         {
             _activePlayerUI.DesactivePlayerSlot(slotInstanceId.Value);
             _playerStateManage.RemoveOnePlayerStructure(this);
+
+            if (_miniMapComponent != null)
+                _miniMapComponent.RemovePlayerStructure(this);
         }
         #endregion
 
@@ -210,6 +221,9 @@ namespace Assets.Scripts.Structure.Player
             _damageDealerComponent = this.GetComponent<DamageDealerComponent>();
             _damageTakerComponent = this.GetComponent<DamageTakerComponent>();
 
+            _miniMapComponent = GameObject.FindObjectOfType<MiniMapComponent>();
+
+
             if (_canMoveByClick) _movementMouseComponent = this.GetComponent<MovementMouseComponent>();
             if (_canInteract) _interactableComponent = this.GetComponent<InteractableComponent>();
             if (_canPoop) _stomachComponent = this.GetComponent<StomachComponent>();
@@ -221,7 +235,6 @@ namespace Assets.Scripts.Structure.Player
             if (_canInteract && _interactableComponent is null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_interactableComponent), this.gameObject.name));
             if (_canPoop && _stomachComponent is null) Debug.LogError(ValidatorUtils.ValidateNullAtGameObject(nameof(_stomachComponent), this.gameObject.name));
         }
-
         #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Managers.Map;
+﻿using Assets.Scripts.Components.MiniMap;
+using Assets.Scripts.Managers.Map;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Components.Map
         private List<MapSpawnComponent> _spawnPointList;
         private List<int> _mobList;
         private bool _canSpawnNewMap = false;
+        private MiniMapComponent _miniMapComponent;
         #endregion
 
         #region PUBLIC METHODS
@@ -80,11 +82,17 @@ namespace Assets.Scripts.Components.Map
         private void OnEnable()
         {
             _mapManager.AddMapComponent(this);
+
+            if (_miniMapComponent != null)
+                _miniMapComponent.AddMapComponent(this);
         }
 
         private void OnDisable()
         {
             _mapManager.RemoveMapComponent(this);
+
+            if (_miniMapComponent != null)
+                _miniMapComponent.RemoveMapComponent(this);
         }
         #endregion
 
@@ -95,6 +103,7 @@ namespace Assets.Scripts.Components.Map
             Coordinates = new Vector2();
             _mapManager = GameObject.FindObjectOfType<MapManager>();
             _spawnPointList = this.GetComponentsInChildren<MapSpawnComponent>().ToList();
+            _miniMapComponent = GameObject.FindObjectOfType<MiniMapComponent>();
             _mobList = new List<int>();
         }
 

@@ -19,6 +19,7 @@ namespace Assets.Scripts.Components.DamageTaker
     {
         #region PUBLIC ATRIBUTES
         public bool PlayerInteractWith => !_isGround;
+        public float HealthPercenage => _health / _fullHealth;
         #endregion
 
         #region SERIALIZABLE ATTRIBUTES

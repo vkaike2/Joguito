@@ -52,7 +52,6 @@ namespace Assets.Scripts.Components.ActivePlayers
         }
         #endregion
 
-
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
