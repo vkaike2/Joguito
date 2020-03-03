@@ -123,12 +123,13 @@ namespace Assets.Scripts.Components.InventorySlot
             this.UpdateAmount();
             return itemToReturn;
         }
-        #endregion
 
-        #region UNITY METHODS
-        private void Update()
+        public void StartInteraction()
         {
-            ManageTheClick();
+            if (CurrentItem?.Item is null) return;
+            _currentImage.enabled = false;
+            _txtAmount.enabled = false;
+            _draggableItem.StartDragging(this);
         }
         #endregion
 
@@ -137,23 +138,6 @@ namespace Assets.Scripts.Components.InventorySlot
         {
             _txtAmount.enabled = CurrentItem.Item.Stackable;
             _txtAmount.SetText(CurrentItem.Amount == 0 ? "" : CurrentItem.Amount.ToString());
-        }
-
-        private void ManageTheClick()
-        {
-            if (CurrentItem?.Item is null) return;
-            if (!_onMouseOver) return;
-
-            if (!_mousePressed && _inputManager.MouseLeftButton == 1)
-            {
-                _mousePressed = true;
-
-                _currentImage.enabled = false;
-                _txtAmount.enabled = false;
-                _draggableItem.StartDragging(this);
-            }
-            else if (_inputManager.MouseLeftButton == 0 && _mousePressed)
-                _mousePressed = false;
         }
         #endregion
 

@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Components;
 using Assets.Scripts.Components.DamageDealer;
 using Assets.Scripts.Components.Interactable;
+using Assets.Scripts.Components.InventorySlot;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.PlantSpot;
 using Assets.Scripts.Interface;
@@ -95,7 +96,7 @@ namespace Assets.Scripts.Component.MouseCursor
             {
                 List<IInteractable> interactableList = new List<IInteractable>();
                 List<Button> buttonList = new List<Button>();
-                
+
                 _canMove = true;
 
                 bool hitSomeUIComponent = false;
@@ -118,7 +119,7 @@ namespace Assets.Scripts.Component.MouseCursor
                 _canMove = !buttonList.Any() && _canMove;
 
                 MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
-                if(_canMove) movementMouseComponent.ObjectGoToWalkContinuous(mousePosition);
+                if (_canMove) movementMouseComponent.ObjectGoToWalkContinuous(mousePosition);
             }
         }
 
@@ -132,13 +133,16 @@ namespace Assets.Scripts.Component.MouseCursor
                 List<IInteractable> interactableList = new List<IInteractable>();
                 List<Button> buttonList = new List<Button>();
                 List<IPlayer> playersList = new List<IPlayer>();
-
+                InventorySlotComponent _inventorySlotComponent = null;
 
                 bool hitSomeUIComponent = false;
                 _canMove = true;
+
                 Vector2 mousePosition = this.ManageMouseClick((hitUI) =>
                 {
                     hitSomeUIComponent = true;
+                    if (_inventorySlotComponent is null)
+                        _inventorySlotComponent = hitUI.gameObject.GetComponent<InventorySlotComponent>();
                 },
                 (hit) =>
                 {
@@ -146,9 +150,13 @@ namespace Assets.Scripts.Component.MouseCursor
                     interactableList.AddRange(hit.collider.gameObject.GetComponents<IInteractable>().Where(e => e.PlayerInteractWith).ToList());
                     playersList.AddRange(hit.collider.gameObject.GetComponents<IPlayer>().ToList());
                 });
+                // => UI INTERACTIONS
+                if (_inventorySlotComponent != null)
+                    _inventorySlotComponent.StartInteraction();
 
                 if (hitSomeUIComponent) return;
 
+                // => NORMAL INTERACTIONS
                 IInteractable interactableChoice = interactableList.OrderBy(e => e.Order()).FirstOrDefault();
 
                 if (playersList.Any() && interactableChoice is IDamageTaker)
@@ -159,7 +167,7 @@ namespace Assets.Scripts.Component.MouseCursor
                 if (interactableChoice is IDamageTaker damagable)
                 {
                     DamageDealerComponent damageDealerComponent = _playerStateManager.GetActivePlayerStructure().GetDamageDealerComponent();
-                    
+
                     if (damageDealerComponent is null) return;
 
                     damagable.StartCombat(damageDealerComponent);

@@ -83,7 +83,18 @@ namespace Assets.Scripts.Components.DamageTaker
 
             _health -= damage;
 
-            _lifeBarComponent?.event_UpdateLifeBar.Invoke(_health / _fullHealth);
+            if (_isBoss)
+            {
+                _lifeBarComponent?.event_UpdateLifeBar.Invoke(_health / _fullHealth);
+            }
+            if (_isGround)
+            {
+                // => If player is over the current ground
+                Transform playerTransform = _playerState.GetActivePlayerStructure().transform;
+                RaycastHit2D[] hitList = Physics2D.RaycastAll(playerTransform.position, Vector2.zero);
+                if (hitList.Any(e => e.collider.GetComponent<DamageTakerComponent>().GetInstanceID() == this.GetInstanceID()))
+                    _lifeBarComponent?.event_UpdateLifeBar.Invoke(_health / _fullHealth);
+            }
 
             if (_health <= 0) // => Die
             {

@@ -43,7 +43,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -927,8 +927,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00074613077, y: 0.12993357}
-  m_Size: {x: 0.6190564, y: 4.1799326}
+  m_Offset: {x: -0.078803405, y: 0.09015845}
+  m_Size: {x: 1.22363, y: 4.386758}
   m_Direction: 0
 --- !u!1 &5872043869784910771
 GameObject:
@@ -1249,7 +1249,7 @@ GameObject:
   - component: {fileID: 5872043869239634140}
   - component: {fileID: 5872043869239634149}
   m_Layer: 0
-  m_Name: Bean_Boss
+  m_Name: Boss_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

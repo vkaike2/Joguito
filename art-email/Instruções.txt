@@ -1,0 +1,16 @@
+Um spritesheet do boss reformado em 74x74
+- Mesmas animações do email do boss
+
+Um spritesheet do minion do boss em 38x38
+- Spawn
+- Idle
+- Hit
+- Sugando terra
+
+Dois tilesets variações do primeiro tileset
+- Meio destruido
+- Destruido
+
+E de brinde dois VFX em 22x22
+- Cura do boss
+- Efeito de destruição de terra
