@@ -5,6 +5,7 @@ using TMPro;
 using Assets.Scripts.Utils;
 using Assets.Scripts.DTOs;
 using Assets.Scripts.Managers.Inputs;
+using Assets.Scripts.Components.Inventory;
 
 namespace Assets.Scripts.Components.InventorySlot
 {
@@ -25,14 +26,15 @@ namespace Assets.Scripts.Components.InventorySlot
         private Image _currentImage; // itemChild image
         [SerializeField]
         private TextMeshProUGUI _txtAmount;
-        private InventoryDraggableItemComponent _draggableItem;
+        [SerializeField]
+        private InventoryItemInformationComponent _inventoryItemInformationComponent;
 #pragma warning restore 0649
         #endregion
 
         #region PRIVATE ATRIBUTES
         private InputManager _inputManager;
-        private bool _mousePressed = false;
         private bool _onMouseOver = false;
+        private InventoryDraggableItemComponent _draggableItem;
         #endregion
 
         #region PUBLIC METHODS
@@ -133,7 +135,22 @@ namespace Assets.Scripts.Components.InventorySlot
         }
         #endregion
 
+        #region UNTIRY METHODS
+        private void Update()
+        {
+            this.ShowItemInformationOnMouseOver();
+        }
+        #endregion
+
         #region PRIVATE METHODS
+        private void ShowItemInformationOnMouseOver()
+        {
+            if (!_onMouseOver) return;
+            if (CurrentItem?.Item is null) return;
+            if (_inventoryItemInformationComponent is null) return;
+            _inventoryItemInformationComponent.StartShowInformation(CurrentItem.Item.Name, CurrentItem.Item.Description);
+        }
+
         private void UpdateAmount()
         {
             _txtAmount.enabled = CurrentItem.Item.Stackable;
@@ -153,6 +170,8 @@ namespace Assets.Scripts.Components.InventorySlot
         {
             _txtAmount.enabled = false;
             _inputManager = GameObject.FindObjectOfType<InputManager>();
+            if (_inventoryItemInformationComponent is null) _inventoryItemInformationComponent = GameObject.FindObjectOfType<InventoryItemInformationComponent>();
+
             _draggableItem = GameObject.FindObjectOfType<InventoryDraggableItemComponent>();
         }
         #endregion
