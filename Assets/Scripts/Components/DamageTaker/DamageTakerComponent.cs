@@ -96,7 +96,7 @@ namespace Assets.Scripts.Components.DamageTaker
                 // => If player is over the current ground
                 Transform playerTransform = _playerState.GetActivePlayerStructure().transform;
                 RaycastHit2D[] hitList = Physics2D.RaycastAll(playerTransform.position, Vector2.zero);
-                if (hitList.Any(e => e.collider.GetComponent<DamageTakerComponent>().GetInstanceID() == this.GetInstanceID()))
+                if (hitList.Any(e => e.collider.GetComponent<DamageTakerComponent>()?.GetInstanceID() == this.GetInstanceID()))
                     _lifeBarComponent?.event_UpdateLifeBar.Invoke(_health / _fullHealth);
             }
 
@@ -184,7 +184,7 @@ namespace Assets.Scripts.Components.DamageTaker
                     yield return new WaitForFixedUpdate();
                 }
 
-                if (enemyInteractableComponent.IsAttackingThisMonster(this.GetInstanceID()) || _readyToCombat)
+                if (enemyInteractableComponent.IsAttackingThisMonster(this.GetInstanceID()) && _readyToCombat)
                 {
                     damageDealer.StartAtackAnimation(this);
                     StartCoroutine(DefenseOperation(damageDealer));

@@ -2098,7 +2098,7 @@ MonoBehaviour:
   - {fileID: 591302531}
   - {fileID: 51984410}
   - {fileID: 2048784246}
-  mockItem: {fileID: 11400000, guid: cc845eb22c4305c43b7054b09750c5fa, type: 2}
+  mockItem: {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
 --- !u!224 &792514523 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1907415143070053011, guid: ccce422d3131970448e17862e343feea,

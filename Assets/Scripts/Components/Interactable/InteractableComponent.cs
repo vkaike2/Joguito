@@ -77,6 +77,7 @@ namespace Assets.Scripts.Components.Interactable
 
         public void RemoveInteractableState()
         {
+            Debug.Log("Removeu " + this.gameObject.name);
             _currentInteractableState = EnumInteractableState.Nothing;
             _interactableInstanceId = null;
             _animatorVariables.ResetAuxiliarObjects();
