@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2938760de644818499b38d9fe655ac6f, type: 3}
+  m_Name: LittleBean
+  m_EditorClassIdentifier: 
+  _name: LittleBean
+  _mobAnimator: {fileID: 9100000, guid: 970c03b9134460b4bb167ed53b74c9ea, type: 2}
+  _bossPrefab: {fileID: 3864095696366926007, guid: f3ef03a4e39882b4daaadfd1c3c2b065,
+    type: 3}
+  _health: 2
+  _damage: 1
+  _cdwDamage: 5

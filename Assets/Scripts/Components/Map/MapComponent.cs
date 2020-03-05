@@ -56,6 +56,9 @@ namespace Assets.Scripts.Components.Map
 
         public void AddNewMob(int mobInstanceID)
         {
+            if (_mobList is null)
+                _mobList = new List<int>();
+
             _mobList.Add(mobInstanceID);
         }
 

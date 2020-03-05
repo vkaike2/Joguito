@@ -2,6 +2,7 @@
 using System.Collections;
 using Assets.Scripts.Components.DamageTaker;
 using Assets.Scripts.ScriptableComponents.Boss;
+using Assets.Scripts.ScriptableComponents.Mob;
 using Assets.Scripts.ScriptableComponents.Poop;
 using UnityEngine;
 using UnityEngine.Events;
@@ -42,6 +43,12 @@ namespace Assets.Scripts.Components.DamageDealer
         public void Animator_CantDealDamage()
         {
             _canDealDamage = false;
+        }
+
+        public void TurnItIntoAMob(MobScriptable mobScriptable)
+        {
+            _damage = mobScriptable.Damage;
+            _cdwDamage = mobScriptable.CdwDamage;
         }
 
         public void TurnItIntoAPoop(PoopScriptable poopScriptable)

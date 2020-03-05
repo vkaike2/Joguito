@@ -1,0 +1,82 @@
+﻿using Assets.Scripts.Components.DamageDealer;
+using Assets.Scripts.Components.DamageTaker;
+using Assets.Scripts.Components.Map;
+using Assets.Scripts.ScriptableComponents.Mob;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+
+namespace Assets.Scripts.Structure.Mob
+{
+    public class MobStructure : StructureBase
+    {
+        #region SERIALIZABLE ATTRIBUTES
+        [Header("Required Fields")]
+        [SerializeField]
+        private MobScriptable _mobScriptable;
+        #endregion
+
+        #region PRIVATE ATTRIBUTES
+        private Animator _mobAnimator;
+        private DamageTakerComponent _damageTakerComponent;
+        private DamageDealerComponent _damageDealerComponent;
+        private MapComponent _mapComponent;
+        #endregion
+
+        #region PUBLIC METHODS
+        public void TunIntoABoss(MobScriptable mobScriptable)
+        {
+            _mobScriptable = mobScriptable;
+            _mobAnimator.runtimeAnimatorController = _mobScriptable.MobAnimator;
+
+            // => DamageTakerOptions 
+            _damageTakerComponent.TurnItIntoAMob(mobScriptable);
+
+            // => DamageDealerOptions
+            _damageDealerComponent.TurnItIntoAMob(mobScriptable);
+        }
+        #endregion
+
+        #region UNITY METHODS
+        private void Start()
+        {
+            this.TunIntoABoss(_mobScriptable);
+        }
+
+        private void OnEnable()
+        {
+            RaycastHit2D[] hitList = Physics2D.RaycastAll(this.transform.position, Vector2.zero);
+
+            foreach (RaycastHit2D hit in hitList)
+            {
+                if (_mapComponent != null) break;
+                _mapComponent = hit.collider.GetComponent<MapComponent>();
+            }
+
+            if (_mapComponent is null) return;
+            _mapComponent.AddNewMob(this.GetInstanceID());
+        }
+
+        public void OnDisable()
+        {
+            _mapComponent.RemoveNewMob(this.GetInstanceID());
+        }
+        #endregion
+
+        #region ABSTRACT METHODS
+        protected override void SetInitialValues()
+        {
+            _damageDealerComponent = this.GetComponent<DamageDealerComponent>();
+            _mobAnimator = this.GetComponent<Animator>();
+            _damageTakerComponent = this.GetComponent<DamageTakerComponent>();
+        }
+
+        protected override void ValidateValues()
+        {
+        }
+        #endregion
+    }
+}

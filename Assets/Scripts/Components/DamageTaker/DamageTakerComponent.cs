@@ -9,6 +9,7 @@ using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Interface;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.ScriptableComponents.Boss;
+using Assets.Scripts.ScriptableComponents.Mob;
 using Assets.Scripts.ScriptableComponents.Poop;
 using Assets.Scripts.Structure.Player;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Components.DamageTaker
         #region PUBLIC ATRIBUTES
         public bool PlayerInteractWith => !_isGround;
         public float HealthPercenage => _health / _fullHealth;
+        public bool CanDoSomeAction => _readyToCombat;
         #endregion
 
         #region SERIALIZABLE ATTRIBUTES
@@ -33,6 +35,8 @@ namespace Assets.Scripts.Components.DamageTaker
         [SerializeField]
         [Tooltip("Used to identify a boss")]
         private bool _isBoss;
+
+
         [SerializeField]
         [Tooltip("Used to identify a ground")]
         private bool _isGround;
@@ -152,7 +156,11 @@ namespace Assets.Scripts.Components.DamageTaker
             _health = bossScriptable.Health;
             _fullHealth = _health;
         }
-
+        internal void TurnItIntoAMob(MobScriptable mobScriptable)
+        {
+            _health = mobScriptable.Health;
+            _fullHealth = _health;
+        }
         public void TryToRemoveFromEnemyList(int enemyInstanceId)
         {
             if (!_instanceIdEnemyList.Any(e => e == enemyInstanceId)) return;
@@ -176,7 +184,7 @@ namespace Assets.Scripts.Components.DamageTaker
                     yield return new WaitForFixedUpdate();
                 }
 
-                if (enemyInteractableComponent.IsAttackingThisMonster(this.GetInstanceID()))
+                if (enemyInteractableComponent.IsAttackingThisMonster(this.GetInstanceID()) || _readyToCombat)
                 {
                     damageDealer.StartAtackAnimation(this);
                     StartCoroutine(DefenseOperation(damageDealer));
