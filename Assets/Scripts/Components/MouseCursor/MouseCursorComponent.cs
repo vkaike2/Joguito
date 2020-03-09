@@ -128,7 +128,7 @@ namespace Assets.Scripts.Component.MouseCursor
             if (_inputManager.MouseLeftButton == 1 && !_leftButtomPressed)
             {
                 _leftButtomPressed = true;
-                _audioComponent.Audio_Click();
+                _audioComponent.PlayAudio("click");
 
                 List<IInteractable> interactableList = new List<IInteractable>();
                 List<Button> buttonList = new List<Button>();

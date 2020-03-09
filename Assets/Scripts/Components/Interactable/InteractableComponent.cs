@@ -77,7 +77,6 @@ namespace Assets.Scripts.Components.Interactable
 
         public void RemoveInteractableState()
         {
-            Debug.Log("Removeu " + this.gameObject.name);
             _currentInteractableState = EnumInteractableState.Nothing;
             _interactableInstanceId = null;
             _animatorVariables.ResetAuxiliarObjects();
@@ -344,7 +343,7 @@ namespace Assets.Scripts.Components.Interactable
                 return;
             }
 
-            this.GetComponent<AudioComponent>().Audio_Harvest();
+            this.GetComponent<AudioComponent>().PlayAudio("harvest");
 
             ItemDTO flower = plantSpotComponent.TakeFlower();
             _inventoryComponent.AddItem(flower);

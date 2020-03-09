@@ -28,6 +28,36 @@ namespace Assets.Scripts.Components.Tile
     }
 
     [Serializable]
+    public class TileMapAnimatorAttribute
+    {
+        [SerializeField]
+        private string _name;
+
+        [SerializeField]
+        private RuntimeAnimatorController _animatorController;
+        [SerializeField]
+        private List<TileMapAnimatorLayerAttribute> _animatorLayerIdList;
+        [SerializeField]
+        private EnumSide _enumSide;
+
+        public RuntimeAnimatorController AnimatorController => _animatorController;
+        public List<TileMapAnimatorLayerAttribute> AnimatorLayerIdList => _animatorLayerIdList;
+        public EnumSide EnumSide => _enumSide;
+    }
+
+    [Serializable]
+    public class TileMapAnimatorLayerAttribute: TileMapAttributes
+    {
+        [SerializeField]
+        private string _name;
+
+        [SerializeField]
+        private int _layerId;
+
+        public int Layer => _layerId;
+    }
+
+    [Serializable]
     public class TileMapBossAttributes : TileMapAttributes
     {
         [SerializeField]

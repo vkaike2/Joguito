@@ -3338,18 +3338,6 @@ PrefabInstance:
       propertyPath: _inventoryComponent
       value: 
       objectReference: {fileID: 710137893}
-    - target: {fileID: 781342532, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
-      propertyPath: m_Volume
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 731126006, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
-      propertyPath: m_Volume
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687571352, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
-      propertyPath: m_Volume
-      value: 0.2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
 --- !u!1001 &1427903440
@@ -3681,28 +3669,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b814a82ee97966f4886374d5d405fbfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSource: {fileID: 0}
-  _walkClipList: []
-  _plantSource: {fileID: 0}
-  _plantClipList: []
-  _harvestSource: {fileID: 0}
-  _harvestClipList: []
-  _poopSource: {fileID: 0}
-  _poopClipList: []
-  _clickSource: {fileID: 1468246454}
-  _clickClipList:
-  - {fileID: 8300000, guid: 491519490e9021f41aec815a9c855900, type: 3}
-  - {fileID: 8300000, guid: ec11a145de6308a4e850a231eb674fc7, type: 3}
-  _chosePlayerSource: {fileID: 0}
-  _chosePlayerClipList: []
-  _takingDamageSource: {fileID: 0}
-  _takingDamageClipList: []
-  _attackSource: {fileID: 0}
-  _attackClipList: []
-  _bossSpawningSource: {fileID: 0}
-  _bossSpawningClipList: []
-  _shoutSource: {fileID: 0}
-  _shoutClipList: []
+  _audioList:
+  - _name: click
+    _source: {fileID: 1468246454}
+    _clipList:
+    - {fileID: 8300000, guid: 491519490e9021f41aec815a9c855900, type: 3}
+    - {fileID: 8300000, guid: ec11a145de6308a4e850a231eb674fc7, type: 3}
+    _changePitch: 0
 --- !u!1 &1480850602
 GameObject:
   m_ObjectHideFlags: 0
@@ -5387,26 +5360,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5872043870408765379, guid: 3cdb66aa07af44243a7192ebeb1d5930,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.04986608
-      objectReference: {fileID: 0}
-    - target: {fileID: 5872043870408765379, guid: 3cdb66aa07af44243a7192ebeb1d5930,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 3.240052
-      objectReference: {fileID: 0}
-    - target: {fileID: 5872043870408765378, guid: 3cdb66aa07af44243a7192ebeb1d5930,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.13444883
-      objectReference: {fileID: 0}
-    - target: {fileID: 5872043870408765378, guid: 3cdb66aa07af44243a7192ebeb1d5930,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 3.7897592
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cdb66aa07af44243a7192ebeb1d5930, type: 3}

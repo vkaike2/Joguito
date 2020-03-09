@@ -791,27 +791,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b814a82ee97966f4886374d5d405fbfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSource: {fileID: 0}
-  _walkClipList: []
-  _plantSource: {fileID: 0}
-  _plantClipList: []
-  _harvestSource: {fileID: 0}
-  _harvestClipList: []
-  _poopSource: {fileID: 0}
-  _poopClipList: []
-  _clickSource: {fileID: 0}
-  _clickClipList: []
-  _chosePlayerSource: {fileID: 0}
-  _chosePlayerClipList: []
-  _takingDamageSource: {fileID: 435081330}
-  _takingDamageClipList:
-  - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
-  _attackSource: {fileID: 0}
-  _attackClipList: []
-  _bossSpawningSource: {fileID: 0}
-  _bossSpawningClipList: []
-  _shoutSource: {fileID: 0}
-  _shoutClipList: []
+  _audioList:
+  - _name: take-damage
+    _source: {fileID: 435081330}
+    _clipList:
+    - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
+    _changePitch: 1
 --- !u!1 &5872043869274678990
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,27 +1028,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b814a82ee97966f4886374d5d405fbfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSource: {fileID: 0}
-  _walkClipList: []
-  _plantSource: {fileID: 0}
-  _plantClipList: []
-  _harvestSource: {fileID: 0}
-  _harvestClipList: []
-  _poopSource: {fileID: 0}
-  _poopClipList: []
-  _clickSource: {fileID: 0}
-  _clickClipList: []
-  _chosePlayerSource: {fileID: 0}
-  _chosePlayerClipList: []
-  _takingDamageSource: {fileID: 435081330}
-  _takingDamageClipList:
-  - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
-  _attackSource: {fileID: 0}
-  _attackClipList: []
-  _bossSpawningSource: {fileID: 0}
-  _bossSpawningClipList: []
-  _shoutSource: {fileID: 0}
-  _shoutClipList: []
+  _audioList:
+  - _name: take-damage
+    _source: {fileID: 435081330}
+    _clipList:
+    - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
+    _changePitch: 1
 --- !u!1 &5872043870243768418
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,27 +1179,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b814a82ee97966f4886374d5d405fbfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSource: {fileID: 0}
-  _walkClipList: []
-  _plantSource: {fileID: 0}
-  _plantClipList: []
-  _harvestSource: {fileID: 0}
-  _harvestClipList: []
-  _poopSource: {fileID: 0}
-  _poopClipList: []
-  _clickSource: {fileID: 0}
-  _clickClipList: []
-  _chosePlayerSource: {fileID: 0}
-  _chosePlayerClipList: []
-  _takingDamageSource: {fileID: 435081330}
-  _takingDamageClipList:
-  - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
-  _attackSource: {fileID: 0}
-  _attackClipList: []
-  _bossSpawningSource: {fileID: 0}
-  _bossSpawningClipList: []
-  _shoutSource: {fileID: 0}
-  _shoutClipList: []
+  _audioList:
+  - _name: take-damage
+    _source: {fileID: 435081330}
+    _clipList:
+    - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
+    _changePitch: 1
 --- !u!1 &5872043870408765389
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,7 +1310,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.05537325, y: 0.015691519}
+  m_Offset: {x: 0.04986608, y: 0.015691519}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.1528052}
@@ -1366,7 +1321,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.2510662, y: 0.35860443}
+  m_Size: {x: 3.240052, y: 0.35860443}
   m_EdgeRadius: 0
 --- !u!61 &5872043870408765378
 BoxCollider2D:
@@ -1381,7 +1336,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0738709, y: 1.9779394}
+  m_Offset: {x: 0.13444883, y: 1.9779394}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.1528052}
@@ -1392,7 +1347,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.910915, y: 3.6098118}
+  m_Size: {x: 3.7897592, y: 3.6098118}
   m_EdgeRadius: 0
 --- !u!50 &5872043870408765381
 Rigidbody2D:
@@ -1474,28 +1429,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b814a82ee97966f4886374d5d405fbfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSource: {fileID: 0}
-  _walkClipList: []
-  _plantSource: {fileID: 0}
-  _plantClipList: []
-  _harvestSource: {fileID: 0}
-  _harvestClipList: []
-  _poopSource: {fileID: 0}
-  _poopClipList: []
-  _clickSource: {fileID: 0}
-  _clickClipList: []
-  _chosePlayerSource: {fileID: 0}
-  _chosePlayerClipList: []
-  _takingDamageSource: {fileID: 0}
-  _takingDamageClipList: []
-  _attackSource: {fileID: 0}
-  _attackClipList: []
-  _bossSpawningSource: {fileID: 1746214155}
-  _bossSpawningClipList:
-  - {fileID: 8300000, guid: ac4a7ae627a39424f982cd09f9bc75fb, type: 3}
-  _shoutSource: {fileID: 538067001}
-  _shoutClipList:
-  - {fileID: 8300000, guid: 91fb31e6deb0aee48b971d73f16c7e31, type: 3}
+  _audioList:
+  - _name: spawn
+    _source: {fileID: 1746214155}
+    _clipList:
+    - {fileID: 8300000, guid: ac4a7ae627a39424f982cd09f9bc75fb, type: 3}
+    _changePitch: 0
+  - _name: spawn-shout
+    _source: {fileID: 538067001}
+    _clipList:
+    - {fileID: 8300000, guid: 91fb31e6deb0aee48b971d73f16c7e31, type: 3}
+    _changePitch: 0
 --- !u!1 &5872043870424746232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1609,27 +1553,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b814a82ee97966f4886374d5d405fbfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSource: {fileID: 0}
-  _walkClipList: []
-  _plantSource: {fileID: 0}
-  _plantClipList: []
-  _harvestSource: {fileID: 0}
-  _harvestClipList: []
-  _poopSource: {fileID: 0}
-  _poopClipList: []
-  _clickSource: {fileID: 0}
-  _clickClipList: []
-  _chosePlayerSource: {fileID: 0}
-  _chosePlayerClipList: []
-  _takingDamageSource: {fileID: 435081330}
-  _takingDamageClipList:
-  - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
-  _attackSource: {fileID: 0}
-  _attackClipList: []
-  _bossSpawningSource: {fileID: 0}
-  _bossSpawningClipList: []
-  _shoutSource: {fileID: 0}
-  _shoutClipList: []
+  _audioList:
+  - _name: take-damage
+    _source: {fileID: 435081330}
+    _clipList:
+    - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
+    _changePitch: 1
 --- !u!1 &5872043870432825493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,24 +1672,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b814a82ee97966f4886374d5d405fbfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSource: {fileID: 0}
-  _walkClipList: []
-  _plantSource: {fileID: 0}
-  _plantClipList: []
-  _harvestSource: {fileID: 0}
-  _harvestClipList: []
-  _poopSource: {fileID: 0}
-  _poopClipList: []
-  _clickSource: {fileID: 0}
-  _clickClipList: []
-  _chosePlayerSource: {fileID: 0}
-  _chosePlayerClipList: []
-  _takingDamageSource: {fileID: 435081330}
-  _takingDamageClipList:
-  - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
-  _attackSource: {fileID: 0}
-  _attackClipList: []
-  _bossSpawningSource: {fileID: 0}
-  _bossSpawningClipList: []
-  _shoutSource: {fileID: 0}
-  _shoutClipList: []
+  _audioList:
+  - _name: take-damage
+    _source: {fileID: 435081330}
+    _clipList:
+    - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
+    _changePitch: 1

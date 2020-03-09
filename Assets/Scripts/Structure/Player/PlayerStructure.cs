@@ -67,7 +67,7 @@ namespace Assets.Scripts.Structure.Player
         {
             if (value)
             {
-                _audioComponent.Audio_ChosePlayer();
+                _audioComponent.PlayAudio("chose-player");
                 _cinemachine.Follow = this.transform;
             }
 

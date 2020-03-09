@@ -162,6 +162,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _audioList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _audioList.Array.data[2]._clipList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
       propertyPath: _walkClipList.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: c37f822e99793684780a4b0d3a508fbf, type: 3}
@@ -173,6 +181,22 @@ PrefabInstance:
       propertyPath: _attackClipList.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 1ab3b440978c8684f9c57ab1e2292076, type: 3}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _audioList.Array.data[2]._name
+      value: attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _audioList.Array.data[2]._source
+      value: 
+      objectReference: {fileID: 3812425273000863171}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _audioList.Array.data[2]._clipList.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1ab3b440978c8684f9c57ab1e2292076, type: 3}
+    - target: {fileID: 1905673351, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
+      propertyPath: _audioList.Array.data[2]._changePitch
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
 --- !u!1 &8213994993924767873 stripped

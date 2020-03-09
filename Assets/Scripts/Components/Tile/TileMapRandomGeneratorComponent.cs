@@ -17,6 +17,10 @@ namespace Assets.Scripts.Components.Tile
         [SerializeField]
         private Transform _bossSpawnPoint;
 
+        [Header("RANDOM SPRITES")]
+        [SerializeField]
+        private List<TileMapAnimatorAttribute> _tileMapAnimatorAttributeList;
+
         [Header("Random Sprites")]
         [SerializeField]
         private List<TileMapSpriteAttributes> LeftUpSpriteList;

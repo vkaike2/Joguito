@@ -377,7 +377,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -667,7 +667,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 64a988fdf718c7646b37b9c471ca350e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1291,6 +1291,7 @@ MonoBehaviour:
   _damageAnimatorList: []
   _health: 0
   _isBoss: 0
+  _isGround: 0
 --- !u!114 &1905673351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1303,31 +1304,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b814a82ee97966f4886374d5d405fbfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSource: {fileID: 731126006}
-  _walkClipList:
-  - {fileID: 8300000, guid: 2354f07ee6597a44eacf5245753910c7, type: 3}
-  _plantSource: {fileID: 1687571352}
-  _plantClipList:
-  - {fileID: 8300000, guid: 64a988fdf718c7646b37b9c471ca350e, type: 3}
-  - {fileID: 8300000, guid: 17131248296a40b4c88d6e1fccd2cfdc, type: 3}
-  _harvestSource: {fileID: 1661790571}
-  _harvestClipList:
-  - {fileID: 8300000, guid: 6440eda53fd296349831af607060da02, type: 3}
-  _poopSource: {fileID: 781342532}
-  _poopClipList:
-  - {fileID: 8300000, guid: d06c8dca32890bb439b4ff48e49a0690, type: 3}
-  - {fileID: 8300000, guid: 67258ebc571ba964ab1c34d20abf5cd8, type: 3}
-  - {fileID: 8300000, guid: 58fc5a92756ed88408848aa8dd5c4aab, type: 3}
-  _clickSource: {fileID: 0}
-  _clickClipList: []
-  _chosePlayerSource: {fileID: 6201520124356582892}
-  _chosePlayerClipList:
-  - {fileID: 8300000, guid: 490614883ad28894583bbdbaec5799ae, type: 3}
-  - {fileID: 8300000, guid: c24802522c43e8044ab57239b8872e9c, type: 3}
-  _takingDamageSource: {fileID: 0}
-  _takingDamageClipList: []
-  _attackSource: {fileID: 0}
-  _attackClipList: []
+  _audioList:
+  - _name: chose-player
+    _source: {fileID: 6201520124356582892}
+    _clipList:
+    - {fileID: 8300000, guid: 490614883ad28894583bbdbaec5799ae, type: 3}
+    - {fileID: 8300000, guid: c24802522c43e8044ab57239b8872e9c, type: 3}
+    _changePitch: 0
+  - _name: walk
+    _source: {fileID: 731126006}
+    _clipList:
+    - {fileID: 8300000, guid: 2354f07ee6597a44eacf5245753910c7, type: 3}
+    _changePitch: 1
+  - _name: plant
+    _source: {fileID: 1687571352}
+    _clipList:
+    - {fileID: 8300000, guid: 64a988fdf718c7646b37b9c471ca350e, type: 3}
+    - {fileID: 8300000, guid: 17131248296a40b4c88d6e1fccd2cfdc, type: 3}
+    _changePitch: 0
+  - _name: harvest
+    _source: {fileID: 1661790571}
+    _clipList:
+    - {fileID: 8300000, guid: 6440eda53fd296349831af607060da02, type: 3}
+    _changePitch: 0
+  - _name: pooping
+    _source: {fileID: 781342532}
+    _clipList:
+    - {fileID: 8300000, guid: d06c8dca32890bb439b4ff48e49a0690, type: 3}
+    - {fileID: 8300000, guid: 67258ebc571ba964ab1c34d20abf5cd8, type: 3}
+    - {fileID: 8300000, guid: 58fc5a92756ed88408848aa8dd5c4aab, type: 3}
+    _changePitch: 0
 --- !u!1 &4069819738969034097
 GameObject:
   m_ObjectHideFlags: 0
