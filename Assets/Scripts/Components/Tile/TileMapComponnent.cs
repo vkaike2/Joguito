@@ -1,4 +1,7 @@
-﻿using Assets.Scripts.Components.DamageTaker;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Components.DamageTaker;
 using Assets.Scripts.Components.Map;
 using UnityEngine;
 
@@ -8,7 +11,7 @@ namespace Assets.Scripts.Components.Tile
     {
         #region PUBLIC ATTRIBUTES
         public EnumSide Side => _side;
-        public bool HasObstacle { get; private set; }
+        public bool HasObstacle => _objectsList != null && _objectsList.Any();
         #endregion
 
         #region SERIALIZE ATTRIBUTES
@@ -18,42 +21,59 @@ namespace Assets.Scripts.Components.Tile
         #endregion
 
         #region PRIVATE ATTRIBUTES
-        private SpriteRenderer _spriteRenderer;
         private MapAnimatorVariables _animatorVariables;
         private Animator _animator;
         private DamageTakerComponent _damageTaker;
+        private List<GameObject> _objectsList;
         #endregion
 
         #region PUBLIC METHODS
         public void SpawnObject(GameObject pefab)
         {
-            GameObject.Instantiate(pefab, this.transform.position, Quaternion.identity);
-            HasObstacle = true;
+            if (_objectsList is null) _objectsList = new List<GameObject>();
+
+            GameObject gameObject = GameObject.Instantiate(pefab, this.transform.position, Quaternion.identity);
+            _objectsList.Add(gameObject);
         }
 
-        public void SetInitialSprite(Sprite sprite)
+        public void SetInitialAnimator(RuntimeAnimatorController animatorController, int layerId)
         {
-            _spriteRenderer.sprite = sprite;
+            _animator.runtimeAnimatorController = animatorController;
+            _animator.SetLayerWeight(layerId, 1);
+            this.UpdateTileHealth(1);
+        }
+        public void UpdateTileHealth(float healtPercentage)
+        {
+            if (_animator == null || _damageTaker == null) return;
+
+            _animator.SetFloat(_animatorVariables.LifePercentage, healtPercentage);
+
+            // => if map die
+            if (_damageTaker.HealthPercenage < 0.1)
+            {
+                RemoveEveryObject();
+            }
         }
         #endregion
 
-        #region UNITY METHODS
-        private void FixedUpdate()
+        #region PRIVATE METHODS
+
+
+        private void RemoveEveryObject()
         {
-            if (_animator == null || _damageTaker == null) return;
-            //int count = _animator.layerCount;
+            if (_objectsList is null) return;
 
-
-            _animator.SetLayerWeight(1, 1);
-            _animator.SetFloat(_animatorVariables.LifePercentage, _damageTaker.HealthPercenage);
+            foreach (GameObject obj in _objectsList)
+            {
+                obj.SetActive(false);
+            }
+            _objectsList = null;
         }
         #endregion
 
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
-            HasObstacle = false;
-            _spriteRenderer = this.GetComponent<SpriteRenderer>();
             _animator = this.GetComponent<Animator>();
             _damageTaker = this.GetComponentInParent<DamageTakerComponent>();
             _animatorVariables = new MapAnimatorVariables();

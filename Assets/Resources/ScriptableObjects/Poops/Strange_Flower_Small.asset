@@ -22,7 +22,7 @@ MonoBehaviour:
   _canMoveByClick: 1
   _canInteract: 1
   _canPoop: 0
-  _spriteForActiveStatus: {fileID: -3646235013913330984, guid: 8ee93d70b338d6748adaffa42f70a39b,
+  _spriteForActiveStatus: {fileID: 21300000, guid: 9593ffb8ab97bd645b4aa880ef288c31,
     type: 3}
   _canPickupItem: 0
   _canPlant: 0

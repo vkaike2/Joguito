@@ -6,6 +6,7 @@ using Assets.Scripts.Components.DamageDealer;
 using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.LifeBar;
 using Assets.Scripts.Components.MovementMouse;
+using Assets.Scripts.Components.Tile;
 using Assets.Scripts.Interface;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.ScriptableComponents.Boss;
@@ -51,6 +52,7 @@ namespace Assets.Scripts.Components.DamageTaker
         private Animator _animator;
         private DamageTakerAnimatorVariables _animatorVariables;
         private LifeBarComponent _lifeBarComponent;
+        private TileMapComponnent[] _tileMapComponentList;
         #endregion
 
         #region INTERFACE METHODS
@@ -98,6 +100,12 @@ namespace Assets.Scripts.Components.DamageTaker
                 RaycastHit2D[] hitList = Physics2D.RaycastAll(playerTransform.position, Vector2.zero);
                 if (hitList.Any(e => e.collider.GetComponent<DamageTakerComponent>()?.GetInstanceID() == this.GetInstanceID()))
                     _lifeBarComponent?.event_UpdateLifeBar.Invoke(_health / _fullHealth);
+
+                //=> Update every tile
+                foreach (var tileMap in _tileMapComponentList)
+                {
+                    tileMap.UpdateTileHealth(_health / _fullHealth);
+                }
             }
 
             if (_health <= 0) // => Die
@@ -215,6 +223,9 @@ namespace Assets.Scripts.Components.DamageTaker
             _animator = this.GetComponent<Animator>();
             _animatorVariables = new DamageTakerAnimatorVariables();
             _lifeBarComponent = GameObject.FindObjectsOfType<LifeBarComponent>().FirstOrDefault(e => e.IsBoss == _isBoss);
+
+            if (_isGround)
+                _tileMapComponentList = this.GetComponentsInChildren<TileMapComponnent>();
 
             _fullHealth = _health;
             _instanceIdEnemyList = new List<int>();

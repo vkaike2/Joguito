@@ -1197,12 +1197,12 @@ GameObject:
   - component: {fileID: 5872043870408765383}
   - component: {fileID: 5872043870408765377}
   - component: {fileID: 5872043870408765379}
-  - component: {fileID: 5872043870408765378}
   - component: {fileID: 5872043870408765381}
   - component: {fileID: 5872043870408765382}
   - component: {fileID: 2718848922448042271}
   - component: {fileID: 5872043869239634140}
   - component: {fileID: 5872043869239634149}
+  - component: {fileID: 222331337}
   m_Layer: 0
   m_Name: Boss_Body
   m_TagString: Untagged
@@ -1323,32 +1323,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.240052, y: 0.35860443}
   m_EdgeRadius: 0
---- !u!61 &5872043870408765378
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5872043870408765389}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.13444883, y: 1.9779394}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.1528052}
-    oldSize: {x: 4.625, y: 4.625}
-    newSize: {x: 4.625, y: 4.625}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.7897592, y: 3.6098118}
-  m_EdgeRadius: 0
 --- !u!50 &5872043870408765381
 Rigidbody2D:
   serializedVersion: 4
@@ -1440,6 +1414,22 @@ MonoBehaviour:
     _clipList:
     - {fileID: 8300000, guid: 91fb31e6deb0aee48b971d73f16c7e31, type: 3}
     _changePitch: 0
+--- !u!70 &222331337
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5872043870408765389}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.20067883, y: 1.8506963}
+  m_Size: {x: 3.9298568, y: 3.9298568}
+  m_Direction: 0
 --- !u!1 &5872043870424746232
 GameObject:
   m_ObjectHideFlags: 0

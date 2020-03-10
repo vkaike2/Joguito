@@ -14,8 +14,13 @@ namespace Assets.Scripts.Components.ActivePlayers
         public int CurrentPLayerStructureInstanceId => _currentPlayerStructure.GetInstanceID();
         #endregion
 
-        #region PRIVATE ATRIBUTES
+        #region SERIALIZE ATTRIBUTES
+        [Header("Required Fields")]
+        [SerializeField]
         private Image image;
+        #endregion
+
+        #region PRIVATE ATRIBUTES
         private PlayerStructure _currentPlayerStructure;
         private PlayerStateManager _playerStateManager;
         #endregion
@@ -65,7 +70,6 @@ namespace Assets.Scripts.Components.ActivePlayers
 
         protected override void ValidateValues()
         {
-            image = this.GetComponent<Image>();
         }
         #endregion
     }

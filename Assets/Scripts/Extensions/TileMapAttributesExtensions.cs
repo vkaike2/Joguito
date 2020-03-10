@@ -8,6 +8,12 @@ namespace Assets.Scripts.Extensions
 {
     public static class TileMapAttributesExtensions
     {
+        public static int GetRandomLayer(this List<TileMapAnimatorLayerAttribute> list)
+        {
+            TileMapAnimatorLayerAttribute attribute = GetRandomAttribute(list);
+
+            return attribute.LayerId;
+        }
         public static Sprite GetRandomSprite(this List<TileMapSpriteAttributes> list)
         {
             TileMapSpriteAttributes attribute = GetRandomAttribute(list);

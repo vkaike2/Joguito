@@ -375,27 +375,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b814a82ee97966f4886374d5d405fbfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSource: {fileID: 0}
-  _walkClipList: []
-  _plantSource: {fileID: 0}
-  _plantClipList: []
-  _harvestSource: {fileID: 0}
-  _harvestClipList: []
-  _poopSource: {fileID: 0}
-  _poopClipList: []
-  _clickSource: {fileID: 0}
-  _clickClipList: []
-  _chosePlayerSource: {fileID: 0}
-  _chosePlayerClipList: []
-  _takingDamageSource: {fileID: 3864095697661432470}
-  _takingDamageClipList:
-  - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
-  _attackSource: {fileID: 0}
-  _attackClipList: []
-  _bossSpawningSource: {fileID: 0}
-  _bossSpawningClipList: []
-  _shoutSource: {fileID: 0}
-  _shoutClipList: []
+  _audioList:
+  - _name: take-damage
+    _source: {fileID: 3864095697661432470}
+    _clipList:
+    - {fileID: 8300000, guid: 2e430003769c0f94392a8e260c04ea1a, type: 3}
+    _changePitch: 1
 --- !u!1 &3864095696997365203
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,7 +511,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3864095697444995097}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.092, y: 0.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3864095696273542750}
@@ -557,8 +542,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.12742841, y: 0.059978712}
-  m_Size: {x: 0.75485474, y: 1.43184}
+  m_Offset: {x: -0.14499706, y: 0.05807387}
+  m_Size: {x: 0.7899903, y: 1.5860666}
   m_Direction: 0
 --- !u!50 &3864095697444995103
 Rigidbody2D:

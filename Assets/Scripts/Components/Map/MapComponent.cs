@@ -99,7 +99,6 @@ namespace Assets.Scripts.Components.Map
         }
         #endregion
 
-
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {

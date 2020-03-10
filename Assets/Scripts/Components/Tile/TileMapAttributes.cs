@@ -23,7 +23,6 @@ namespace Assets.Scripts.Components.Tile
     {
         [SerializeField]
         private Sprite _sprite;
-
         public Sprite Sprite => _sprite;
     }
 
@@ -54,7 +53,7 @@ namespace Assets.Scripts.Components.Tile
         [SerializeField]
         private int _layerId;
 
-        public int Layer => _layerId;
+        public int LayerId => _layerId;
     }
 
     [Serializable]

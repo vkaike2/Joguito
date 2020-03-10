@@ -16,6 +16,6 @@ MonoBehaviour:
   _mobAnimator: {fileID: 9100000, guid: 970c03b9134460b4bb167ed53b74c9ea, type: 2}
   _bossPrefab: {fileID: 3864095696366926007, guid: f3ef03a4e39882b4daaadfd1c3c2b065,
     type: 3}
-  _health: 100
+  _health: 20
   _damage: 1
   _cdwDamage: 5

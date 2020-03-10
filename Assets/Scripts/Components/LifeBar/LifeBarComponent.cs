@@ -13,7 +13,6 @@ namespace Assets.Scripts.Components.LifeBar
     {
         #region PUBLIC ATRIBUTES
         public UEventFloat event_UpdateLifeBar;
-
         public bool IsBoss => _isBoss;
         #endregion
 

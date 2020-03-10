@@ -1255,7 +1255,7 @@ MonoBehaviour:
   _canMoveByClick: 1
   _canInteract: 1
   _canPoop: 1
-  _spriteForActiveStatus: {fileID: -339892771922585380, guid: 23ebede7d09f4d24eb30dd7d863862dd,
+  _spriteForActiveStatus: {fileID: 21300000, guid: e3970ec5903102c45b8992fec95fed8c,
     type: 3}
 --- !u!114 &7446523794946364551
 MonoBehaviour:
