@@ -33,5 +33,5 @@ MonoBehaviour:
   _canEat: 0
   _canAttack: 1
   _health: 20
-  _damage: 7
-  _cdwDamage: 3
+  _damage: 10
+  _cdwDamage: 2

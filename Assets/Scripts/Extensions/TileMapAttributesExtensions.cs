@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Components.Tile;
+using Assets.Scripts.DTOs;
 using Assets.Scripts.ScriptableComponents.Boss;
+using Assets.Scripts.ScriptableComponents.Mob;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,21 +23,34 @@ namespace Assets.Scripts.Extensions
             return attribute.Sprite;
         }
 
-        public static (GameObject, int) GetRandomObject(this List<TileMapObjectsAttributes> list)
+        public static (GameObject, int?) GetRandomGameObject(this List<TileMapObjectsAttributes> list, int tierMap)
         {
-            TileMapObjectsAttributes attribute = GetRandomAttribute(list);
+            List<TileMapObjectsAttributes> currentList = list.FilterByRange(tierMap);
 
-            return (attribute.Prefab, attribute.Amount);
+            TileMapObjectsAttributes attribute = currentList.GetRandomAttribute();
+            return (attribute?.Prefab, attribute?.Amount);
         }
 
-        public static BossScriptable GetRandomBoss(this List<TileMapBossAttributes> list)
+        public static (MobScriptable, int?) GetRandomMob(this List<TileMapMobAttributes> list, int tierMap)
         {
-            TileMapBossAttributes attribute = GetRandomAttribute(list);
-            return attribute.BossScriptable;
+            List<TileMapMobAttributes> currentList = list.FilterByRange(tierMap);
+
+            TileMapMobAttributes attribute = currentList.GetRandomAttribute();
+            return (attribute?.MobScriptable, attribute?.Amount);
+        }
+
+        public static BossScriptable GetRandomBoss(this List<TileMapBossAttributes> list, int tierMap)
+        {
+            List<TileMapBossAttributes> currentList = list.FilterByRange(tierMap);
+
+            TileMapBossAttributes attribute = currentList.GetRandomAttribute();
+            return attribute?.BossScriptable;
         }
 
         private static T GetRandomAttribute<T>(this List<T> list) where T : TileMapAttributes
         {
+            if (!list.Any()) return null;
+
             int fullWeight = list.Sum(e => e.Weight);
 
             int randomWeight = Random.Range(1, fullWeight);
@@ -54,6 +69,15 @@ namespace Assets.Scripts.Extensions
                 }
             }
             return list[randomCount];
+        }
+
+        private static List<T> FilterByRange<T>(this List<T> list, int tierMap) where T : TileMapAttributes
+        {
+            return list.Where(e =>
+            {
+                if (e.TierRange.From > tierMap || e.TierRange.To < tierMap) return false;
+                return true;
+            }).ToList();
         }
 
         public static TileMapComponnent GetRandomTileMapWihtoutObstacle(this List<TileMapComponnent> list, List<EnumSide> sideList = null)

@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.ScriptableComponents.Boss;
+﻿using Assets.Scripts.DTOs;
+using Assets.Scripts.ScriptableComponents.Boss;
+using Assets.Scripts.ScriptableComponents.Mob;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +14,12 @@ namespace Assets.Scripts.Components.Tile
     public abstract class TileMapAttributes
     {
         [SerializeField]
+        private RangeDTO _tierRange;
+        [SerializeField]
         [Range(1, 10)]
         private int _weight;
 
+        public RangeDTO TierRange => _tierRange;
         public int Weight => _weight;
     }
 
@@ -63,6 +68,18 @@ namespace Assets.Scripts.Components.Tile
         private BossScriptable _bossScriptable;
 
         public BossScriptable BossScriptable => _bossScriptable;
+    }
+
+    [Serializable]
+    public class TileMapMobAttributes : TileMapAttributes
+    {
+        [SerializeField]
+        private MobScriptable _mobScriptable;
+        [SerializeField]
+        private int _amount;
+
+        public MobScriptable MobScriptable => _mobScriptable;
+        public int Amount => _amount;
     }
 
     [Serializable]

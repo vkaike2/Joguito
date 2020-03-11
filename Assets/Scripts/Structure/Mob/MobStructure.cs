@@ -24,13 +24,19 @@ namespace Assets.Scripts.Structure.Mob
         private DamageTakerComponent _damageTakerComponent;
         private DamageDealerComponent _damageDealerComponent;
         private MapComponent _mapComponent;
+        private bool _hasTurnedIntoAMob;
         #endregion
 
         #region PUBLIC METHODS
-        public void TunIntoABoss(MobScriptable mobScriptable)
+        public void TunIntoAMob(MobScriptable mobScriptable, int mapTier = 0)
         {
+            if (_hasTurnedIntoAMob) return;
+
+            _hasTurnedIntoAMob = true;
             _mobScriptable = mobScriptable;
             _mobAnimator.runtimeAnimatorController = _mobScriptable.MobAnimator;
+
+            mobScriptable.ApplyMultiplier(mapTier);
 
             // => DamageTakerOptions 
             _damageTakerComponent.TurnItIntoAMob(mobScriptable);
@@ -43,7 +49,7 @@ namespace Assets.Scripts.Structure.Mob
         #region UNITY METHODS
         private void Start()
         {
-            this.TunIntoABoss(_mobScriptable);
+            this.TunIntoAMob(_mobScriptable);
         }
 
         private void OnEnable()
@@ -62,13 +68,14 @@ namespace Assets.Scripts.Structure.Mob
 
         public void OnDisable()
         {
-            _mapComponent.RemoveNewMob(this.GetInstanceID());
+            _mapComponent?.RemoveNewMob(this.GetInstanceID());
         }
         #endregion
 
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
+            _hasTurnedIntoAMob = false;
             _damageDealerComponent = this.GetComponent<DamageDealerComponent>();
             _mobAnimator = this.GetComponent<Animator>();
             _damageTakerComponent = this.GetComponent<DamageTakerComponent>();

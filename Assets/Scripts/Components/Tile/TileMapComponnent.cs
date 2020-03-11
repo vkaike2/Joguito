@@ -12,6 +12,7 @@ namespace Assets.Scripts.Components.Tile
         #region PUBLIC ATTRIBUTES
         public EnumSide Side => _side;
         public bool HasObstacle => _objectsList != null && _objectsList.Any();
+        public MapComponent MapComponent => this.GetComponentInParent<MapComponent>();
         #endregion
 
         #region SERIALIZE ATTRIBUTES

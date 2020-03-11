@@ -1484,7 +1484,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 5.95
+  orthographic size: 4.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2098,7 +2098,9 @@ MonoBehaviour:
   - {fileID: 591302531}
   - {fileID: 51984410}
   - {fileID: 2048784246}
-  mockItem: {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
+  mockItemList:
+  - {fileID: 11400000, guid: cc845eb22c4305c43b7054b09750c5fa, type: 2}
+  - {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
 --- !u!224 &792514523 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1907415143070053011, guid: ccce422d3131970448e17862e343feea,
@@ -3338,6 +3340,33 @@ PrefabInstance:
       propertyPath: _inventoryComponent
       value: 
       objectReference: {fileID: 710137893}
+    - target: {fileID: 993857415480832035, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _initialItemScriptableList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 993857415480832035, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _initialItemScriptableList.Array.data[0]._item
+      value: 
+      objectReference: {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db,
+        type: 2}
+    - target: {fileID: 993857415480832035, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _initialItemScriptableList.Array.data[0]._amount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 993857415480832035, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _initialItemScriptableList.Array.data[1]._item
+      value: 
+      objectReference: {fileID: 11400000, guid: cc845eb22c4305c43b7054b09750c5fa,
+        type: 2}
+    - target: {fileID: 993857415480832035, guid: fc215a468413e5a4abc9d58cd01e9c14,
+        type: 3}
+      propertyPath: _initialItemScriptableList.Array.data[1]._amount
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc215a468413e5a4abc9d58cd01e9c14, type: 3}
 --- !u!1001 &1427903440
@@ -3715,7 +3744,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 5.95
+    OrthographicSize: 4.5
     NearClipPlane: 0.01
     FarClipPlane: 5000
     Dutch: 0
@@ -4348,8 +4377,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a784a2d4d269ca4a98ab1647321d6fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stomachUIComponent: {fileID: 1943795297}
-  _inventoryComponent: {fileID: 710137891}
+  _gameObjectStomachUIComponent: {fileID: 1943795297}
+  _gameObjectInventoryComponent: {fileID: 710137891}
   _actionSlot: {fileID: 1146835122}
   _actionSlotComponentlist:
   - {fileID: 6018544912370755250}
@@ -4385,21 +4414,52 @@ MonoBehaviour:
   _mapPrefab: {fileID: 3562569821005150988, guid: 1761cc423233c884db54e6ab3da19c10,
     type: 3}
   _plantSpotList:
-  - _weight: 10
+  - _tierRange:
+      _from: 0
+      _to: 1
+    _weight: 10
     _prefab: {fileID: 7584724946937029380, guid: ec51bfd491dda574c9e2c4519f18fe7d,
       type: 3}
-    _amount: 5
-  - _weight: 2
+    _amount: 1
+  - _tierRange:
+      _from: 0
+      _to: 1
+    _weight: 6
     _prefab: {fileID: 7584724946937029380, guid: ec51bfd491dda574c9e2c4519f18fe7d,
       type: 3}
     _amount: 2
-  - _weight: 3
+  - _tierRange:
+      _from: 2
+      _to: 10
+    _weight: 5
     _prefab: {fileID: 7584724946937029380, guid: ec51bfd491dda574c9e2c4519f18fe7d,
       type: 3}
-    _amount: 3
+    _amount: 7
   _bossList:
-  - _weight: 10
+  - _tierRange:
+      _from: 5
+      _to: 5
+    _weight: 10
     _bossScriptable: {fileID: 11400000, guid: 62228117ebb28dc47a95d1539f48efc9, type: 2}
+  _mobList:
+  - _tierRange:
+      _from: 0
+      _to: 100
+    _weight: 7
+    _mobScriptable: {fileID: 11400000, guid: 7ac5e09efdc3d894bbcc9bf828ac8aff, type: 2}
+    _amount: 1
+  - _tierRange:
+      _from: 0
+      _to: 100
+    _weight: 7
+    _mobScriptable: {fileID: 11400000, guid: 7ac5e09efdc3d894bbcc9bf828ac8aff, type: 2}
+    _amount: 2
+  - _tierRange:
+      _from: 0
+      _to: 100
+    _weight: 7
+    _mobScriptable: {fileID: 11400000, guid: 7ac5e09efdc3d894bbcc9bf828ac8aff, type: 2}
+    _amount: 3
 --- !u!1 &2039283867
 GameObject:
   m_ObjectHideFlags: 0
@@ -5086,6 +5146,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mob
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864095696366926007, guid: f3ef03a4e39882b4daaadfd1c3c2b065,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3864095696366926006, guid: f3ef03a4e39882b4daaadfd1c3c2b065,
         type: 3}

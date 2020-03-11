@@ -1,6 +1,10 @@
-﻿using Assets.Scripts.Extensions;
+﻿using Assets.Scripts.Components.Map;
+using Assets.Scripts.DTOs;
+using Assets.Scripts.Extensions;
 using Assets.Scripts.ScriptableComponents.Boss;
+using Assets.Scripts.ScriptableComponents.Mob;
 using Assets.Scripts.Structure.Boss;
+using Assets.Scripts.Structure.Mob;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +28,59 @@ namespace Assets.Scripts.Components.Tile
 
         #region PRIVATE ATTRIBUTES
         private List<TileMapComponnent> _tileMapChildrensList;
+        private MapComponent _mapComponent;
+        #endregion
+
+        #region PUBLIC METHODS
+        public void SpawnNewBoss(BossScriptable randomBoss)
+        {
+            GameObject bossGameObject = GameObject.Instantiate(randomBoss.BossPrefab, _bossSpawnPoint.position, Quaternion.identity);
+            bossGameObject.GetComponentInChildren<BossStructure>().TunIntoABoss(randomBoss);
+        }
+
+        public void SpawnNewObjects(GameObject prefab, int amount)
+        {
+            this.ForceInitialization();
+
+            for (int i = 0; i < amount; i++)
+            {
+                TileMapComponnent tileMap = _tileMapChildrensList.GetRandomTileMapWihtoutObstacle(new List<EnumSide>() { EnumSide.CENTER });
+
+                tileMap.SpawnObject(prefab);
+                if (tileMap is null) return;
+            }
+        }
+
+        public void SpawnNewMobs(MobScriptable mobScriptable, int amount)
+        {
+            this.ForceInitialization();
+
+            List<TileMapComponnent> tileMapWithoutObjectsList = _tileMapChildrensList
+                .Where(e => !e.HasObstacle && e.Side != EnumSide.BOTTOM && e.Side != EnumSide.BOTTOM_RIGHT && e.Side != EnumSide.LEFT_BOTTOM).ToList();
+            List<int> indexToSpanw = new List<int>();
+
+            while (amount != 0)
+            {
+                int index = UnityEngine.Random.Range(0, tileMapWithoutObjectsList.Count);
+                if (indexToSpanw.Any(e => e == index))
+                {
+                    continue;
+                }
+                else
+                {
+                    indexToSpanw.Add(index);
+                    amount--;
+                }
+            }
+
+            foreach (int index in indexToSpanw)
+            {
+                TileMapComponnent tileMap = tileMapWithoutObjectsList[index];
+
+                GameObject mobGameObject = GameObject.Instantiate(mobScriptable.MobPrefab, tileMap.transform.position, Quaternion.identity);
+                mobGameObject.GetComponentInChildren<MobStructure>().TunIntoAMob(mobScriptable, _mapComponent.Tier);
+            }
+        }
         #endregion
 
         #region UNITY METHODS
@@ -43,29 +100,17 @@ namespace Assets.Scripts.Components.Tile
             }
         }
 
-        public void SpawnNewBoss(BossScriptable randomBoss)
-        {
-            GameObject bossGameObject = GameObject.Instantiate(randomBoss.BossPrefab, _bossSpawnPoint.position, Quaternion.identity);
-            bossGameObject.GetComponentInChildren<BossStructure>().TunIntoABoss(randomBoss);
-        }
-
-        public void SpawnNewObjects(GameObject prefab, int amount)
+        private void ForceInitialization()
         {
             if (_tileMapChildrensList is null) _tileMapChildrensList = this.GetComponentsInChildren<TileMapComponnent>().ToList();
-            for (int i = 0; i < amount; i++)
-            {
-                TileMapComponnent tileMap = _tileMapChildrensList.GetRandomTileMapWihtoutObstacle(new List<EnumSide>() { EnumSide.CENTER });
-
-                tileMap.SpawnObject(prefab);
-                if (tileMap is null) return;
-            }
+            if (_mapComponent is null) _mapComponent = this.GetComponentInParent<MapComponent>();
         }
         #endregion
 
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
-            if (_tileMapChildrensList is null) _tileMapChildrensList = this.GetComponentsInChildren<TileMapComponnent>().ToList();
+            this.ForceInitialization();
         }
 
         protected override void ValidateValues()

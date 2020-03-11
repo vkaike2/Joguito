@@ -32,6 +32,24 @@ namespace Assets.Scripts.Component.MouseCursor
         private bool _canMove;
         #endregion
 
+        #region PUBLIC METHODS
+        public (List<RaycastHit2D>, List<RaycastResult>) GetEveryObjectUnderTheMouse()
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D[] hitList = Physics2D.RaycastAll(mousePosition, Vector2.zero);
+
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            {
+                pointerId = -1,
+                position = Input.mousePosition
+            };
+            List<RaycastResult> htiUIList = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, htiUIList);
+
+            return (hitList.ToList(), htiUIList);
+        }
+        #endregion
+
         #region UNITY METHODS
         private void FixedUpdate()
         {

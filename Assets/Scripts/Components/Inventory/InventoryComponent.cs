@@ -26,12 +26,24 @@ namespace Assets.Scripts.Components.Inventory
         private bool _keyPressedInventory = false;
         #endregion
 
-        public ItemScriptable mockItem;
+        [Space]
+        public List<ItemScriptable> mockItemList;
+        
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Keypad1))
             {
-                AddItem(new ItemDTO() { Item = mockItem, Amount = 1});
+                AddItem(new ItemDTO() { Item = mockItemList[0], Amount = 1});
+            }
+
+            if (Input.GetKeyDown(KeyCode.Keypad2))
+            {
+                AddItem(new ItemDTO() { Item = mockItemList[1], Amount = 1 });
+            }
+
+            if (Input.GetKeyDown(KeyCode.Keypad3))
+            {
+                AddItem(new ItemDTO() { Item = mockItemList[2], Amount = 1 });
             }
 
             this.ToggleInventoryPannel();

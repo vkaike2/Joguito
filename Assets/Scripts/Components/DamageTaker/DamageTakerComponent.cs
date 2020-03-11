@@ -112,7 +112,10 @@ namespace Assets.Scripts.Components.DamageTaker
             {
                 _readyToCombat = false;
                 if (_animator != null)
+                {
+                    _animator.ResetTrigger(_animatorVariables.Die);
                     _animator.SetTrigger(_animatorVariables.Die);
+                }
             }
             else
             {

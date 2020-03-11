@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: LittleBean
   _mobAnimator: {fileID: 9100000, guid: 970c03b9134460b4bb167ed53b74c9ea, type: 2}
-  _bossPrefab: {fileID: 3864095696366926007, guid: f3ef03a4e39882b4daaadfd1c3c2b065,
+  _tierMultiplier: 0.208
+  _mobPrefab: {fileID: 3864095696366926007, guid: f3ef03a4e39882b4daaadfd1c3c2b065,
     type: 3}
-  _health: 20
-  _damage: 1
-  _cdwDamage: 5
+  _health: 10
+  _damage: 5
+  _cdwDamage: 2

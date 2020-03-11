@@ -29,7 +29,6 @@ namespace Assets.Scripts.Components.Interactable
         public bool CanTakeSeed => _canTakeSeed;
         public bool CanTakePlant => _canTakePlant;
         public bool CanEat => _canEat;
-        public bool MouseIsOver => _mouseIsOver;
         #endregion
 
         #region SERIALIZABLE ATRIBUTES
@@ -66,7 +65,6 @@ namespace Assets.Scripts.Components.Interactable
         private InteractableAnimatorVariables _animatorVariables;
         private bool _isPlanting = false;
         private bool _isEating = false;
-        private bool _mouseIsOver = false;
         #endregion
 
         #region PUBLIC METHODS
@@ -181,18 +179,6 @@ namespace Assets.Scripts.Components.Interactable
             _canTakePlant = poopScriptable.CanTakePlant;
             _canEat = poopScriptable.CanEat;
             _canAttack = poopScriptable.CanAttack;
-        }
-        #endregion
-
-        #region UNITY METHODS
-        private void OnMouseEnter()
-        {
-            _mouseIsOver = true;
-        }
-
-        private void OnMouseExit()
-        {
-            _mouseIsOver = false;
         }
         #endregion
 

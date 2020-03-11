@@ -11,6 +11,7 @@ namespace Assets.Scripts.Components.Map
         #region PUBLIC ATTRIBUTES
         public bool HasEmptySlots => _spawnPointList.Any(e => !e.HasMap);
         public Vector2 Coordinates { get; set; }
+        public int Tier { get; set; }
         #endregion
 
         #region PRIVATE ATTRIBUTES

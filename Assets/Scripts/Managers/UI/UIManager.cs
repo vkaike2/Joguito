@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Components.ActionSlot;
+using Assets.Scripts.Components.Inventory;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -12,12 +13,16 @@ namespace Assets.Scripts.Managers.UI
     /// </summary>
     public class UIManager : BaseManager
     {
+        #region PUBLIC METHODS
+        public InventoryComponent InventoryComponent => _gameObjectInventoryComponent.GetComponent<InventoryComponent>();
+        #endregion
+
         #region SERIALIZABLE ATRIBUTES
         [Header("Required Fields")]
         [SerializeField]
-        private GameObject _stomachUIComponent;
+        private GameObject _gameObjectStomachUIComponent;
         [SerializeField]
-        private GameObject _inventoryComponent;
+        private GameObject _gameObjectInventoryComponent;
         [SerializeField]
         private GameObject _actionSlot;
 
@@ -26,7 +31,6 @@ namespace Assets.Scripts.Managers.UI
         private ActionSlotComponent[] _actionSlotComponentlist;
         private InputManager _inputManager;
         #endregion
-
 
         #region PUBLIC METHODS
         public ActionSlotComponent GetSelectedActionSlot()
@@ -48,12 +52,12 @@ namespace Assets.Scripts.Managers.UI
 
         internal void ActivateStomach(bool value)
         {
-            _stomachUIComponent.SetActive(value);
+            _gameObjectStomachUIComponent.SetActive(value);
         }
 
         internal void ActivateInventory(bool value)
         {
-            _inventoryComponent.SetActive(value);
+            _gameObjectInventoryComponent.SetActive(value);
         }
 
         private void Update()

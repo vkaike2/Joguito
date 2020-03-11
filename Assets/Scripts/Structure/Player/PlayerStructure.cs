@@ -6,14 +6,18 @@ using Assets.Scripts.Components.Interactable;
 using Assets.Scripts.Components.MiniMap;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.Stomach;
+using Assets.Scripts.DTOs;
 using Assets.Scripts.Interface;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Managers.UI;
+using Assets.Scripts.ScriptableComponents.Item;
 using Assets.Scripts.ScriptableComponents.Poop;
 using Assets.Scripts.Utils;
 using Cinemachine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Structure.Player
@@ -43,6 +47,10 @@ namespace Assets.Scripts.Structure.Player
         private bool _canPoop;
         [SerializeField]
         private Sprite _spriteForActiveStatus;
+
+        [Header("Initial Itens")]
+        [SerializeField]
+        private List<ItemDTO> _initialItemScriptableList;
         #endregion
 
         #region PRIVATE ATRIBUTES
@@ -159,6 +167,7 @@ namespace Assets.Scripts.Structure.Player
         {
             slotInstanceId = _activePlayerUI.CreateNewPlayerSlotCompoennt(this);
             _playerStateManage.SetNewPlayerStrucutre(this);
+            this.AddInitialItens();
         }
 
         private void OnEnable()
@@ -178,7 +187,6 @@ namespace Assets.Scripts.Structure.Player
         #endregion
 
         #region COROUTINES
-
         IEnumerator FreezeForSomeCooldown(float cooldown)
         {
             float internalCdw = 0f;
@@ -204,6 +212,19 @@ namespace Assets.Scripts.Structure.Player
             }
 
             _animator.SetTrigger(_animatorVariables.Die);
+        }
+        #endregion
+
+        #region PRIVATE METHODS
+        private void AddInitialItens()
+        {
+            if (!_isMainPlayer) return;
+            if (!_initialItemScriptableList.Any()) return;
+
+            foreach (var item in _initialItemScriptableList)
+            {
+                _uIManager.InventoryComponent.AddItem(item);
+            }
         }
         #endregion
 

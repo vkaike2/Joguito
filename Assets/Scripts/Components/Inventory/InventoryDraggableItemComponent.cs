@@ -74,12 +74,15 @@ namespace Assets.Scripts.Components.Draggable
 
         public void StopDragging()
         {
-            List<RaycastResult> raycastsUnderMouseList = this.RaycastMouse();
+            (List<RaycastHit2D>, List<RaycastResult>) underTheMouse = _mouseCursorComponent.GetEveryObjectUnderTheMouse();
 
-            InventorySlotComponent targetInventorySlot = raycastsUnderMouseList.Where(e => e.gameObject.GetComponent<InventorySlotComponent>() != null)
+            InventorySlotComponent targetInventorySlot = underTheMouse.Item2.Where(e => e.gameObject.GetComponent<InventorySlotComponent>() != null)
                 .Select(e => e.gameObject.GetComponent<InventorySlotComponent>())
                 .FirstOrDefault();
 
+            InteractableComponent playerInteractableComponent = GetCurrentInteractableComponentUnderTheMouseThatsCanEat(underTheMouse);
+
+            // => CHANGE ITEM SLOT
             if (targetInventorySlot != null && targetInventorySlot.GetInstanceID() != _dragInventorySlot.GetInstanceID())
             {
                 if (targetInventorySlot.CheckIfCanAcceptItem(_dragItem))
@@ -91,32 +94,25 @@ namespace Assets.Scripts.Components.Draggable
                     _dragInventorySlot.SetItem(_dragItem);
                 }
             }
-            else if (_playerStateManager.GetAllInteractableComponents().Any(e => e != null && e.MouseIsOver))
+            // => FEED THE PLAYER
+            else if (playerInteractableComponent != null && _dragItem.Item.ItemType == ScriptableComponents.Item.EnumItemScriptableType.Flower)
             {
-                InteractableComponent interactableComponent = _playerStateManager.GetAllInteractableComponents().FirstOrDefault(e => e != null && e.MouseIsOver);
+                _dragItem.Amount--;
 
-                // FEED THE PLAYER
-                if (_dragItem.Item.ItemType == ScriptableComponents.Item.EnumItemScriptableType.Flower && interactableComponent.PlayerCanEatFlower())
+                playerInteractableComponent.EatFlowerByDrag(new ItemDTO() { Item = _dragItem.Item, Amount = 1 });
+
+                if (_dragItem.Amount > 0)
                 {
-                    _dragItem.Amount--;
-
-                    interactableComponent.EatFlowerByDrag(new ItemDTO() { Item = _dragItem.Item, Amount = 1 });
-
-                    if (_dragItem.Amount > 0)
-                    {
-                        _dragInventorySlot.SetItem(_dragItem);
-                    }
-                }
-                else
-                {
-                    this.DropItem();
+                    _dragInventorySlot.SetItem(_dragItem);
                 }
             }
-            else if (targetInventorySlot == null) // => Drop Item
+            // => DROP ITEM
+            else if (targetInventorySlot == null)
             {
                 this.DropItem();
             }
-            else // => Same slot
+            // => PUT ITEM ON THE SAME SPOT
+            else
             {
                 _dragInventorySlot.SetItem(_dragItem);
             }
@@ -126,6 +122,18 @@ namespace Assets.Scripts.Components.Draggable
             _dragInventorySlot = null;
             IsDragging = false;
             _mouseCursorComponent.HasItemUnderTheCursor = false;
+        }
+
+        private InteractableComponent GetCurrentInteractableComponentUnderTheMouseThatsCanEat((List<RaycastHit2D>, List<RaycastResult>) underTheMouse)
+        {
+            List<int> interactableComponentInstanceIdList = underTheMouse.Item1.Where(e => e.collider.GetComponent<InteractableComponent>() != null)
+                            .Select(e => e.collider.GetComponent<InteractableComponent>().GetInstanceID())
+                            .ToList();
+            List<InteractableComponent> playerInteractableComponent = _playerStateManager.GetAllInteractableComponents();
+            InteractableComponent selectedInteractableComponentToEat = playerInteractableComponent
+                .FirstOrDefault(e => interactableComponentInstanceIdList.Contains(e.GetInstanceID()) && e.CanEat);
+
+            return selectedInteractableComponentToEat;
         }
 
         private void DropItem()
@@ -147,24 +155,6 @@ namespace Assets.Scripts.Components.Draggable
         {
             if (!IsDragging) return;
             transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - _offset.Value;
-        }
-        #endregion
-
-        #region PRIVATE METHODS
-        private List<RaycastResult> RaycastMouse()
-        {
-
-            PointerEventData pointerData = new PointerEventData(EventSystem.current)
-            {
-                pointerId = -1,
-            };
-
-            pointerData.position = Input.mousePosition;
-
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointerData, results);
-
-            return results;
         }
         #endregion
 

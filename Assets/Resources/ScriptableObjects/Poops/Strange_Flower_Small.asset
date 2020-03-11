@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3faf86ca5787ac9488f2e5736b37e9db, type: 2}
   _poopPrefab: {fileID: 5702095866367698404, guid: 20cfbeeef8f51ae41ab43c47aaf89305,
     type: 3}
-  _deathCooldown: 50
+  _deathCooldown: 10000
   _canMoveByClick: 1
   _canInteract: 1
   _canPoop: 0
@@ -31,5 +31,5 @@ MonoBehaviour:
   _canEat: 0
   _canAttack: 1
   _health: 10
-  _damage: 1
+  _damage: 10
   _cdwDamage: 1

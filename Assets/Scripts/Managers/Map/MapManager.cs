@@ -2,6 +2,7 @@
 using Assets.Scripts.Components.Tile;
 using Assets.Scripts.Extensions;
 using Assets.Scripts.ScriptableComponents.Boss;
+using Assets.Scripts.ScriptableComponents.Mob;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Managers.Map
     public class MapManager : BaseManager
     {
         #region SERIALIZABLE ATTRIBUTES
-        [Header("Mock")]///TODO: Change to map prefab
+        [Header("Mock")] //TODO: Change to map prefab
         [SerializeField]
         private GameObject _mapPrefab;
 
@@ -23,6 +24,8 @@ namespace Assets.Scripts.Managers.Map
         private List<TileMapObjectsAttributes> _plantSpotList;
         [SerializeField]
         private List<TileMapBossAttributes> _bossList;
+        [SerializeField]
+        private List<TileMapMobAttributes> _mobList;
         #endregion
 
         #region PRIVATE ATTRIBUTES
@@ -46,12 +49,12 @@ namespace Assets.Scripts.Managers.Map
             MapComponent mapComponent = mapsWithEmptySlots[UnityEngine.Random.Range(0, mapsWithEmptySlots.Count())];
 
             if (mapComponent is null) return;
-
             mapComponent.SpawnNewMap(_mapPrefab);
         }
 
         public void AddMapComponent(MapComponent component)
         {
+            component.Tier = _mapComponentList.Count;
             _mapComponentList.Add(component);
             SpawNewObjects(component);
         }
@@ -62,15 +65,25 @@ namespace Assets.Scripts.Managers.Map
         #endregion
 
         #region PRIVATE METHODS
-        private void SpawNewObjects(MapComponent component)
+        private void SpawNewObjects(MapComponent mapComponent)
         {
-            TileMapRandomGeneratorComponent randomGeneratorComponent = component.GetComponentInChildren<TileMapRandomGeneratorComponent>();
-            // => PlantSpot
-            (GameObject, int) randomPlantSpot = _plantSpotList.GetRandomObject();
-            randomGeneratorComponent.SpawnNewObjects(randomPlantSpot.Item1, randomPlantSpot.Item2);
+            TileMapRandomGeneratorComponent randomGeneratorComponent = mapComponent.GetComponentInChildren<TileMapRandomGeneratorComponent>();
 
-            BossScriptable randomBoss = _bossList.GetRandomBoss();
-            randomGeneratorComponent.SpawnNewBoss(randomBoss);
+            // => PlantSpot
+            (GameObject, int?) randomPlantSpot = _plantSpotList.GetRandomGameObject(mapComponent.Tier);
+            if (randomPlantSpot.Item1 != null)
+                randomGeneratorComponent.SpawnNewObjects(randomPlantSpot.Item1, randomPlantSpot.Item2.GetValueOrDefault());
+
+            // => Boss
+            BossScriptable randomBoss = _bossList.GetRandomBoss(mapComponent.Tier);
+            if (randomBoss != null)
+                randomGeneratorComponent.SpawnNewBoss(randomBoss);
+
+            // => Mob
+            (MobScriptable, int?) randomMobs = _mobList.GetRandomMob(mapComponent.Tier);
+            if (randomMobs.Item1 != null)
+                randomGeneratorComponent.SpawnNewMobs(randomMobs.Item1, randomMobs.Item2.GetValueOrDefault());
+
         }
         #endregion
 

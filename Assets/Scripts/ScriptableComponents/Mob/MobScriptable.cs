@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.ScriptableComponents.Mob
 {
@@ -15,9 +10,12 @@ namespace Assets.Scripts.ScriptableComponents.Mob
         private string _name;
         [SerializeField]
         private RuntimeAnimatorController _mobAnimator;
+        [SerializeField]
+        [Range(0, 1)]
+        private float _tierMultiplier;
         [Space]
         [SerializeField]
-        private GameObject _bossPrefab;
+        private GameObject _mobPrefab;
 
         [Header("Damage Taker options")]
         [SerializeField]
@@ -29,13 +27,39 @@ namespace Assets.Scripts.ScriptableComponents.Mob
         [SerializeField]
         private float _cdwDamage;
 
+        private float _modifiedHealth;
+        private float _modifiedDamage;
+
         public string Name => _name;
+        public float TierMultiplier => _tierMultiplier;
         public RuntimeAnimatorController MobAnimator => _mobAnimator;
-        public GameObject BossPrefab => _bossPrefab;
-        public float Health => _health;
-        public float Damage => _damage;
+        public GameObject MobPrefab => _mobPrefab;
+        public float Health
+        {
+            get
+            {
+                if (_modifiedHealth == 0) return _health;
+                else return _modifiedHealth;
+            }
+        }
+        public float Damage
+        {
+            get
+            {
+                if (_modifiedDamage == 0) return _damage;
+                else return _modifiedDamage;
+            }
+        }
         public float CdwDamage => _cdwDamage;
 
         protected override void ValidateValues() { }
+
+        public void ApplyMultiplier(int mapTier)
+        {
+            float multiplier = (mapTier * _tierMultiplier) + 1;
+
+            _modifiedHealth = multiplier * _health;
+            _modifiedDamage = multiplier * _damage;
+        }
     }
 }
