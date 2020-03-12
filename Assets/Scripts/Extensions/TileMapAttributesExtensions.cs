@@ -75,7 +75,7 @@ namespace Assets.Scripts.Extensions
         {
             return list.Where(e =>
             {
-                if (e.TierRange.From > tierMap || e.TierRange.To < tierMap) return false;
+                if (e.TierRange.x > tierMap || e.TierRange.y < tierMap) return false;
                 return true;
             }).ToList();
         }

@@ -19,9 +19,15 @@ namespace Assets.Scripts.Managers.Map
         [SerializeField]
         private GameObject _mapPrefab;
 
-        [Header("Configurations")]
+        [Header("MAP CONFIGURATIONS")]
+        [SerializeField]
+        private List<MapAttributes> _mapAttributesList;
+        
+        [Header("OBJECT CONFIGURATIONS")]
         [SerializeField]
         private List<TileMapObjectsAttributes> _plantSpotList;
+
+        [Header("MOBS/BOSS CONFIGURATIONS")]
         [SerializeField]
         private List<TileMapBossAttributes> _bossList;
         [SerializeField]
@@ -46,8 +52,9 @@ namespace Assets.Scripts.Managers.Map
         public void SpawnNewRandomMap()
         {
             List<MapComponent> mapsWithEmptySlots = _mapComponentList.Where(e => e.HasEmptySlots).ToList();
-            MapComponent mapComponent = mapsWithEmptySlots[UnityEngine.Random.Range(0, mapsWithEmptySlots.Count())];
 
+            MapComponent mapComponent = mapsWithEmptySlots[UnityEngine.Random.Range(0, mapsWithEmptySlots.Count())];
+           
             if (mapComponent is null) return;
             mapComponent.SpawnNewMap(_mapPrefab);
         }
@@ -57,6 +64,7 @@ namespace Assets.Scripts.Managers.Map
             component.Tier = _mapComponentList.Count;
             _mapComponentList.Add(component);
             SpawNewObjects(component);
+            SetMapAttributes(component);
         }
         public void RemoveMapComponent(MapComponent component)
         {
@@ -65,6 +73,12 @@ namespace Assets.Scripts.Managers.Map
         #endregion
 
         #region PRIVATE METHODS
+
+        private void SetMapAttributes(MapComponent mapComponent)
+        {
+            MapAttributes mapAttribute = _mapAttributesList.GetMapAttributeForTier(mapComponent.Tier);
+            mapComponent.SetSpawnType(mapAttribute.SpawnType, mapAttribute.Time);
+        }
         private void SpawNewObjects(MapComponent mapComponent)
         {
             TileMapRandomGeneratorComponent randomGeneratorComponent = mapComponent.GetComponentInChildren<TileMapRandomGeneratorComponent>();

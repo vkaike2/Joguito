@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Components.MiniMap;
 using Assets.Scripts.Managers.Map;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,6 +22,7 @@ namespace Assets.Scripts.Components.Map
         private List<int> _mobList;
         private bool _canSpawnNewMap = false;
         private MiniMapComponent _miniMapComponent;
+        private EnumSpawnType _spawnType;
         #endregion
 
         #region PUBLIC METHODS
@@ -55,6 +58,16 @@ namespace Assets.Scripts.Components.Map
             return spawnedMap;
         }
 
+        public void SetSpawnType(EnumSpawnType spawnType, float time)
+        {
+            _spawnType = spawnType;
+
+            if (spawnType == EnumSpawnType.Time)
+            {
+                StartCoroutine(StayAliveForSomeTime(time));
+            }
+        }
+
         public void AddNewMob(int mobInstanceID)
         {
             if (_mobList is null)
@@ -68,13 +81,13 @@ namespace Assets.Scripts.Components.Map
             if (!_mobList.Any(e => e == mobInstanceID)) return;
             _mobList.Remove(mobInstanceID);
 
-            if (!_mobList.Any())
+            if (!_mobList.Any() && _spawnType == EnumSpawnType.Mobs)
                 _canSpawnNewMap = true;
+
         }
         #endregion
 
         #region UNITY METHODS
-
         private void FixedUpdate()
         {
             if (_canSpawnNewMap)
@@ -97,6 +110,19 @@ namespace Assets.Scripts.Components.Map
 
             if (_miniMapComponent != null)
                 _miniMapComponent.RemoveMapComponent(this);
+        }
+        #endregion
+
+        #region COROUTINES
+        IEnumerator StayAliveForSomeTime(float time)
+        {
+            float _internalCdw = 0f;
+            while (_internalCdw <= time)
+            {
+                _internalCdw += Time.deltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+            _canSpawnNewMap = true;
         }
         #endregion
 

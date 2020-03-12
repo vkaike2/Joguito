@@ -4413,50 +4413,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapPrefab: {fileID: 3562569821005150988, guid: 1761cc423233c884db54e6ab3da19c10,
     type: 3}
+  _mapAttributesList:
+  - _tierMap: {x: 0, y: 50}
+    _spawnType: 1
+    _time: 0
   _plantSpotList:
-  - _tierRange:
-      _from: 0
-      _to: 1
+  - _tierRange: {x: 0, y: 5}
     _weight: 10
     _prefab: {fileID: 7584724946937029380, guid: ec51bfd491dda574c9e2c4519f18fe7d,
       type: 3}
     _amount: 1
-  - _tierRange:
-      _from: 0
-      _to: 1
+  - _tierRange: {x: 0, y: 5}
     _weight: 6
     _prefab: {fileID: 7584724946937029380, guid: ec51bfd491dda574c9e2c4519f18fe7d,
       type: 3}
     _amount: 2
-  - _tierRange:
-      _from: 2
-      _to: 10
+  - _tierRange: {x: 0, y: 5}
     _weight: 5
     _prefab: {fileID: 7584724946937029380, guid: ec51bfd491dda574c9e2c4519f18fe7d,
       type: 3}
     _amount: 7
   _bossList:
-  - _tierRange:
-      _from: 5
-      _to: 5
+  - _tierRange: {x: 5, y: 5}
     _weight: 10
     _bossScriptable: {fileID: 11400000, guid: 62228117ebb28dc47a95d1539f48efc9, type: 2}
   _mobList:
-  - _tierRange:
-      _from: 0
-      _to: 100
+  - _tierRange: {x: 0, y: 0}
     _weight: 7
     _mobScriptable: {fileID: 11400000, guid: 7ac5e09efdc3d894bbcc9bf828ac8aff, type: 2}
     _amount: 1
-  - _tierRange:
-      _from: 0
-      _to: 100
+  - _tierRange: {x: 0, y: 5}
     _weight: 7
     _mobScriptable: {fileID: 11400000, guid: 7ac5e09efdc3d894bbcc9bf828ac8aff, type: 2}
     _amount: 2
-  - _tierRange:
-      _from: 0
-      _to: 100
+  - _tierRange: {x: 0, y: 5}
     _weight: 7
     _mobScriptable: {fileID: 11400000, guid: 7ac5e09efdc3d894bbcc9bf828ac8aff, type: 2}
     _amount: 3

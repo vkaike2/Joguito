@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.DTOs;
+﻿using Assets.Scripts.Attributes;
+using Assets.Scripts.DTOs;
 using Assets.Scripts.ScriptableComponents.Boss;
 using Assets.Scripts.ScriptableComponents.Mob;
 using System;
@@ -14,12 +15,13 @@ namespace Assets.Scripts.Components.Tile
     public abstract class TileMapAttributes
     {
         [SerializeField]
-        private RangeDTO _tierRange;
+        [MinToAttribute(0,50,"Tier Range")]
+        private Vector2Int _tierRange;
         [SerializeField]
         [Range(1, 10)]
         private int _weight;
 
-        public RangeDTO TierRange => _tierRange;
+        public Vector2Int TierRange => _tierRange;
         public int Weight => _weight;
     }
 
