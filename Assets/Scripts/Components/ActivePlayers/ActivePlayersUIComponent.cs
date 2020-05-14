@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Managers.PlayerState;
+﻿using Assets.Scripts.Managers.Inputs;
+using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Structure.Player;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Components.ActivePlayers
         #region PRIVATE ATRIBUTES
         private List<ActivePlayerSlotComponent> _playerSlotComponentList;
         private PlayerStateManager _playerStateManager;
+        private InputManager _inputManager;
         #endregion
 
         #region PUBLIC METHODS
@@ -36,13 +38,10 @@ namespace Assets.Scripts.Components.ActivePlayers
             }
         }
 
-
         public void DesactivePlayerSlot(int instanceId)
         {
-
             ActivePlayerSlotComponent currentSlot = _playerSlotComponentList.FirstOrDefault(e => e != null && e.GetInstanceID() == instanceId);
             if (currentSlot is null) return;
-
             _playerSlotComponentList.Remove(currentSlot);
 
             Destroy(currentSlot.gameObject);
@@ -52,9 +51,42 @@ namespace Assets.Scripts.Components.ActivePlayers
         }
         #endregion
 
+        #region UNITY METHODS
+        private void Update()
+        {
+            SelectPlayerUsingNumbers();
+        }
+
+        #endregion
+
         #region ABSTRACT METHODS
+        private void SelectPlayerUsingNumbers()
+        {
+            if (_inputManager.Alpha01 > 0)
+            {
+                if (_playerSlotComponentList[0] is null) return;
+                _playerSlotComponentList[0].Active_OnClick();
+            }
+            else if (_inputManager.Alpha02 > 0)
+            {
+                if (_playerSlotComponentList[1] is null) return;
+                _playerSlotComponentList[1].Active_OnClick();
+            }
+            else if (_inputManager.Alpha03 > 0)
+            {
+                if (_playerSlotComponentList[2] is null) return;
+                _playerSlotComponentList[2].Active_OnClick();
+            }
+            else if (_inputManager.Alpha04 > 0)
+            {
+                if (_playerSlotComponentList[3] is null) return;
+                _playerSlotComponentList[3].Active_OnClick();
+            }
+        }
+
         protected override void SetInitialValues()
         {
+            _inputManager = GameObject.FindObjectOfType<InputManager>();
             _playerStateManager = GameObject.FindObjectOfType<PlayerStateManager>();
             _playerSlotComponentList = this.GetComponentsInChildren<ActivePlayerSlotComponent>().ToList();
         }

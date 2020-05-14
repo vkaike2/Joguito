@@ -20,11 +20,15 @@ namespace Assets.Scripts.Managers.Inputs
         public float PoopButton { get; private set; }
         public float ChangePlayerSlot { get; private set; }
 
-
         public float SlotOne { get; private set; }
         public float SlotTwo { get; private set; }
         public float SlotThree { get; private set; }
         public float SlotFor { get; private set; }
+
+        public float Alpha01 { get; private set; }
+        public float Alpha02 { get; private set; }
+        public float Alpha03 { get; private set; }
+        public float Alpha04 { get; private set; }
         #endregion
 
         #region UNITY METHODS
@@ -48,6 +52,11 @@ namespace Assets.Scripts.Managers.Inputs
             this.SlotFor = Input.GetAxisRaw(EnumInputs.R.ToString());
 
             this.PoopButton = Input.GetAxisRaw(EnumInputs.F.ToString());
+
+            this.Alpha01 = Input.GetAxisRaw(EnumInputs.Alpha01.ToString());
+            this.Alpha02 = Input.GetAxisRaw(EnumInputs.Alpha02.ToString());
+            this.Alpha03 = Input.GetAxisRaw(EnumInputs.Alpha03.ToString());
+            this.Alpha04 = Input.GetAxisRaw(EnumInputs.Alpha04.ToString());
         }
         #endregion
 

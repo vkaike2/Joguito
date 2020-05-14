@@ -6,6 +6,7 @@ using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.ScriptableComponents.Item;
 using Assets.Scripts.ScriptableComponents.Poop;
+using Assets.Scripts.Structure.Player;
 using Assets.Scripts.Utils;
 using System;
 using System.Collections;
@@ -25,6 +26,12 @@ namespace Assets.Scripts.Components.Stomach
         public bool Active => _isActive;
         #endregion
 
+        #region SERIALIZABLE FIELDS
+        [Header("Configuration fields")]
+        [SerializeField] 
+        private int _maximumAmoutOfPoop;
+        #endregion
+
         #region PRIVATE ATRIBUTES
         private StomachUIComponent _stomachUIComponent;
         private InputManager _inputManager;
@@ -35,6 +42,7 @@ namespace Assets.Scripts.Components.Stomach
         private PlayerStateManager _playerStateManager;
         private PoopScriptable _currentPoop;
         private MovementMouseComponent _movementMouseComponent;
+        private PlayerStructure _playerStructure;
         private bool _isPooping = false;
         #endregion
 
@@ -69,7 +77,7 @@ namespace Assets.Scripts.Components.Stomach
 
         public void Aniamtor_SetCurrentPoop()
         {
-            this.GetComponentInChildren<ButtHoleComponent>().SetCurrentPoop(_currentPoop);
+            this.GetComponentInChildren<ButtHoleComponent>().SetCurrentPoop(_currentPoop, this);
             _currentPoop = null;
         }
 
@@ -106,7 +114,7 @@ namespace Assets.Scripts.Components.Stomach
         #region PRIVATE METHODS
         private void ManageTheButHole()
         {
-            if (_inputManager.PoopButton == 1 && !_isPooping && StomachItemList.Any(e => e.State == EnumStomachItemDTOState.ReadyToPoop))
+            if (_inputManager.PoopButton == 1 && !_isPooping && StomachItemList.Any(e => e.State == EnumStomachItemDTOState.ReadyToPoop) && _playerStructure.PoopAmout < _maximumAmoutOfPoop)
             {
                 _movementMouseComponent.Animator_CantMove();
                 _isPooping = true;
@@ -121,6 +129,7 @@ namespace Assets.Scripts.Components.Stomach
 
                 StomachItemList.RemoveAll(e => foodToPoopIdList.Contains(e.Id));
                 _stomachUIComponent.RemoveFoods(foodToPoopIdList);
+                _playerStructure.PoopAmout++;
             }
         }
 
@@ -135,6 +144,7 @@ namespace Assets.Scripts.Components.Stomach
         #region ABSTRACT METHODS
         protected override void SetInitialValues()
         {
+            _playerStructure = this.GetComponent<PlayerStructure>();
             _inputManager = GameObject.FindObjectOfType<InputManager>();
             _poopList = Resources.LoadAll<PoopScriptable>("ScriptableObjects/Poops");
             _stomachUIComponent = GameObject.FindObjectOfType<StomachUIComponent>();

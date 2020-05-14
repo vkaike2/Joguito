@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.Components.GenericPoop;
+using Assets.Scripts.Components.Stomach;
 using Assets.Scripts.ScriptableComponents.Poop;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace Assets.Scripts.Components.ButtHole
 
         #region PRIVATE ATRIBUTES
         private PoopScriptable _currentPoop;
+        private StomachComponent _poopedBy;
         private Animator _animator;
         private ButtHoleAnimatorVariables _animatorVariables;
         #endregion
@@ -26,14 +28,16 @@ namespace Assets.Scripts.Components.ButtHole
         public void Anim_SpawnPoop()
         {
             GameObject gameObject = Instantiate(_genericPoopComponent, _spawnSpot.position, Quaternion.identity);
-            gameObject.GetComponent<GenericPoopComponent>().SetCurrentPoopScriptable(_currentPoop);
+            gameObject.GetComponent<GenericPoopComponent>().SetCurrentPoopScriptable(_currentPoop, _poopedBy);
 
             _currentPoop = null;
+            _poopedBy = null;
         }
 
-        public void SetCurrentPoop(PoopScriptable currentPoop)
+        public void SetCurrentPoop(PoopScriptable currentPoop, StomachComponent poopedBy)
         {
             _currentPoop = currentPoop;
+            _poopedBy = poopedBy;
             _animator.SetTrigger(_animatorVariables.StartPoop);
         }
         #endregion

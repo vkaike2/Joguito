@@ -18,6 +18,10 @@ namespace Assets.Scripts.Managers.Inputs
         E,
         R,
         F,
-        PlayerSlot
+        PlayerSlot,
+        Alpha01,
+        Alpha02,
+        Alpha03,
+        Alpha04
     }
 }

@@ -5,6 +5,7 @@ using Assets.Scripts.Components.InventorySlot;
 using Assets.Scripts.Components.MovementMouse;
 using Assets.Scripts.Components.PlantSpot;
 using Assets.Scripts.Interface;
+using Assets.Scripts.Managers.Cameras;
 using Assets.Scripts.Managers.Inputs;
 using Assets.Scripts.Managers.PlayerState;
 using Assets.Scripts.Structure.Player;
@@ -30,6 +31,7 @@ namespace Assets.Scripts.Component.MouseCursor
         private bool _rightButtomPressed = false;
         private AudioComponent _audioComponent;
         private bool _canMove;
+        private CameraManager _cameraManager;
         #endregion
 
         #region PUBLIC METHODS
@@ -57,7 +59,8 @@ namespace Assets.Scripts.Component.MouseCursor
             ManageMouseUniqueLeftClick();
             ManageMouseUniqueRightClick();
 
-            ManageMouseConinuousClick();
+            ManageMouseConinuousLeftClick();
+            ManageMouseContinuousRightClick();
         }
 
         #endregion
@@ -108,7 +111,7 @@ namespace Assets.Scripts.Component.MouseCursor
             });
         }
 
-        private void ManageMouseConinuousClick()
+        private void ManageMouseConinuousLeftClick()
         {
             if (_inputManager.MouseLeftButton == 1)
             {
@@ -138,6 +141,36 @@ namespace Assets.Scripts.Component.MouseCursor
 
                 MovementMouseComponent movementMouseComponent = _playerStateManager.GetActivePlayerStructure().GetMovementMouseComponent();
                 if (_canMove) movementMouseComponent.ObjectGoToWalkContinuous(mousePosition);
+            }
+        }
+
+        private void ManageMouseContinuousRightClick()
+        {
+            if (_inputManager.MouseRightButton == 1)
+            {
+                List<IPlayer> playersList = new List<IPlayer>();
+
+                Vector2 mousePosition = this.ManageMouseClick((hitUI) =>
+                {
+                    _cameraManager.MoveCamera(false);
+                    return;
+                },
+                (hit) =>
+                {
+                    playersList.AddRange(hit.collider.gameObject.GetComponents<IPlayer>().ToList());
+                });
+
+                if (playersList.Any())
+                {
+                    _cameraManager.MoveCamera(false);
+                    return;
+                }
+
+                _cameraManager.MoveCamera(true);
+            }
+            else
+            {
+                _cameraManager.MoveCamera(false);
             }
         }
 
@@ -237,6 +270,7 @@ namespace Assets.Scripts.Component.MouseCursor
         {
             _playerStateManager = GameObject.FindObjectOfType<PlayerStateManager>();
             _inputManager = GameObject.FindObjectOfType<InputManager>();
+            _cameraManager = GameObject.FindObjectOfType<CameraManager>();
             _audioComponent = this.GetComponent<AudioComponent>();
             HasItemUnderTheCursor = false;
         }

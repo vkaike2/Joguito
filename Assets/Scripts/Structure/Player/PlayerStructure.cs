@@ -25,6 +25,7 @@ namespace Assets.Scripts.Structure.Player
     public class PlayerStructure : StructureBase, IPlayer
     {
         #region PUBLIC ATRIBUTES
+        public int PoopAmout { get; set; }
         public bool IsMainPlayer => _isMainPlayer;
         public bool IsActive { get; private set; }
         public Sprite SpriteForActiveStatus => _spriteForActiveStatus;
@@ -68,6 +69,8 @@ namespace Assets.Scripts.Structure.Player
         private Animator _animator;
         private AudioComponent _audioComponent;
         private MiniMapComponent _miniMapComponent;
+
+        private StomachComponent _poopedBy;
         #endregion
 
         #region PUBLIC METHODS
@@ -95,9 +98,11 @@ namespace Assets.Scripts.Structure.Player
 
         }
 
-        public void TurnItIntoAPoop(PoopScriptable poopScriptable)
+        public void TurnItIntoAPoop(PoopScriptable poopScriptable, StomachComponent poopedBy)
         {
+
             // => Player Structure
+            _poopedBy = poopedBy;
             _animator.runtimeAnimatorController = poopScriptable.PoopAnimator;
             _isMainPlayer = false;
             _canMoveByClick = poopScriptable.CanMoveByClick;
@@ -149,6 +154,9 @@ namespace Assets.Scripts.Structure.Player
 
         public void Animator_PoopKamikaze()
         {
+            if (_poopedBy != null)
+                _poopedBy.GetComponent<PlayerStructure>().PoopAmout--;
+
             Destroy(this.gameObject);
         }
         #endregion
